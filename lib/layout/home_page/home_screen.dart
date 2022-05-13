@@ -33,8 +33,8 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
               index: cubit.indexScreen,
               buttonBackgroundColor: Colors.white,
               backgroundColor: Colors.transparent,
-              color: Colors.redAccent
-              ,
+              color: Colors.redAccent,
+              height: 210.h,
               animationCurve: Curves.easeOutExpo,
               items:  <Widget>[
                 Padding(
