@@ -44,6 +44,7 @@ dependencies:
   delayed_display: ^2.0.0
   conditional_builder: ^1.0.2
   bloc: ^7.1.0
+  intl: ^0.17.0
   auto_size_text: ^3.0.0
   flutter_bloc: ^7.2.0
   dio: ^4.0.0

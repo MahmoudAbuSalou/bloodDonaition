@@ -89,6 +89,7 @@ Widget defaultTextFormField({
       enabled: enable,
       validator: (s) {
         valid();
+        return null;
 
         },
       // onTap: (){
