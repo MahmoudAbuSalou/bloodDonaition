@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../Models/onBoarding/onBoardingModel.dart';
 import 'constants.dart';
 
 Widget buildItem(business, context ){
@@ -73,7 +74,37 @@ void navigatorToNew(context,Widget screen){
       MaterialPageRoute(builder: (context)=>screen),
           (route) => false);
 }
+Widget buildOnBoardingScreen(OnBoardingModel model)=> Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Expanded(
+      child: Image(
+        image: AssetImage(model.urlImage),
+      ),
+    ),
+    SizedBox(
+      height: 40,
+    ),
+    Text(
+      model.tittle,
+      textDirection: TextDirection.rtl,
+      style: GoogleFonts.tajawal(
 
+        textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)
+      ),
+    ),
+    SizedBox(
+      height: 20,
+    ),
+    Text(
+      model.details,
+        textDirection: TextDirection.rtl,
+      style: GoogleFonts.tajawal(
+        textStyle: TextStyle(fontSize: 14),
+      )
+    )
+  ],
+);
 Widget defaultTextFormField({
   required TextEditingController controller,
   required TextInputType type,
@@ -141,7 +172,7 @@ Widget defaultTextButton({required String text,required Function function,Color 
   }, child: Text(text.toUpperCase(),style: GoogleFonts.tajawal(
     textStyle: TextStyle(
       color:color,
-      fontSize: 50.sp,
+      fontSize: 45.sp,
      // fontWeight: FontWeight.bold,
 
 
@@ -224,4 +255,28 @@ class GroupBlood extends StatelessWidget {
   },
 );
   }
+}
+Widget Choice(int value,int groupValue,String content,context,String TypeQues){
+
+  return Padding(
+    padding:  EdgeInsets.symmetric(horizontal: 100.w),
+    child: Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Radio(value: value, groupValue: groupValue, onChanged: (val){
+          int temp=int.parse(val.toString());
+          (TypeQues=='Gen')?    RegisterCubit.get(context).changeSelectGen(temp):RegisterCubit.get(context).changeSelectWeight(temp);
+        }),
+        //  SizedBox(width: 20.w,),
+        Text(
+          content,style: GoogleFonts.tajawal(
+            textStyle: TextStyle(
+                fontSize: 50.sp,
+                fontWeight: FontWeight.bold
+            )
+        ),
+        )
+      ],
+    ),
+  );
 }

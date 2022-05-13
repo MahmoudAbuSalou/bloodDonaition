@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/Modules/forgetPassword/forgetPasswordScreen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -75,11 +76,11 @@ class LogInScreen extends StatelessWidget {
                           ),
                           Center(
                             child: Container(
-                              width: 700.w,
-                              height: 500.h,
+                              width: 600.w,
+                              height: 600.h,
                               child: FittedBox(
                                 fit: BoxFit.fill,
-                                child: Image.asset('images/logo.png',),
+                                child: Image.asset('images/logo.jpg',),
                               ),
                             ),
                           ),
@@ -226,6 +227,18 @@ class LogInScreen extends StatelessWidget {
                                       navigatorTo(context, RegisterScreen());
                                   }),
                             ],
+                          ),
+                          SizedBox(
+                            height: 75.h,
+                          ),
+                          Center(
+                            child: defaultTextButton(
+                                color: Colors.red,
+                                text: 'نسيت كلمة المرور ',
+
+                                function: () {
+                                  navigatorTo(context, ForgetPassword());
+                                }),
                           ),
                         ],
                       ),

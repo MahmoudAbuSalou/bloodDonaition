@@ -1,6 +1,7 @@
 import 'dart:io';
 
 
+import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 import 'package:blood_donation_project/cubit/register_cubit/register_cubit.dart';
 import 'package:blood_donation_project/cubit/register_cubit/register_states.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'Modules/SplashPage/splash_screen.dart';
+
+import 'Modules/forgetPassword/PinEntry.dart';
+import 'Modules/on_boarding/on_boarding.dart';
 import 'shared/bloc_observer.dart';
 import 'shared/network/local/cachehelper.dart';
 import 'shared/network/remote/dio_helper.dart';
@@ -19,7 +22,7 @@ import 'shared/network/remote/dio_helper.dart';
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-
+  //bool onBoarding = CacheHelper.getData(key: 'onBoarding');
   runApp(const MyApp());
 }
 class MyHttpOverrides extends HttpOverrides{
@@ -47,6 +50,10 @@ class MyApp extends StatelessWidget {
                 create: (context) => RegisterCubit(RegisterInitialState()),
 
             ),
+            BlocProvider(
+              create: (context) => AppCubit()..CheckNet(),
+
+            ),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -63,7 +70,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
               textTheme: TextTheme(bodyText2: TextStyle(fontSize: 30.sp)),
             ),
-            home:SplashScreen(),
+            home:OnBoardingScreen(),
           ),
         );
       },

@@ -20,3 +20,5 @@ class RegisterErrorState extends RegisterState {
 
 class RegisterChangePasswordIcon extends RegisterState {}
 class RegisterChangeSelectedGroupBlood extends RegisterState {}
+class RegisterChangeSelectedGender extends RegisterState {}
+class RegisterChangeSelectedWeight extends RegisterState {}

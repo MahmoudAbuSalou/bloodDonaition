@@ -42,9 +42,11 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   flutter_staggered_grid_view: ^0.4.1
   delayed_display: ^2.0.0
-  conditional_builder: ^1.0.2
+  flutter_pin_code_fields: ^1.1.0
   bloc: ^7.1.0
-  auto_size_text: ^3.0.0
+  flutter_pin_code_widget: ^0.0.4
+
+  connectivity_plus: ^2.3.0
   flutter_bloc: ^7.2.0
   dio: ^4.0.0
   shared_preferences: ^2.0.7
@@ -52,12 +54,16 @@ dependencies:
   fluttertoast: ^8.0.8
   conditional_builder_null_safety: ^0.0.6
   carousel_slider: ^4.0.0
-  shimmer: ^2.0.0
+
   fancy_shimmer_image: ^2.0.0+2
   flutter_screenutil:
   webview_flutter: ^2.8.0
   google_fonts: ^2.3.1
   geolocator: ^8.2.0
+  geocoding: ^2.0.0
+
+
+  awesome_dialog: ^2.2.0
 
 dev_dependencies:
   flutter_test:
