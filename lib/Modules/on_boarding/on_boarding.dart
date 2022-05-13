@@ -3,6 +3,7 @@ import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -32,6 +33,7 @@ class OnBoardingScreen extends StatelessWidget {
             elevation: 0.0,
             actions: [
               TextButton(onPressed: () {
+                if(cubit.netConnected)
                 submit(context);
               },
                   child: Text((cubit.netConnected)?'Skip':''))
@@ -94,8 +96,18 @@ class OnBoardingScreen extends StatelessWidget {
                   ],
                 )
               ],
-            ):Center(
-              child: CircularProgressIndicator(),
+            ):Column(
+              children: [
+                Image.asset('images/noConnection.jpg'),
+                Text('يرجى التحقق من الاتصال بالإنترنت',style: GoogleFonts.tajawal(
+                  fontSize: 50.h,
+
+                ),),
+                SizedBox(
+                  height: 100.h,
+                ),
+                CircularProgressIndicator(),
+              ],
             ),
           ),
         );
