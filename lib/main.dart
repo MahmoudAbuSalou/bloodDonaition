@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'Modules/SplashPage/splash_screen.dart';
+import 'Modules/home/add_request_blood/blood_type.dart';
+import 'Modules/home/add_request_blood/user_info.dart';
+import 'Modules/home/home_details/details.dart';
 import 'layout/home_page/home_screen.dart';
 import 'shared/bloc_observer.dart';
 import 'shared/network/local/cachehelper.dart';
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
 
             primarySwatch: Colors.red,
           ),
-          home:MainAppBar()
+          home:HomeLayout()
           //AddRequestBlood(),
             //SplashScreen(),
         );

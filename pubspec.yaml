@@ -54,9 +54,11 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   carousel_slider: ^4.0.0
   shimmer: ^2.0.0
+  google_fonts: ^2.3.2
   fancy_shimmer_image: ^2.0.0+2
   flutter_screenutil:
   webview_flutter: ^2.8.0
+
 
 dev_dependencies:
   flutter_test:

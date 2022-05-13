@@ -1,194 +1,175 @@
-
+import 'package:blood_donation_project/Modules/home/blood_cubit/blood_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+
 
 class BloodType extends StatelessWidget {
-  const BloodType({Key? key}) : super(key: key);
+   BloodType({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Padding(
-          padding: EdgeInsetsDirectional.all(20),
-          child: Column(
-            textDirection:TextDirection.rtl ,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width:150.w,
-                height: 150.h,
-                child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: Image(
-                    image:AssetImage('images/blood.jpg'),
+    return BlocProvider(
+      create: (context)=>BloodCubit(),
+        child: BlocConsumer<BloodCubit,BloodState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            BloodCubit cubit = BloodCubit().get(context);
+            return  SafeArea(
+              child: Scaffold(
+                body: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.all(20),
+                    child: Column(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 150.w,
+                          height: 150.h,
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: SvgPicture.asset('images/blood_add.svg'),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        Text(
+                          '...الرجاءاختيار زمرة الدم المطلوبة',
+                          style: GoogleFonts.tajawal(
+                              fontSize: 60.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF192747)),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 30.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: BloodItem(type:'A',index: 1,cubit: cubit,)),
+                              SizedBox(
+                                width: 70.w,
+                              ),
+                              Expanded(child: BloodItem(type:'B',index: 2,cubit: cubit,)),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 60.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: BloodItem(type:'O',index: 3,cubit: cubit,)),
+                              SizedBox(
+                                width: 70.w,
+                              ),
+                              Expanded(child: BloodItem(type:'AB',index: 4,cubit: cubit,)),
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 300.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: BloodItem(type:'-',index: 5,cubit: cubit,)),
+                              SizedBox(
+                                width: 70.w,
+                              ),
+                              Expanded(child: BloodItem(type:'+',index: 6,cubit: cubit,)),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 300.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: BloodItem(type:'بلازما',index: 7,cubit: cubit,)),
+
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: 400.w,
+                          height: 200.h,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                "التالي ",
+                                style:
+                                TextStyle(color: Colors.black87, fontSize: 80.sp,fontWeight: FontWeight.bold),
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Text('الرجاءاختيار زمرة الدم المطلوبة',
-                style: TextStyle(
-                    fontSize: 80.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.red
-
-                ),
-
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 60.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 320.w,
-                        height: 200.h,
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Center(child: Text("A",
-                          style: TextStyle(
-                            fontSize: 120.sp
-                          ),)),
-                      ),
-                    ),
-                    SizedBox(width: 70.w,),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 350.w,
-                        height: 200.h,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Center(child: Text("B",
-                          style: TextStyle(
-                              fontSize: 120.sp
-                          ),)),
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 60.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 320.w,
-                        height: 200.h,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Center(child: Text("O",
-                          style: TextStyle(
-                            fontSize: 120.sp
-                          ),)),
-                      ),
-                    ),
-                    SizedBox(width: 70.w,),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 350.w,
-                        height: 200.h,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Center(child: Text("AB",
-                          style: TextStyle(
-                              fontSize: 120.sp
-                          ),)),
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-              Spacer(),
-              Padding(
-                padding: EdgeInsets.only(bottom: 300.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Center(child: Text("-",
-                          style: TextStyle(
-                            fontSize: 120.sp
-                          ),)),
-                      ),
-                    ),
-                    SizedBox(width: 70.w,),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Center(child: Text("+",
-                          style: TextStyle(
-                              fontSize: 120.sp
-                          ),)),
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-              Spacer(),
-              Container(
-                width: 400.w,
-                height: 200.h,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: TextButton(onPressed:(){},
-                    child:Text(
-                  "التالي ",
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 80.sp
-                      ),
-                )
-
-                ),
-              ),
-            ],
+            );
+          },
           ),
-        ),
-      ),
+    );
+  }
+}
 
+// ignore: must_be_immutable
+class BloodItem extends StatefulWidget {
+  bool isSelected=false ;
+  int index ;
+  String type;
+  BloodCubit cubit;
+  BloodItem({Key? key, required this.type,isSelected,required this.index,required this.cubit}) : super(key: key);
+
+  @override
+  _BloodItemState createState() => _BloodItemState();
+}
+
+class _BloodItemState extends State<BloodItem> {
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          if(widget.index==7){
+
+            widget.cubit.currentIndex2 = 0;
+            widget.cubit.changeTypeBlood(widget.index);
+          }
+          else{
+            widget.cubit.changeTypeBlood(widget.index);
+          }
+               print(widget.cubit.currentIndex1);
+               print(widget.cubit.currentIndex2);
+
+        });
+      },
+      child: Container(
+
+        decoration: BoxDecoration(
+          color: (widget.index == widget.cubit.currentIndex1||
+              widget.index == widget.cubit.currentIndex2)?Colors.red:Colors.grey,
+          borderRadius: BorderRadius.circular(7),
+        ),
+        child: Center(
+            child: Text(
+              widget.type,
+          style: TextStyle(fontSize: 120.sp),
+        )),
+      ),
     );
   }
 }
