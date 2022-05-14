@@ -3,6 +3,8 @@
 
 import 'package:blood_donation_project/Modules/home/add_request_blood/blood_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AddRequestBlood extends StatefulWidget {
   const AddRequestBlood({Key? key}) : super(key: key);
@@ -23,11 +25,14 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 1,
+        elevation: 2,
         backgroundColor: Colors.white,
+
         title: Text('تسجيل بيانات المريض',
-            style: TextStyle(color: Colors.red)),
+            style: GoogleFonts.tajawal(color:Color(0xFF192747),fontWeight: FontWeight.bold)),
+
         centerTitle: true,
         actions: [
           InkWell(
@@ -36,7 +41,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
               },
               child: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.red,
+                color:Color(0xFF192747)
               )),
           SizedBox(
             width: 15,
@@ -44,34 +49,42 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
         ],
       ),
       body: Container(
-        color: Color(0xFFFDA4BA).withOpacity(.1),
+     //   color: Color(0xFFFDA4BA).withOpacity(.1),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               textDirection: TextDirection.rtl,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20),
+                  padding: EdgeInsets.only(bottom: 20,top: 20),
                   child: Container(
                     width: double.infinity,
                     height: 50,
                     decoration: BoxDecoration(
                       color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                          spreadRadius: 0,
+                        ),
+                      ],
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: TextFormField(
+
                       controller: F_name,
                       textDirection: TextDirection.rtl,
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsetsDirectional.only(end: 20),
-
+                          contentPadding: const EdgeInsets.all(12),
                         border: InputBorder.none,
-                        //label: Text('الاسم الاول '),
                         hintText: 'الاسم ',
                         hintTextDirection: TextDirection.rtl,
-                        hintStyle: TextStyle(color: Colors.red, fontSize: 20),
+                        hintStyle: TextStyle(color:Color(0xFF192747), fontSize: 20),
                       ),
                     ),
                   ),
@@ -84,6 +97,14 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(40),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                          spreadRadius: 0,
+                        ),
+                      ],
                     ),
                     child: TextFormField(
                       controller: L_name,
@@ -96,7 +117,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                         //label: Text('الاسم الاول '),
                         hintText: 'العائلة ',
                         hintTextDirection: TextDirection.rtl,
-                        hintStyle: TextStyle(color: Colors.red, fontSize: 20),
+                        hintStyle: TextStyle(color: Color(0xFF192747), fontSize: 20),
                       ),
                     ),
                   ),
@@ -107,6 +128,14 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                     width: double.infinity,
                     height: 50,
                     decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                          spreadRadius: 0,
+                        ),
+                      ],
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(40),
                     ),
@@ -121,7 +150,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                         //label: Text('الاسم الاول '),
                         hintText: 'الهاتف ',
                         hintTextDirection: TextDirection.rtl,
-                        hintStyle: TextStyle(color: Colors.red, fontSize: 20),
+                        hintStyle: TextStyle(color: Color(0xFF192747), fontSize: 20),
                       ),
                     ),
                   ),
@@ -132,6 +161,14 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                     width: double.infinity,
                     height: 100,
                     decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12.withOpacity(0.2),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                            spreadRadius: 0,
+                          ),
+                        ],
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white),
                     child: Column(
@@ -152,7 +189,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                             child: Text(
                           "عدد اكياس الدم المطلوبة : ${value.toInt()}",
                           style: TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.bold),
+                              color: Color(0xFF192747), fontWeight: FontWeight.bold),
                         ))
                       ],
                     ),
@@ -164,6 +201,14 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                     width: double.infinity,
                     height: 50,
                     decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                          spreadRadius: 0,
+                        ),
+                      ],
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(40),
                     ),
@@ -178,7 +223,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                         //label: Text('الاسم الاول '),
                         hintText: 'المدينة ',
                         hintTextDirection: TextDirection.rtl,
-                        hintStyle: TextStyle(color: Colors.red, fontSize: 20),
+                        hintStyle: TextStyle(color: Color(0xFF192747), fontSize: 20),
                       ),
                     ),
                   ),
@@ -189,6 +234,14 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                     width: double.infinity,
                     height: 50,
                     decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                          spreadRadius: 0,
+                        ),
+                      ],
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(40),
                     ),
@@ -218,7 +271,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                         //label: Text('الاسم الاول '),
                         hintText: 'تاريخ الاْنتهاء ',
                         hintTextDirection: TextDirection.rtl,
-                        hintStyle: TextStyle(color: Colors.red, fontSize: 20),
+                        hintStyle: TextStyle(color: Color(0xFF192747), fontSize: 20),
                       ),
                     ),
                   ),
@@ -227,15 +280,23 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                   mainAxisAlignment: MainAxisAlignment.end,
                     children:[
                   Text(':لمن تريد الدم ',style: TextStyle(
-                    color: Colors.red
+                    color: Color(0xFF192747)
                   ), )
         ]
                 ),
                 Container(
                 //  height: 50,
                   decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12.withOpacity(0.2),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                        spreadRadius: 0,
+                      ),
+                    ],
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -277,6 +338,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                     ],
                   ),
                 ),
+                SizedBox(height: 100.h,),
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:blood_donation_project/Modules/forgetPassword/forgetPasswordScreen.dart';
+import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 import 'package:flutter/material.dart';
@@ -191,6 +192,7 @@ class LogInScreen extends StatelessWidget {
                                     ),
                                     child: TextButton(
                                         onPressed: () {
+                                          navigatorToNew(context, HomeLayout());
                                           if (_formKey.currentState!
                                               .validate()) {
                                             // cubit.userLogin(

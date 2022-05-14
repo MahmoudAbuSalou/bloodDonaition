@@ -102,7 +102,15 @@ class BloodType extends StatelessWidget {
                           width: 400.w,
                           height: 200.h,
                           decoration: BoxDecoration(
-                            color: Colors.red,
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black,
+                                blurRadius: 3,
+                                offset: Offset(3,3),
+                                blurStyle: BlurStyle.normal,
+                              )
+                            ],
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: TextButton(
@@ -145,7 +153,6 @@ class _BloodItemState extends State<BloodItem> {
       onTap: () {
         setState(() {
           if(widget.index==7){
-
             widget.cubit.currentIndex2 = 0;
             widget.cubit.changeTypeBlood(widget.index);
           }
@@ -161,13 +168,18 @@ class _BloodItemState extends State<BloodItem> {
 
         decoration: BoxDecoration(
           color: (widget.index == widget.cubit.currentIndex1||
-              widget.index == widget.cubit.currentIndex2)?Colors.red:Colors.grey,
+              widget.index == widget.cubit.currentIndex2)? Color(0xFFEF5350):Color(0xFFE0E0E0),
           borderRadius: BorderRadius.circular(7),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+            )
+          ]
         ),
         child: Center(
             child: Text(
               widget.type,
-          style: TextStyle(fontSize: 120.sp),
+          style: TextStyle(fontSize: 100.sp),
         )),
       ),
     );

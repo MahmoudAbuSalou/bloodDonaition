@@ -1,8 +1,12 @@
 import 'dart:io';
 import 'package:blood_donation_project/Modules/home/add_request_blood/blood_type.dart';
+import 'package:blood_donation_project/Modules/home/add_request_blood/user_info.dart';
+import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
+import 'package:blood_donation_project/Modules/on_boarding/on_boarding.dart';
 import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 import 'package:blood_donation_project/cubit/register_cubit/register_cubit.dart';
 import 'package:blood_donation_project/cubit/register_cubit/register_states.dart';
+import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,7 +68,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
               textTheme: TextTheme(bodyText2: TextStyle(fontSize: 30.sp)),
             ),
-            home:BloodType(),
+            home:OnBoardingScreen(),
           ),
         );
       },
