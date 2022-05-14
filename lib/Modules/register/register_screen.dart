@@ -237,7 +237,7 @@ class RegisterScreen extends StatelessWidget {
                                         id: 0,
                                       ),
                                       GroupBlood(
-                                        Content: 'B+',
+                                       Content: 'B+',
                                         id: 1,
                                       ),
                                       GroupBlood(
