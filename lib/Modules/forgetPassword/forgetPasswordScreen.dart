@@ -68,29 +68,7 @@ class ForgetPassword extends StatelessWidget {
                         height: 50.h,
                       ),
 
-                      // Text(
-                      //   'هل نسيت كلمة المرور',
-                      //   style:
-                      //   GoogleFonts.tajawal(
-                      //     textStyle: Theme.of(context).textTheme.headline4?.copyWith(
-                      //       color: Colors.black,
-                      //       fontSize: 100.sp,
-                      //       // fontWeight: FontWeight.w700,
-                      //       //  fontStyle: FontStyle.italic,
-                      //     ),
-                      //
-                      //     // Theme
-                      //     //     .of(context)
-                      //     //     .textTheme
-                      //     //     .headline4
-                      //     //     ?.copyWith(
-                      //     //   color: Colors.black,
-                      //     //
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 20.h,
-                      // ),
+
                       Text(
                           'سنقوم بإرسال رمز التحقق إلى البريدالإلكتروني الخاص بك ',
                           style: GoogleFonts.tajawal(
@@ -119,7 +97,9 @@ class ForgetPassword extends StatelessWidget {
 
 
                         decoration: InputDecoration(
-                          label: Text('البريد الإلكتروني',style: TextStyle(color: Colors.red),),
+                          label: Text('البريد الإلكتروني',style: GoogleFonts.tajawal(
+                            textStyle: TextStyle(color: Colors.red)
+                          ),),
 
                           border: OutlineInputBorder(
 

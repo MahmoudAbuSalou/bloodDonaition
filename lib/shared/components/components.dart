@@ -136,8 +136,10 @@ Widget defaultTextFormField({
 Widget defaultTextButton({required String text,required Function function,Color color = Colors.white}){
   return TextButton(onPressed: (){
     function();
-  }, child: Text(text.toUpperCase(),style: TextStyle(
-    color:color
+  }, child: Text(text.toUpperCase(),style: GoogleFonts.tajawal(
+    textStyle: TextStyle(
+        color:color
+    )
   ),));
 }
 
