@@ -59,8 +59,8 @@ dependencies:
   flutter_screenutil:
   webview_flutter: ^2.8.0
   google_fonts: ^2.3.1
-  geolocator: ^8.2.0
-  geocoding: ^2.0.0
+  geolocator: ^7.7.0
+  geocoding: ^2.0.1
 
 
   awesome_dialog: ^2.2.0

@@ -395,7 +395,7 @@ class RegisterScreen extends StatelessWidget {
                                     onPressed: () async {
                                       cubit.myLocation = await cubit
                                           .determinePosition(context);
-                                    //  await cubit.convertPosToReality();
+                                      await cubit.convertPosToReality();
                                       navigatorTo(context, PinEntry());
                                    //   if (formKey.currentState!.validate()) {}
                                     },
