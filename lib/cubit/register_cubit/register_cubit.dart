@@ -1,10 +1,7 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
-
 import 'package:blood_donation_project/cubit/register_cubit/register_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../shared/components/components.dart';
 import '../../shared/network/remote/dio_helper.dart';
 import 'package:geocoding/geocoding.dart';

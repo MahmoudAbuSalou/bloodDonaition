@@ -152,6 +152,7 @@ void showToast({required String msg,required ToastState state})=> Fluttertoast.s
       fontSize: 16.0
   );
 
+// ignore: must_be_immutable
 class GroupBlood extends StatelessWidget {
   bool isSelected = false;
   String Content;

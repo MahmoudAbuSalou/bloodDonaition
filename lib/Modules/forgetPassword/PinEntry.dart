@@ -1,15 +1,14 @@
 
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_widget/flutter_pin_code_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
-import '../../shared/components/components.dart';
-import '../register/register_screen.dart';
 import 'ResetPassword.dart';
 
+// ignore: must_be_immutable
 class PinEntry extends StatelessWidget {
   PinEntry({Key? key}) : super(key: key);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

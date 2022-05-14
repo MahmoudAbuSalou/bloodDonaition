@@ -1,6 +1,6 @@
 import 'package:blood_donation_project/Modules/forgetPassword/forgetPasswordScreen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,9 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../cubit/login_cubit/login_cubit.dart';
 import '../../cubit/login_cubit/login_states.dart';
 import '../../shared/components/components.dart';
-import '../../shared/components/constants.dart';
-import '../../shared/network/local/cachehelper.dart';
-import '../../shared/style/colors.dart';
+
 import '../register/register_screen.dart';
 
 

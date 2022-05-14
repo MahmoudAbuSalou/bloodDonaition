@@ -13,7 +13,6 @@ ThemeData lightThem = ThemeData(
     appBarTheme: const AppBarTheme(
       titleSpacing: 20.0,
       iconTheme: IconThemeData(color: Colors.black),
-      backwardsCompatibility: false,
       titleTextStyle: TextStyle(
           fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold),
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -40,7 +39,6 @@ ThemeData darkThem = ThemeData(
   appBarTheme: const AppBarTheme(
     titleSpacing: 20.0,
     iconTheme: IconThemeData(color: Colors.white),
-    backwardsCompatibility: false,
     titleTextStyle: TextStyle(
         fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.bold),
     systemOverlayStyle: SystemUiOverlayStyle(
