@@ -114,7 +114,6 @@ class OnBoardingScreen extends StatelessWidget {
       },
     );
   }
-
   void submit(context) {
     CacheHelper.saveData(key: "onBoarding", value: true).then((value) {
       if (value) {

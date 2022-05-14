@@ -1,5 +1,3 @@
-import 'package:blood_donation_project/cubit/register_cubit/register_cubit.dart';
-import 'package:blood_donation_project/cubit/register_cubit/register_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../Models/onBoarding/onBoardingModel.dart';
+import '../../cubit/register_cubit/register_cubit.dart';
+import '../../cubit/register_cubit/register_states.dart';
 import 'constants.dart';
 
 Widget buildItem(business, context ){
@@ -74,37 +74,7 @@ void navigatorToNew(context,Widget screen){
       MaterialPageRoute(builder: (context)=>screen),
           (route) => false);
 }
-Widget buildOnBoardingScreen(OnBoardingModel model)=> Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Expanded(
-      child: Image(
-        image: AssetImage(model.urlImage),
-      ),
-    ),
-    SizedBox(
-      height: 40,
-    ),
-    Text(
-      model.tittle,
-      textDirection: TextDirection.rtl,
-      style: GoogleFonts.tajawal(
 
-        textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)
-      ),
-    ),
-    SizedBox(
-      height: 20,
-    ),
-    Text(
-      model.details,
-        textDirection: TextDirection.rtl,
-      style: GoogleFonts.tajawal(
-        textStyle: TextStyle(fontSize: 14),
-      )
-    )
-  ],
-);
 Widget defaultTextFormField({
   required TextEditingController controller,
   required TextInputType type,
@@ -122,10 +92,10 @@ Widget defaultTextFormField({
   //Function ?onTap,
 }) =>
     TextFormField(
-
       enabled: enable,
       validator: (s) {
-        valid(s);
+        valid();
+        return null;
 
         },
       // onTap: (){
@@ -138,13 +108,10 @@ Widget defaultTextFormField({
       textAlign: TextAlign.start,
       obscureText: isPassword,
       decoration: InputDecoration(
-
-
+        labelText: label,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-
         ),
-        label: Text(label),
         labelStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
         prefixIcon: prefix,
         suffixIcon: suffix != null
@@ -169,15 +136,9 @@ Widget defaultTextFormField({
 Widget defaultTextButton({required String text,required Function function,Color color = Colors.white}){
   return TextButton(onPressed: (){
     function();
-  }, child: Text(text.toUpperCase(),style: GoogleFonts.tajawal(
-    textStyle: TextStyle(
-      color:color,
-      fontSize: 45.sp,
-     // fontWeight: FontWeight.bold,
-
-
-    ),
-  )));
+  }, child: Text(text.toUpperCase(),style: TextStyle(
+    color:color
+  ),));
 }
 
 
@@ -191,6 +152,7 @@ void showToast({required String msg,required ToastState state})=> Fluttertoast.s
       fontSize: 16.0
   );
 
+// ignore: must_be_immutable
 class GroupBlood extends StatelessWidget {
   bool isSelected = false;
   String Content;
@@ -201,59 +163,59 @@ class GroupBlood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    var cubit=RegisterCubit.get(context);
-    RegisterCubit.get(context).list.add( GroupBlood(id: this.id,Content: this.Content,isSelected: this.isSelected,));
-    return InkWell(
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Container(
-          width: 200.w,
-          height: 130.h,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.redAccent),
-            borderRadius: BorderRadius.circular(30.r),
-            gradient: (cubit.list[id].isSelected)
-                ? LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Colors.red.shade900,
-                Colors.red.shade600,
-                Colors.red.shade400,
-                Colors.red,
-              ],
-            )
-                : LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Colors.white,
-                Colors.white70,
-              ],
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        var cubit=RegisterCubit.get(context);
+        RegisterCubit.get(context).list.add( GroupBlood(id: this.id,Content: this.Content,isSelected: this.isSelected,));
+        return InkWell(
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Container(
+              width: 200.w,
+              height: 130.h,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.redAccent),
+                borderRadius: BorderRadius.circular(30.r),
+                gradient: (cubit.list[id].isSelected)
+                    ? LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Colors.red.shade900,
+                    Colors.red.shade600,
+                    Colors.red.shade400,
+                    Colors.red,
+                  ],
+                )
+                    : LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Colors.white,
+                    Colors.white70,
+                  ],
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  this.Content,
+                  style: TextStyle(
+                      color: (cubit.list[id].isSelected) ? Colors.white : Colors.red,
+                      fontSize: 100.sp),
+                ),
+              ),
             ),
           ),
-          child: Center(
-            child: Text(
-              this.Content,
-              style: TextStyle(
-                  color: (cubit.list[id].isSelected) ? Colors.white : Colors.red,
-                  fontSize: 100.sp),
-            ),
-          ),
-        ),
-      ),
-      onTap: (){
-        print(id);
-       // isSelected=!isSelected;
-       RegisterCubit.get(context).changeelectedGroupBlood(id);
+          onTap: (){
+            print(id);
+            // isSelected=!isSelected;
+            RegisterCubit.get(context).changeelectedGroupBlood(id);
+          },
+        );
       },
     );
-  },
-);
   }
 }
 Widget Choice(int value,int groupValue,String content,context,String TypeQues){
@@ -280,3 +242,34 @@ Widget Choice(int value,int groupValue,String content,context,String TypeQues){
     ),
   );
 }
+Widget buildOnBoardingScreen(OnBoardingModel model)=> Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Expanded(
+      child: Image(
+        image: AssetImage(model.urlImage),
+      ),
+    ),
+    SizedBox(
+      height: 40,
+    ),
+    Text(
+      model.tittle,
+      textDirection: TextDirection.rtl,
+      style: GoogleFonts.tajawal(
+
+          textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)
+      ),
+    ),
+    SizedBox(
+      height: 20,
+    ),
+    Text(
+        model.details,
+        textDirection: TextDirection.rtl,
+        style: GoogleFonts.tajawal(
+          textStyle: TextStyle(fontSize: 14),
+        )
+    )
+  ],
+);

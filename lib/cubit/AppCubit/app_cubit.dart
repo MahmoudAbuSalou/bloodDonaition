@@ -1,12 +1,9 @@
-import 'dart:async';
-import 'dart:io';
 
-import 'package:bloc/bloc.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
+
 
 part 'app_state.dart';
 
@@ -18,9 +15,7 @@ class AppCubit extends Cubit<AppState> {
 
   IconData suffx = Icons.visibility_outlined;
   bool isPassword = true;
-  ConnectivityResult _connectionStatus = ConnectivityResult.none;
-  final Connectivity _connectivity = Connectivity();
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
   void changePasswordIcon() {
     isPassword = !isPassword;
     if (isPassword) {
@@ -46,8 +41,4 @@ class AppCubit extends Cubit<AppState> {
       emit(checkNet());
     }
   }
-
-
-
-
 }

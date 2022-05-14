@@ -8,6 +8,7 @@ import '../../shared/components/components.dart';
 import '../register/register_screen.dart';
 import 'PinEntry.dart';
 
+// ignore: must_be_immutable
 class ForgetPassword extends StatelessWidget {
    ForgetPassword({Key? key}) : super(key: key);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

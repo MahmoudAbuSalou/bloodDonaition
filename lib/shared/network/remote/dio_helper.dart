@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+
 
 class DioHelper {
   static late Dio dio;
 
   static void init() {
     dio = Dio(BaseOptions(
-      baseUrl: '',
+      baseUrl: 'https://aiacademy.info/wp-json/',
       receiveDataWhenStatusError: true,
     ));
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
