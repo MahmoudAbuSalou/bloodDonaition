@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../Models/onBoarding/onBoardingModel.dart';
+import '../../cubit/register_cubit/register_cubit.dart';
+import '../../cubit/register_cubit/register_states.dart';
 import 'constants.dart';
 
 Widget buildItem(business, context ){
@@ -145,3 +151,124 @@ void showToast({required String msg,required ToastState state})=> Fluttertoast.s
       textColor: Colors.white,
       fontSize: 16.0
   );
+
+class GroupBlood extends StatelessWidget {
+  bool isSelected = false;
+  String Content;
+  int id;
+
+  GroupBlood({required this.Content,  isSelected,required this.id}) : super();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        var cubit=RegisterCubit.get(context);
+        RegisterCubit.get(context).list.add( GroupBlood(id: this.id,Content: this.Content,isSelected: this.isSelected,));
+        return InkWell(
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Container(
+              width: 200.w,
+              height: 130.h,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.redAccent),
+                borderRadius: BorderRadius.circular(30.r),
+                gradient: (cubit.list[id].isSelected)
+                    ? LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Colors.red.shade900,
+                    Colors.red.shade600,
+                    Colors.red.shade400,
+                    Colors.red,
+                  ],
+                )
+                    : LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Colors.white,
+                    Colors.white70,
+                  ],
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  this.Content,
+                  style: TextStyle(
+                      color: (cubit.list[id].isSelected) ? Colors.white : Colors.red,
+                      fontSize: 100.sp),
+                ),
+              ),
+            ),
+          ),
+          onTap: (){
+            print(id);
+            // isSelected=!isSelected;
+            RegisterCubit.get(context).changeelectedGroupBlood(id);
+          },
+        );
+      },
+    );
+  }
+}
+Widget Choice(int value,int groupValue,String content,context,String TypeQues){
+
+  return Padding(
+    padding:  EdgeInsets.symmetric(horizontal: 100.w),
+    child: Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Radio(value: value, groupValue: groupValue, onChanged: (val){
+          int temp=int.parse(val.toString());
+          (TypeQues=='Gen')?    RegisterCubit.get(context).changeSelectGen(temp):RegisterCubit.get(context).changeSelectWeight(temp);
+        }),
+        //  SizedBox(width: 20.w,),
+        Text(
+          content,style: GoogleFonts.tajawal(
+            textStyle: TextStyle(
+                fontSize: 50.sp,
+                fontWeight: FontWeight.bold
+            )
+        ),
+        )
+      ],
+    ),
+  );
+}
+Widget buildOnBoardingScreen(OnBoardingModel model)=> Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Expanded(
+      child: Image(
+        image: AssetImage(model.urlImage),
+      ),
+    ),
+    SizedBox(
+      height: 40,
+    ),
+    Text(
+      model.tittle,
+      textDirection: TextDirection.rtl,
+      style: GoogleFonts.tajawal(
+
+          textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)
+      ),
+    ),
+    SizedBox(
+      height: 20,
+    ),
+    Text(
+        model.details,
+        textDirection: TextDirection.rtl,
+        style: GoogleFonts.tajawal(
+          textStyle: TextStyle(fontSize: 14),
+        )
+    )
+  ],
+);

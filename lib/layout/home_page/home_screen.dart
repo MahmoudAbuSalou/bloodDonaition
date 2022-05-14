@@ -1,4 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
+
 import 'package:blood_donation_project/layout/cubit/home_cubit.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
     return Column(
       children: [
         SvgPicture.asset(image,width: 30,height: 30,),
-        AutoSizeText(name,
+        Text(name,
           style: GoogleFonts.tajawal(
             fontWeight: FontWeight.bold,
               fontSize: 35.sp,

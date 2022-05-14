@@ -1,6 +1,6 @@
 
 
-import 'package:auto_size_text/auto_size_text.dart';
+
 import 'package:blood_donation_project/Modules/home/add_request_blood/blood_type.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
       appBar: AppBar(
         elevation: 1,
         backgroundColor: Colors.white,
-        title: AutoSizeText('تسجيل بيانات المريض',
+        title: Text('تسجيل بيانات المريض',
             style: TextStyle(color: Colors.red)),
         centerTitle: true,
         actions: [

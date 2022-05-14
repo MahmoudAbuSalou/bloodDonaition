@@ -232,10 +232,10 @@ class RegisterScreen extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      GroupBlood(
-                                        Content: 'A+',
-                                        id: 0,
-                                      ),
+                              GroupBlood(
+                                Content: 'A+',
+                                id: 0,
+                              ),
                                       GroupBlood(
                                        Content: 'B+',
                                         id: 1,
