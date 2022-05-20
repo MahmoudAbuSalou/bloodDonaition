@@ -60,7 +60,7 @@ class ForgetPassword extends StatelessWidget {
                           height: 1000.h,
                           child: FittedBox(
                             fit: BoxFit.fill,
-                            child: Image.asset('images/forget.jpg',),
+                            child: Image.asset('assets/images/forget.jpg',),
                           ),
                         ),
                       ),

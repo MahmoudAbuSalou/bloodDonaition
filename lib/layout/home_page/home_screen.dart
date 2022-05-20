@@ -39,13 +39,13 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
               items:  <Widget>[
                 Padding(
                     padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 15.w),
-                    child: iconNavBar('images/blood_nav.svg','حالة أسعافية',)),
+                    child: iconNavBar('assets/images/blood_nav.svg','حالة أسعافية',)),
                 Padding(
                     padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 15.w),
-                    child: iconNavBar('images/blood_nav.svg','الرئيسية',)),
+                    child: iconNavBar('assets/images/blood_nav.svg','الرئيسية',)),
                 Padding(
                     padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 15.w),
-                    child: iconNavBar('images/blood_nav.svg','الملف الشخصي',)),
+                    child: iconNavBar('assets/images/blood_nav.svg','الملف الشخصي',)),
 
               ],
               onTap: (index) {

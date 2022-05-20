@@ -66,6 +66,10 @@ dependencies:
   awesome_dialog: ^2.2.0
 
 
+  #- For Google Maps [ Muhammad Al-Rifai ]:
+  google_maps_flutter: ^2.1.5
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -90,7 +94,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -104,7 +108,15 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+    - family: Janna
+      fonts:
+        - asset: assets/fonts/Janna.ttf
+
+    - family: IconBroken
+      fonts:
+        - asset: assets/fonts/icons.ttf
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
