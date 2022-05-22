@@ -65,7 +65,7 @@ class DetailsScreen extends StatelessWidget {
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsetsDirectional.only(end: 30.w),
-                          child: SvgPicture.asset('images/blood_bags.svg',width: 150.w,height: 180.h,)),
+                          child: SvgPicture.asset('assets/images/blood_bags.svg',width: 150.w,height: 180.h,)),
                     ),
                     Expanded(
                       flex: 4,
