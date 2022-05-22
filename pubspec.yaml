@@ -61,7 +61,7 @@ dependencies:
   google_fonts: ^2.3.1
   geolocator: ^7.7.0
   geocoding: ^2.0.1
-
+  geocode: 1.0.1
 
   awesome_dialog: ^2.2.0
 
