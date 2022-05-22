@@ -158,7 +158,9 @@ class RegisterScreen extends StatelessWidget {
                             decoration: InputDecoration(
                               label: Text(
                                 'البريد الإلكتروني',
-                                style: TextStyle(color: Colors.red),
+                                style: GoogleFonts.tajawal(
+                                  textStyle: TextStyle(color: Colors.red),
+                                ),
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.r),

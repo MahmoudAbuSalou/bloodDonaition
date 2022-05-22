@@ -79,7 +79,7 @@ class LogInScreen extends StatelessWidget {
                               height: 600.h,
                               child: FittedBox(
                                 fit: BoxFit.fill,
-                                child: Image.asset('images/logo.jpg',),
+                                child: Image.asset('assets/images/logo.jpg',),
                               ),
                             ),
                           ),
@@ -134,7 +134,9 @@ class LogInScreen extends StatelessWidget {
                               return null;
                             },
                             decoration: InputDecoration(
-                              label: Text('البريد الإلكتروني',style: TextStyle(color: Colors.red),),
+                              label: Text('البريد الإلكتروني',style:GoogleFonts.tajawal(
+                                textStyle:  TextStyle(color: Colors.red)
+                              ),),
 
                               border: OutlineInputBorder(
 
@@ -149,7 +151,6 @@ class LogInScreen extends StatelessWidget {
                           SizedBox(
                             height: 50.h,
                           ),
-
                           TextFormField(
                             textDirection: TextDirection.ltr,
                             controller: password,
@@ -160,20 +161,16 @@ class LogInScreen extends StatelessWidget {
                               return null;
                             },
                             obscureText: cubit.isPassword,
-
                             decoration: InputDecoration(
-                              label: Text('كلمة المرور',style: TextStyle(color: Colors.red),),
+                              label: Text('كلمة المرور',style: GoogleFonts.tajawal(
+                                textStyle: TextStyle(color: Colors.red)
+                              ),),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.r),
                               ),
-
                               prefixIcon: IconButton(icon:Icon((cubit.isPassword)?Icons.visibility_off:Icons.visibility,color: Colors.red,),
                                 onPressed: ()=>cubit.changePasswordIcon(),
-
                               ),
-
-
-
                             ),
                           ),
 

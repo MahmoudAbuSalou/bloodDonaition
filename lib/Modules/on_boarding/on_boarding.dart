@@ -21,7 +21,7 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {
-        // TODO: implement listener
+
       },
       builder: (context, state) {
         var cubit=AppCubit.get(context);
@@ -98,7 +98,7 @@ class OnBoardingScreen extends StatelessWidget {
               ],
             ):Column(
               children: [
-                Image.asset('images/noConnection.jpg'),
+                Image.asset('assets/images/noConnection.jpg'),
                 Text('يرجى التحقق من الاتصال بالإنترنت',style: GoogleFonts.tajawal(
                   fontSize: 50.h,
 

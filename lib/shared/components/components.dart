@@ -9,8 +9,8 @@ import '../../cubit/register_cubit/register_cubit.dart';
 import '../../cubit/register_cubit/register_states.dart';
 import 'constants.dart';
 
-Widget buildItem(business, context ){
-  return  Padding(
+Widget buildItem(business, context) {
+  return Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children: [
@@ -22,10 +22,11 @@ Widget buildItem(business, context ){
               image: DecorationImage(
                 image: NetworkImage('${business['urlToImage']}'),
                 fit: BoxFit.cover,
-              )
-          ),
+              )),
         ),
-        const SizedBox(width: 20,),
+        const SizedBox(
+          width: 20,
+        ),
         Expanded(
           // ignore: sized_box_for_whitespace
           child: Container(
@@ -36,20 +37,21 @@ Widget buildItem(business, context ){
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
-                  child: Text("${business['title']}",style:Theme.of(context).textTheme.bodyText1 ,maxLines: 4,
+                  child: Text(
+                    "${business['title']}",
+                    style: Theme.of(context).textTheme.bodyText1,
+                    maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-
                 Expanded(
-                  child: Text("${business['publishedAt']}",style: const TextStyle(
-                      color: Colors.grey
-                  ),
+                  child: Text(
+                    "${business['publishedAt']}",
+                    style: const TextStyle(color: Colors.grey),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 )
-
               ],
             ),
           ),
@@ -58,28 +60,30 @@ Widget buildItem(business, context ){
     ),
   );
 }
-Widget myDriver()=> Padding(
-  padding: const EdgeInsetsDirectional.only(start:20),
-  child: Container(
-    width: double.infinity,
-    height: 1,
-    color: Colors.grey,
-  ),
-);
-void navigatorTo(context,Widget screen){
-  Navigator.push(context,MaterialPageRoute(builder: (context)=>screen));
+
+Widget myDivider() => Padding(
+      padding: const EdgeInsetsDirectional.only(start: 20),
+      child: Container(
+        width: double.infinity,
+        height: 1,
+        color: Colors.grey,
+      ),
+    );
+
+void navigatorTo(context, Widget screen) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
 }
-void navigatorToNew(context,Widget screen){
+
+void navigatorToNew(context, Widget screen) {
   Navigator.pushAndRemoveUntil(context,
-      MaterialPageRoute(builder: (context)=>screen),
-          (route) => false);
+      MaterialPageRoute(builder: (context) => screen), (route) => false);
 }
 
 Widget defaultTextFormField({
   required TextEditingController controller,
   required TextInputType type,
   required String label,
-   Icon ? prefix,
+  Icon? prefix,
   required Function valid,
   bool correct = true,
   bool focus = true,
@@ -96,8 +100,7 @@ Widget defaultTextFormField({
       validator: (s) {
         valid();
         return null;
-
-        },
+      },
       // onTap: (){
       //   onTap!();
       // },
@@ -116,41 +119,44 @@ Widget defaultTextFormField({
         prefixIcon: prefix,
         suffixIcon: suffix != null
             ? IconButton(
-          icon: suffix,
-          onPressed: (){
-            suffixPressed!();
-          },
-        )
+                icon: suffix,
+                onPressed: () {
+                  suffixPressed!();
+                },
+              )
             : null,
       ),
-      onChanged: (s){
-        onChanged !();
+      onChanged: (s) {
+        onChanged!();
       },
-      onFieldSubmitted: (s){
+      onFieldSubmitted: (s) {
         onSubmitted!();
       },
     );
 
-
-
-Widget defaultTextButton({required String text,required Function function,Color color = Colors.white}){
-  return TextButton(onPressed: (){
-    function();
-  }, child: Text(text.toUpperCase(),style: TextStyle(
-    color:color
-  ),));
+Widget defaultTextButton(
+    {required String text,
+    required Function function,
+    Color color = Colors.white}) {
+  return TextButton(
+      onPressed: () {
+        function();
+      },
+      child: Text(
+        text.toUpperCase(),
+        style: GoogleFonts.tajawal(textStyle: TextStyle(color: color)),
+      ));
 }
 
-
-void showToast({required String msg,required ToastState state})=> Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 5,
-      backgroundColor: toastColor(state),
-      textColor: Colors.white,
-      fontSize: 16.0
-  );
+void showToast({required String msg, required ToastState state}) =>
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 5,
+        backgroundColor: toastColor(state),
+        textColor: Colors.white,
+        fontSize: 16.0);
 
 // ignore: must_be_immutable
 class GroupBlood extends StatelessWidget {
@@ -158,7 +164,7 @@ class GroupBlood extends StatelessWidget {
   String Content;
   int id;
 
-  GroupBlood({required this.Content,  isSelected,required this.id}) : super();
+  GroupBlood({required this.Content, isSelected, required this.id}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +173,12 @@ class GroupBlood extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit=RegisterCubit.get(context);
-        RegisterCubit.get(context).list.add( GroupBlood(id: this.id,Content: this.Content,isSelected: this.isSelected,));
+        var cubit = RegisterCubit.get(context);
+        RegisterCubit.get(context).list.add(GroupBlood(
+              id: this.id,
+              Content: this.Content,
+              isSelected: this.isSelected,
+            ));
         return InkWell(
           child: Directionality(
             textDirection: TextDirection.ltr,
@@ -180,35 +190,37 @@ class GroupBlood extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.r),
                 gradient: (cubit.list[id].isSelected)
                     ? LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Colors.red.shade900,
-                    Colors.red.shade600,
-                    Colors.red.shade400,
-                    Colors.red,
-                  ],
-                )
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Colors.red.shade900,
+                          Colors.red.shade600,
+                          Colors.red.shade400,
+                          Colors.red,
+                        ],
+                      )
                     : LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Colors.white,
-                    Colors.white70,
-                  ],
-                ),
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Colors.white,
+                          Colors.white70,
+                        ],
+                      ),
               ),
               child: Center(
                 child: Text(
                   this.Content,
                   style: TextStyle(
-                      color: (cubit.list[id].isSelected) ? Colors.white : Colors.red,
+                      color: (cubit.list[id].isSelected)
+                          ? Colors.white
+                          : Colors.red,
                       fontSize: 100.sp),
                 ),
               ),
             ),
           ),
-          onTap: (){
+          onTap: () {
             print(id);
             // isSelected=!isSelected;
             RegisterCubit.get(context).changeelectedGroupBlood(id);
@@ -218,58 +230,59 @@ class GroupBlood extends StatelessWidget {
     );
   }
 }
-Widget Choice(int value,int groupValue,String content,context,String TypeQues){
 
+Widget Choice(
+    int value, int groupValue, String content, context, String TypeQues) {
   return Padding(
-    padding:  EdgeInsets.symmetric(horizontal: 100.w),
+    padding: EdgeInsets.symmetric(horizontal: 100.w),
     child: Row(
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Radio(value: value, groupValue: groupValue, onChanged: (val){
-          int temp=int.parse(val.toString());
-          (TypeQues=='Gen')?    RegisterCubit.get(context).changeSelectGen(temp):RegisterCubit.get(context).changeSelectWeight(temp);
-        }),
+        Radio(
+            value: value,
+            groupValue: groupValue,
+            onChanged: (val) {
+              int temp = int.parse(val.toString());
+              (TypeQues == 'Gen')
+                  ? RegisterCubit.get(context).changeSelectGen(temp)
+                  : RegisterCubit.get(context).changeSelectWeight(temp);
+            }),
         //  SizedBox(width: 20.w,),
         Text(
-          content,style: GoogleFonts.tajawal(
-            textStyle: TextStyle(
-                fontSize: 50.sp,
-                fontWeight: FontWeight.bold
-            )
-        ),
+          content,
+          style: GoogleFonts.tajawal(
+              textStyle:
+                  TextStyle(fontSize: 50.sp, fontWeight: FontWeight.bold)),
         )
       ],
     ),
   );
 }
-Widget buildOnBoardingScreen(OnBoardingModel model)=> Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Expanded(
-      child: Image(
-        image: AssetImage(model.urlImage),
-      ),
-    ),
-    SizedBox(
-      height: 40,
-    ),
-    Text(
-      model.tittle,
-      textDirection: TextDirection.rtl,
-      style: GoogleFonts.tajawal(
 
-          textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)
-      ),
-    ),
-    SizedBox(
-      height: 20,
-    ),
-    Text(
-        model.details,
-        textDirection: TextDirection.rtl,
-        style: GoogleFonts.tajawal(
-          textStyle: TextStyle(fontSize: 14),
-        )
-    )
-  ],
-);
+Widget buildOnBoardingScreen(OnBoardingModel model) => Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Image(
+            image: AssetImage(model.urlImage),
+          ),
+        ),
+        SizedBox(
+          height: 40,
+        ),
+        Text(
+          model.tittle,
+          textDirection: TextDirection.rtl,
+          style: GoogleFonts.tajawal(
+              textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Text(model.details,
+            textDirection: TextDirection.rtl,
+            style: GoogleFonts.tajawal(
+              textStyle: TextStyle(fontSize: 14),
+            ))
+      ],
+    );
