@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 class DetailsScreen extends StatelessWidget {
   String _val = '1';
   double value = 10;
-   DetailsScreen({Key? key}) : super(key: key);
+
+  DetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,19 @@ class DetailsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(onPressed: (){
-          Navigator.of(context).maybePop();
-        },
-        icon: Icon(Icons.arrow_back_ios,color:Color(0xff384e7b),),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).maybePop();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xff384e7b),
+          ),
         ),
         actions: [
-          IconButton(onPressed: (){},
-            icon: Icon(Icons.share,color:Color(0xff192747)),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.share, color: Color(0xff192747)),
           ),
         ],
       ),
@@ -37,83 +42,99 @@ class DetailsScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 150.h,
                 alignment: Alignment.centerRight,
-                child: Text('...تفاصيل التبرع',style: GoogleFonts.tajawal(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 65.sp,
-                  fontStyle: FontStyle.italic,
-                  color: Color(0xff384e7b),
-                ),),
+                child: Text(
+                  '...تفاصيل التبرع',
+                  style: GoogleFonts.tajawal(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 65.sp,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xff384e7b),
+                  ),
+                ),
               ),
-              SizedBox(height: 20.h,),
+              SizedBox(
+                height: 20.h,
+              ),
               Container(
                 width: double.infinity,
                 height: 400.h,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(35.r),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 12
-                    ),
-                  ]
-                ),
+                    borderRadius: BorderRadius.circular(35.r),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(color: Colors.black12, blurRadius: 12),
+                    ]),
                 child: Row(
                   textDirection: TextDirection.rtl,
                   children: [
                     Expanded(
                       flex: 1,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.only(end: 30.w),
-                          child: SvgPicture.asset('assets/images/blood_bags.svg',width: 150.w,height: 180.h,)),
+                          padding: EdgeInsetsDirectional.only(end: 30.w),
+                          child: SvgPicture.asset(
+                            'assets/images/blood_bags.svg',
+                            width: 150.w,
+                            height: 180.h,
+                          )),
                     ),
                     Expanded(
                       flex: 4,
                       child: Container(
-
                         child: Column(
                           children: [
-                                 Padding(
-                                   padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 70.h),
-                                   child: Row(
-                                     children: [
-                                       Expanded(child: Text('عدد الوحدات المطلوبة',style: GoogleFonts.tajawal(
-                                         color: Colors.grey,
-                                         fontWeight: FontWeight.bold,
-                                         fontSize: 35.sp
-                                       ),)),
-                                       Expanded(child: Text('عدد الوحدات المتبقي ',style: GoogleFonts.tajawal(
-                                           color: Color(0xff384e7b),
-                                           fontWeight: FontWeight.bold,
-                                           fontSize: 35.sp
-                                       ),)),
-                                     ],
-                                   ),
-                                 ),
-                                 Padding(
-                                   padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 20.h),
-                                   child: Row(
-                                     children: [
-                                       Expanded(child: Container(
-                                           alignment: Alignment.center,
-                                           child: Text('15',style: GoogleFonts.tajawal(
-                                               color: Color(0xff384e7b),
-                                               fontWeight: FontWeight.bold,
-                                               fontSize: 60.sp
-                                           ),))),
-                                       Expanded(child: Container(
-                                           alignment: Alignment.center,
-                                           child: Text('5',style: GoogleFonts.tajawal(
-                                               color: Colors.grey,
-                                               fontWeight: FontWeight.bold,
-                                               fontSize: 60.sp
-                                           ),))),
-
-                                     ],
-                                   ),
-                                 ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 20.w, right: 20.w, top: 70.h),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                    'عدد الوحدات المطلوبة',
+                                    style: GoogleFonts.tajawal(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 35.sp),
+                                  )),
+                                  Expanded(
+                                      child: Text(
+                                    'عدد الوحدات المتبقي ',
+                                    style: GoogleFonts.tajawal(
+                                        color: Color(0xff384e7b),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 35.sp),
+                                  )),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 20.h),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '15',
+                                            style: GoogleFonts.tajawal(
+                                                color: Color(0xff384e7b),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 60.sp),
+                                          ))),
+                                  Expanded(
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '5',
+                                            style: GoogleFonts.tajawal(
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 60.sp),
+                                          ))),
+                                ],
+                              ),
+                            ),
                             Container(
-
                               child: Slider(
                                 autofocus: false,
                                 value: 10,
@@ -122,32 +143,29 @@ class DetailsScreen extends StatelessWidget {
                                 max: 15,
                                 inactiveColor: Colors.grey,
                                 activeColor: Colors.redAccent[100],
-
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
-              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 30.h,
+              ),
               Container(
                 height: 600.h,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(color: Colors.black26, blurRadius: 3)
-                  ],
-
+                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 3)],
                 ),
                 child: Column(
                   children: [
                     Expanded(
-                      flex: 2,
+                        flex: 2,
                         child: Row(
                           children: [
                             Expanded(
@@ -162,12 +180,12 @@ class DetailsScreen extends StatelessWidget {
                                     )),
                                 child: Center(
                                     child: Text(
-                                      'AB+',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )),
+                                  'AB+',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
                               ),
                             ),
                             Spacer(),
@@ -196,7 +214,6 @@ class DetailsScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                           ],
                         )),
                     SizedBox(
@@ -204,13 +221,14 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     Divider(height: 22.h),
                     Expanded(
-                      flex: 4,
+                        flex: 4,
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(right: 30.w,left: 2.w),
+                              padding: EdgeInsets.only(right: 30.w, left: 2.w),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 textDirection: TextDirection.rtl,
                                 children: [
                                   Text(
@@ -233,7 +251,8 @@ class DetailsScreen extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 textDirection: TextDirection.rtl,
                                 children: [
                                   Text(
@@ -246,7 +265,6 @@ class DetailsScreen extends StatelessWidget {
                                   Text(
                                     'مشفى المجتهد',
                                     style: TextStyle(color: Colors.grey[700]),
-
                                   ),
                                 ],
                               ),
@@ -257,7 +275,8 @@ class DetailsScreen extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.only(left: 35.w),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 textDirection: TextDirection.rtl,
                                 children: [
                                   Text(
@@ -276,114 +295,118 @@ class DetailsScreen extends StatelessWidget {
                             ),
                           ],
                         )),
-
                     Expanded(
-                      flex: 2,
+                        flex: 2,
                         child: Row(
                           children: [
                             Expanded(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
-                                    'غصن خالد محسن' ,
+                                    'غصن خالد محسن',
                                     style: GoogleFonts.tajawal(
-                                      color:Colors.grey[600],
+                                      color: Colors.grey[600],
                                     ),
-
                                   ),
                                   Text(
-                                    ': صاحب الطلب ' ,
+                                    ': صاحب الطلب ',
                                     style: GoogleFonts.tajawal(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff384e7b),
                                     ),
-
                                   ),
                                 ],
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(right: 9.w,bottom: 3.h),
+                                margin:
+                                    EdgeInsets.only(right: 9.w, bottom: 3.h),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(25),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 10
-                                    ),
-                                  ]
-                                ),
+                                    color: Colors.white,
+                                   shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black26,
+                                          blurRadius: 10),
+                                    ]),
                                 child: IconButton(
                                   highlightColor: Colors.white,
                                   splashColor: Colors.white,
                                   onPressed: () {},
-                                  icon: Icon(Icons.phone,color:Colors.green,),
+                                  icon: Icon(
+                                    Icons.phone,
+                                    color: Colors.green,
+                                  ),
                                 ))
                           ],
                         )),
-
                   ],
                 ),
               ),
-              SizedBox(height: 20.h,),
+              SizedBox(
+                height: 20.h,
+              ),
               Container(
                 width: double.infinity,
                 height: 150.h,
                 alignment: Alignment.centerRight,
-                child: Text('زمر الدم المطلوبة',style: GoogleFonts.tajawal(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 50.sp,
-                  color: Color(0xff384e7b),
-                ),),
+                child: Text(
+                  'زمر الدم المطلوبة',
+                  style: GoogleFonts.tajawal(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 50.sp,
+                    color: Color(0xff384e7b),
+                  ),
+                ),
               ),
-              SizedBox(height: 20.h,),
+              SizedBox(
+                height: 20.h,
+              ),
               Container(
                   height: 200.h,
                   child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
                       itemCount: 8,
-                      itemBuilder:(context, index) {
-                        return   Container(
-                          alignment: Alignment.center,
+                      itemBuilder: (context, index) {
+                        return Container(
+                            alignment: Alignment.center,
                             width: 160.w,
-
                             margin: EdgeInsets.symmetric(horizontal: 15.w),
                             decoration: BoxDecoration(
                                 color: Colors.white,
-
-                                borderRadius: BorderRadius.circular(60),
+                                shape: BoxShape.circle,
+                                // borderRadius: BorderRadius.circular(60),
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 12
-                                  ),
-                                ]
-                            ),
-                            child:Text('AB+',style: TextStyle(
-                              fontSize: 60.sp,
-                              color: Colors.redAccent
-                            ),)
-                        );
+                                      color: Colors.black26, blurRadius: 8,offset: Offset(0,2)),
+                                ]),
+                            child: Text(
+                              'AB+',
+                              style: TextStyle(
+                                  fontSize: 60.sp, color: Colors.redAccent),
+                            ));
                       })),
-              SizedBox(height: 250.h,),
+              SizedBox(
+                height: 250.h,
+              ),
             ],
           ),
         ),
       ),
-      floatingActionButtonLocation:  FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor:Color(0xFF192747),
-        onPressed: (){
-
-        },
-        label: Text('    تبرع الان    ',style: GoogleFonts.tajawal(
-            fontSize: 60.sp,
-          fontWeight: FontWeight.bold,
-          color: Colors.white
-        ),),
+        backgroundColor: Color(0xFF192747),
+        onPressed: () {},
+        label: Text(
+          '    تبرع الان    ',
+          style: GoogleFonts.tajawal(
+              fontSize: 60.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
       ),
     );
   }
