@@ -393,9 +393,9 @@ class RegisterScreen extends StatelessWidget {
                                 ),
                                 child: TextButton(
                                     onPressed: () async {
-                                       cubit
+                                      cubit
                                           .determinePosition(context);
-                                       cubit.convertPosToReality();
+                                       // cubit.convertPosToReality();
                                       navigatorTo(context, PinEntry());
                                    //   if (formKey.currentState!.validate()) {}
                                     },
