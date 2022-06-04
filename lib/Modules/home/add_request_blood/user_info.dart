@@ -89,7 +89,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
 
                         controller: F_name,
                         validator: (String  ?value){
-                          UserInputValidation.ValidateName(value: value??'');
+                        return  UserInputValidation.ValidateName(value: value);
                           return null;
                         },
                         textDirection: TextDirection.rtl,
@@ -123,6 +123,10 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                       ),
                       child: TextFormField(
                         controller: L_name,
+                        validator: (String  ?value){
+                          return  UserInputValidation.ValidateName(value: value);
+                          return null;
+                        },
                         textDirection: TextDirection.rtl,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
@@ -156,6 +160,10 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                       ),
                       child: TextFormField(
                         controller: phone,
+                        validator: (String  ?value){
+                          return  UserInputValidation.ValidatePhone(value: value);
+                          return null;
+                        },
                         textDirection: TextDirection.rtl,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
@@ -229,6 +237,10 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                       ),
                       child: TextFormField(
                         controller: city,
+                        validator: (String  ?value){
+                          return  UserInputValidation.ValidateName(value: value);
+
+                        },
                         textDirection: TextDirection.rtl,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
@@ -262,6 +274,10 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                       ),
                       child: TextFormField(
                         controller: date,
+                        validator: (String  ?value){
+                          return  UserInputValidation.ValidateDate(value: value);
+
+                        },
                         onTap: () {
                           showDatePicker(
                                   context: context,
@@ -364,7 +380,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
       floatingActionButton: FloatingActionButton(
         heroTag: "key",
         onPressed: () {
-          print(formKey.currentState!.validate());
+
           if(formKey.currentState!.validate())
           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BloodType()));
         },
