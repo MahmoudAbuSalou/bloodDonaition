@@ -862,10 +862,5 @@ packages:
     source: hosted
     version: "5.4.1"
 sdks:
-<<<<<<< HEAD
-  dart: ">=2.17.0-0 <3.0.0"
-  flutter: ">=2.10.0"
-=======
   dart: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
->>>>>>> master
