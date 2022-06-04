@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
               textTheme: TextTheme(bodyText2: TextStyle(fontSize: 30.sp)),
             ),
-            home: AddRequestBlood(),
+            home: OnBoardingScreen(),
           ),
         );
       },
