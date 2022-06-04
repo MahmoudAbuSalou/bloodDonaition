@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:blood_donation_project/cubit/register_cubit/register_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 import 'package:geolocator/geolocator.dart';
 
 import '../../shared/components/components.dart';
@@ -15,8 +19,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   int grpValueGen=0;
   int grpValueWeight=0;
   List <GroupBlood> list=[];
-  late Position  myLocation;
+  //////////////////////////
+
   List<Placemark> ?placemarks;
+  late var myLocation;
+/////////////////////////////
 
  // LoginModel loginModel;
 
@@ -79,7 +86,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   ///
   /// When the location services are not enabled or permissions
   /// are denied the `Future` will return an error.
-  Future<Position> determinePosition(context) async {
+ void determinePosition(context) async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -109,15 +116,22 @@ class RegisterCubit extends Cubit<RegisterState> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
 
-    return await   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+     myLocation=    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(myLocation.latitude);
+    print(myLocation.longitude);
+    convertPosToReality(this.myLocation);
+
   }
 
 
   //Convert Lat And Lang To Real Location
-  convertPosToReality()async{
+  convertPosToReality(myLocation)async{
 
-     placemarks=  await  placemarkFromCoordinates(myLocation.latitude, myLocation.longitude,localeIdentifier: 'en');
-     print(placemarks![0].country);
+    placemarks=  await  placemarkFromCoordinates(myLocation.latitude, myLocation.longitude,localeIdentifier: 'en');
+
+    print(placemarks![0].locality);
+
 
 
   }
