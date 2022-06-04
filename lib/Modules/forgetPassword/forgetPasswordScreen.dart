@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../shared/components/components.dart';
+import '../../shared/validation/userValidation.dart';
 import '../register/register_screen.dart';
 import 'PinEntry.dart';
 
@@ -87,10 +88,7 @@ class ForgetPassword extends StatelessWidget {
                         controller: email,
 
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'يرجى إدخال بريد إلكتروني بشكل صحيح';
-                          }
-                          return null;
+                          return UserInputValidation.ValidateEmail(value: value.toString());
                         },
 
                         enableSuggestions: true,

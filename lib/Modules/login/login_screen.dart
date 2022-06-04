@@ -11,6 +11,7 @@ import '../../cubit/login_cubit/login_cubit.dart';
 import '../../cubit/login_cubit/login_states.dart';
 import '../../shared/components/components.dart';
 
+import '../../shared/validation/userValidation.dart';
 import '../register/register_screen.dart';
 
 
@@ -128,10 +129,7 @@ class LogInScreen extends StatelessWidget {
                             controller: email,
 
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال بريد إلكتروني بشكل صحيح';
-                              }
-                              return null;
+                              return UserInputValidation.ValidateEmail(value: value.toString());
                             },
                             decoration: InputDecoration(
                               label: Text('البريد الإلكتروني',style:GoogleFonts.tajawal(
@@ -155,10 +153,7 @@ class LogInScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: password,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال كلمة المرور بشكل صحيح ';
-                              }
-                              return null;
+                              return UserInputValidation.ValidatePassword(value: value.toString());
                             },
                             obscureText: cubit.isPassword,
                             decoration: InputDecoration(

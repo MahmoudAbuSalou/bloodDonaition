@@ -5,89 +5,89 @@ class UserInputValidation{
 
   static String ValidateName ({required String value}) {
     if (value==null || value.isEmpty) {
-      return " user name can't empty";
+      return " هذا الحقل لا يمكن أن يكون فارغاً";
     }
     if (value.contains(" ")) {
-      return "user name can't contain space";
+      return "هذا الحقل لا يمكن أن يحتوي فراغات";
     }
     if (value.length < 2) {
-      return "user name can't be\nless than two characters ";
+      return "هذا الحقل لا يمكن أن يكون أقل من محرفين";
     }
     if (value.length > 15) {
-      return "user name can't be\nmore than 15 characters ";
+      return "هذا الحقل لا يمكن أن يكون أكثر من 15 محرف";
     }
     return "";
   }
 
 
   static String ValidatePassword({required String value}) {
-    if (value.isEmpty) {
-      return " password can't empty";
+    if (value.isEmpty|| value == null) {
+      return "هذا الحقل لا يمكن أن يكون فارغا";
     }
     if (value.contains(" ")) {
-      return "password can't contain space";
+      return "هذا الحقل لا يمكن أن يحتوي فراغات";
     }
     if (value.length < 6) {
-      return "password can't be\nless than 5 characters ";
+      return "هذا الحقل لا يمكن أن يكون أقل من 6 محارف";
     }
     if (value.length > 20) {
-      return "password can't be\nmore than 20 characters ";
+      return "هذا الحقل لا يمكن أن يكون أكثر من 20 محرف";
     }
     return "";
   }
 
   // ignore: missing_return
   static String ValidateEmail({required String value}) {
-    if (value.isEmpty) {
-      return " Email can't empty";
+    if (value.isEmpty || value == null) {
+      return "هذا الحقل لا يمكن أن يكون فارغا";
     }
     if (value.contains(" ")) {
-      return "Email can't contain space";
+      return "هذا الحقل لا يمكن أن يحتوي فراغات";
     }
     if (value.length < 10) {
-      return "Email can't be\nless than 10 characters ";
+      return "هذا الحقل لا يمكن أن يكون أقل من 10 محارف";
     }
     if (value.length > 30) {
-      return "Email can't be\nmore than 30 characters ";
+      return "هذا الحقل لا يمكن أن يكون أكثر من 30 محرف";
     }
     RegExp regex = RegExp(pattern.toString());
     if (!regex.hasMatch(value)) {
-      return "Email address is invalid ";
+      return "المدخلات لا تطابق بريد إلكتروني";
     }
     return "";
   }
 
   // ignore: missing_return
   static String ValidatePhone({required String value}) {
-    if (value.isEmpty) {
-      return " Phone can't empty";
+    if (value.isEmpty || value == null) {
+      return "هذا الحقل لا يمكن أن يكون فارغا";
     }
     if (value.contains(" ")) {
-      return "Phone can't contain space";
+      return "هذا الحقل لا يمكن أن يحتوي فراغات";
     }
     if (value.length < 10) {
-      return "Phone can't be\nless than 10 characters ";
+      return "هذا الحقل لا يمكن أن يكون أقل من 10 محارف";
     }
     if (value.length > 20) {
-      return "Phone can't be\nmore than 30 characters ";
+      return "هذا الحقل لا يمكن أن يكون أكثر من 20 محرف";
     }
     RegExp regex = RegExp(phonePattern.toString());
     if (!regex.hasMatch(value)) {
-      return "Phone Number is invalid ";
+      return "المدخلات لا تطابق رقم هاتف";;
     }
     return "";
   }
   static String ValidateDate({required String value}) {
-    if (value.isEmpty) {
-      return " Date can't empty";
+    if (value.isEmpty || value == null) {
+      return "هذا الحقل لا يمكن أن يكون فارغا";
     }
     if (value.contains(" ")) {
-      return "Date can't contain space";
+      return "هذا الحقل لا يمكن أن يحتوي فراغات";
     }
 
     RegExp regex = RegExp(date.toString());
     if (!regex.hasMatch(value)) {
-      return "Date is invalid ";
+      return "المدخلات لا تطابق تاريخ";;
     }
     return "";
   }
