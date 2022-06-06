@@ -41,6 +41,9 @@ class UserInputValidation{
     if (value!.isEmpty) {
       return "هذا الحقل لا يمكن أن يكون فارغا";
     }
+    if (!value.endsWith('gmail.com')) {
+      return "هذا الحقل يجب ان ينتهي ب gmail.com";
+    }
     if (value.contains(" ")) {
       return "هذا الحقل لا يمكن أن يحتوي فراغات";
     }
@@ -62,14 +65,17 @@ class UserInputValidation{
     if (value!.isEmpty) {
       return "هذا الحقل لا يمكن أن يكون فارغا";
     }
+    if (!value.startsWith('09')) {
+      return "هذا الحقل يجب ان يبدا ب 09";
+    }
     if (value.contains(" ")) {
       return "هذا الحقل لا يمكن أن يحتوي فراغات";
     }
     if (value.length < 10) {
       return "هذا الحقل لا يمكن أن يكون أقل من 10 محارف";
     }
-    if (value.length > 20) {
-      return "هذا الحقل لا يمكن أن يكون أكثر من 20 محرف";
+    if (value.length > 10) {
+      return "هذا الحقل لا يمكن أن يكون أكثر من 10 محرف";
     }
     RegExp regex = RegExp(phonePattern.toString());
     if (!regex.hasMatch(value)) {
