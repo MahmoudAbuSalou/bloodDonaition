@@ -66,7 +66,8 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
     return Column(
       children: [
         SvgPicture.asset(image,width: 30,height: 30,),
-        Text(name,
+        Text(
+          name,
           style: GoogleFonts.tajawal(
             fontWeight: FontWeight.bold,
               fontSize: 35.sp,

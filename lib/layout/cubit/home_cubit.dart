@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 import '../../Modules/home/homePage/homePage.dart';
+import '../../Modules/profile/profile.dart';
 
 
 part 'home_state.dart';
@@ -17,7 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<Widget>screen=[
     HomePage(),
     HomePage(),
-    HomePage(),
+    Profile(),
   ];
 
 
