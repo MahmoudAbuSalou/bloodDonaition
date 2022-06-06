@@ -129,7 +129,9 @@ class LogInScreen extends StatelessWidget {
                             controller: email,
 
                             validator: (value) {
+
                               return UserInputValidation.ValidateEmail(value: value.toString());
+
                             },
                             decoration: InputDecoration(
                               label: Text('البريد الإلكتروني',style:GoogleFonts.tajawal(
@@ -153,7 +155,7 @@ class LogInScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: password,
                             validator: (value) {
-                              return UserInputValidation.ValidatePassword(value: value.toString());
+                          return UserInputValidation.ValidatePassword(value: value.toString());
                             },
                             obscureText: cubit.isPassword,
                             decoration: InputDecoration(
@@ -184,12 +186,13 @@ class LogInScreen extends StatelessWidget {
                                     ),
                                     child: TextButton(
                                         onPressed: () {
-                                          navigatorToNew(context, HomeLayout());
+
+                                          print(_formKey.currentState!
+                                              .validate());
                                           if (_formKey.currentState!
                                               .validate()) {
-                                            // cubit.userLogin(
-                                            //     email: email.text,
-                                            //     password: password.text);
+
+                                            navigatorToNew(context, HomeLayout());//    password: password.text);
                                           }
                                         },
                                         child: Text(

@@ -1,4 +1,5 @@
 
+import 'package:blood_donation_project/Modules/home/add_request_blood/user_info.dart';
 import 'package:blood_donation_project/layout/cubit/home_cubit.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,86 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
           HomeCubit  cubit = HomeCubit().get(context);
           return  Scaffold(
               backgroundColor: Colors.white,
+              drawer: Drawer(
 
+                child: ListView(
+
+                  padding: EdgeInsets.zero,
+                  children: [
+                     DrawerHeader(
+
+                      decoration: BoxDecoration(
+
+                        color: Colors.red,
+                      ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text('Blood Donation App',style: GoogleFonts.tajawal(
+                          fontSize: 22,
+                          color: Colors.white
+                        ),),
+                      ),
+                    ),
+                    SizedBox(height: 40,),
+                    Container(
+                      width:double.infinity,
+                      height: 500,
+
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Column(
+
+                          children: [
+                            ListTile(
+                              title:  Text('الملف الشخصي',style: GoogleFonts.tajawal(
+                                fontSize: 22,
+
+                              )),
+                              onTap: () {
+                                // Update the state of the app.
+                                // ...
+                              },
+                            ),
+                            ListTile(
+                              title:  Text('بحاجة للدم ',style: GoogleFonts.tajawal(
+                                fontSize: 22,
+
+                              )),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                                  return   AddRequestBlood();
+                                },));
+                              },
+                            ),
+                            ListTile(
+                              title:  Text('الاعدادات',style: GoogleFonts.tajawal(
+                                fontSize: 22,
+
+                              )),
+                              onTap: () {
+                                // Update the state of the app.
+                                // ...
+                              },
+                            ),
+                            ListTile(
+                              title:  Text('من نحن ',style: GoogleFonts.tajawal(
+                                fontSize: 22,
+
+                              )),
+                              onTap: () {
+                                // Update the state of the app.
+                                // ...
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+
+                  ],
+                ),
+              ),
               body: cubit.screen[cubit.indexScreen],
             bottomNavigationBar: CurvedNavigationBar(
               key: _bottomNavigationKey,
