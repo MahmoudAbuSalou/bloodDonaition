@@ -3,7 +3,7 @@ class UserInputValidation{
   static Pattern phonePattern = r'^[0-9]+$';
   static Pattern date = r'^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$';
 
-  static String ValidateName ({ String ?value}) {
+  static  ValidateName ({ String ?value}) {
     if (value!.isEmpty) {
       return "هذا الحقل لا يمكن أن يكون فارغا";
     }
@@ -16,11 +16,11 @@ class UserInputValidation{
     if (value.length > 15) {
       return "هذا الحقل لا يمكن أن يكون أكثر من 15 محرف";
     }
-    return "";
+
   }
 
 
-  static String ValidatePassword({ String ?value}) {
+  static ValidatePassword({ String ?value}) {
     if (value!.isEmpty) {
       return "هذا الحقل لا يمكن أن يكون فارغا";
     }
@@ -33,13 +33,16 @@ class UserInputValidation{
     if (value.length > 20) {
       return "هذا الحقل لا يمكن أن يكون أكثر من 20 محرف";
     }
-    return "";
+
   }
 
   // ignore: missing_return
-  static String ValidateEmail({ String ?value}) {
+  static  ValidateEmail({ String ?value}) {
     if (value!.isEmpty) {
       return "هذا الحقل لا يمكن أن يكون فارغا";
+    }
+    if (!value.endsWith('gmail.com')) {
+      return "هذا الحقل يجب ان ينتهي ب gmail.com";
     }
     if (value.contains(" ")) {
       return "هذا الحقل لا يمكن أن يحتوي فراغات";
@@ -54,13 +57,16 @@ class UserInputValidation{
     if (!regex.hasMatch(value)) {
       return "المدخلات لا تطابق بريد إلكتروني";
     }
-    return "";
+
   }
 
   // ignore: missing_return
-  static String ValidatePhone({ String ?value}) {
+  static  ValidatePhone({ String ?value}) {
     if (value!.isEmpty) {
       return "هذا الحقل لا يمكن أن يكون فارغا";
+    }
+    if (!value.startsWith('09')) {
+      return "هذا الحقل يجب ان يبدا ب 09";
     }
     if (value.contains(" ")) {
       return "هذا الحقل لا يمكن أن يحتوي فراغات";
@@ -68,16 +74,16 @@ class UserInputValidation{
     if (value.length < 10) {
       return "هذا الحقل لا يمكن أن يكون أقل من 10 محارف";
     }
-    if (value.length > 20) {
-      return "هذا الحقل لا يمكن أن يكون أكثر من 20 محرف";
+    if (value.length > 10) {
+      return "هذا الحقل لا يمكن أن يكون أكثر من 10 محرف";
     }
     RegExp regex = RegExp(phonePattern.toString());
     if (!regex.hasMatch(value)) {
       return "المدخلات لا تطابق رقم هاتف";;
     }
-    return "";
+
   }
-  static String ValidateDate({ String ?value}) {
+  static  ValidateDate({ String ?value}) {
     if (value!.isEmpty) {
       return "هذا الحقل لا يمكن أن يكون فارغا";
     }
@@ -89,7 +95,7 @@ class UserInputValidation{
     if (!regex.hasMatch(value)) {
       return "المدخلات لا تطابق تاريخ";;
     }
-    return "";
+
   }
 
 

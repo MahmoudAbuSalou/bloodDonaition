@@ -48,7 +48,8 @@ class MyApp extends StatelessWidget {
               create: (context) => RegisterCubit(RegisterInitialState()),
             ),
             BlocProvider(
-              create: (context) => AppCubit()..CheckNet(),
+             create: (context) => AppCubit()..CheckNet(),
+
             ),
           ],
           child: MaterialApp(

@@ -22,6 +22,7 @@ Widget buildItem(business, context) {
               image: DecorationImage(
                 image: NetworkImage('${business['urlToImage']}'),
                 fit: BoxFit.cover,
+
               )),
         ),
         const SizedBox(

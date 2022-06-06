@@ -14,7 +14,6 @@ import '../../shared/components/components.dart';
 import '../../shared/validation/userValidation.dart';
 import '../register/register_screen.dart';
 
-
 // ignore: must_be_immutable
 class LogInScreen extends StatelessWidget {
   LogInScreen() : super();
@@ -52,16 +51,9 @@ class LogInScreen extends StatelessWidget {
           return Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
-
               body: Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
                 color: Colors.white,
                 child: SingleChildScrollView(
                   child: Padding(
@@ -80,70 +72,71 @@ class LogInScreen extends StatelessWidget {
                               height: 600.h,
                               child: FittedBox(
                                 fit: BoxFit.fill,
-                                child: Image.asset('assets/images/logo.jpg',),
+                                child: Image.asset(
+                                  'assets/images/logo.jpg',
+                                ),
                               ),
                             ),
                           ),
                           SizedBox(
                             height: 50.h,
                           ),
-
                           Text(
                             'تسجيل الدخول',
-                            style:
-                            GoogleFonts.tajawal(
-                              textStyle: Theme.of(context).textTheme.headline4?.copyWith(
-                                color: Colors.black,
-                              fontSize: 100.sp,
-                             // fontWeight: FontWeight.w700,
-                            //  fontStyle: FontStyle.italic,
-                            ),
+                            style: GoogleFonts.tajawal(
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  ?.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 100.sp,
+                                    // fontWeight: FontWeight.w700,
+                                    //  fontStyle: FontStyle.italic,
+                                  ),
 
-                            // Theme
-                            //     .of(context)
-                            //     .textTheme
-                            //     .headline4
-                            //     ?.copyWith(
-                            //   color: Colors.black,
-                            //
+                              // Theme
+                              //     .of(context)
+                              //     .textTheme
+                              //     .headline4
+                              //     ?.copyWith(
+                              //   color: Colors.black,
+                              //
                             ),
                           ),
                           SizedBox(
                             height: 20.h,
                           ),
-                          Text(
-                            'تبرعك بالدم إنقاذ لحياة إنسان بحاجته ',
-                            style: GoogleFonts.tajawal(
-                              textStyle: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(color: Colors.grey),
-                            )
-                          ),
+                          Text('تبرعك بالدم إنقاذ لحياة إنسان بحاجته ',
+                              style: GoogleFonts.tajawal(
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(color: Colors.grey),
+                              )),
                           SizedBox(
                             height: 50.h,
                           ),
                           TextFormField(
                             textDirection: TextDirection.ltr,
                             controller: email,
-
                             validator: (value) {
+
                               return UserInputValidation.ValidateEmail(value: value.toString());
+
                             },
                             decoration: InputDecoration(
-                              label: Text('البريد الإلكتروني',style:GoogleFonts.tajawal(
-                                textStyle:  TextStyle(color: Colors.red)
-                              ),),
-
+                              label: Text(
+                                'البريد الإلكتروني',
+                                style: GoogleFonts.tajawal(
+                                    textStyle: TextStyle(color: Colors.red)),
+                              ),
                               border: OutlineInputBorder(
-
                                 borderRadius: BorderRadius.circular(30.r),
                               ),
                               prefixIcon: Icon(
-                                Icons.email_outlined, color: Colors.red,),
-
-
+                                Icons.email_outlined,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -153,27 +146,35 @@ class LogInScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: password,
                             validator: (value) {
-                              return UserInputValidation.ValidatePassword(value: value.toString());
+                          return UserInputValidation.ValidatePassword(value: value.toString());
                             },
                             obscureText: cubit.isPassword,
                             decoration: InputDecoration(
-                              label: Text('كلمة المرور',style: GoogleFonts.tajawal(
-                                textStyle: TextStyle(color: Colors.red)
-                              ),),
+                              label: Text(
+                                'كلمة المرور',
+                                style: GoogleFonts.tajawal(
+                                    textStyle: TextStyle(color: Colors.red)),
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.r),
                               ),
-                              prefixIcon: IconButton(icon:Icon((cubit.isPassword)?Icons.visibility_off:Icons.visibility,color: Colors.red,),
-                                onPressed: ()=>cubit.changePasswordIcon(),
+                              prefixIcon: IconButton(
+                                icon: Icon(
+                                  (cubit.isPassword)
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () => cubit.changePasswordIcon(),
                               ),
                             ),
                           ),
-
                           SizedBox(
                             height: 30,
                           ),
                           ConditionalBuilder(
                             condition: state is! LoadingState,
+
                             builder: (context) =>
                                 Container(
                                     width: double.infinity,
@@ -184,12 +185,13 @@ class LogInScreen extends StatelessWidget {
                                     ),
                                     child: TextButton(
                                         onPressed: () {
-                                          navigatorToNew(context, HomeLayout());
+
+                                          print(_formKey.currentState!
+                                              .validate());
                                           if (_formKey.currentState!
                                               .validate()) {
-                                            // cubit.userLogin(
-                                            //     email: email.text,
-                                            //     password: password.text);
+
+                                            navigatorToNew(context, HomeLayout());//    password: password.text);
                                           }
                                         },
                                         child: Text(
@@ -206,17 +208,17 @@ class LogInScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('لا تمتلك حساب',style: GoogleFonts.tajawal(
-                                textStyle: TextStyle(
-                                  fontSize: 50.sp,
-                                ),
-                              )),
+                              Text('لا تمتلك حساب',
+                                  style: GoogleFonts.tajawal(
+                                    textStyle: TextStyle(
+                                      fontSize: 50.sp,
+                                    ),
+                                  )),
                               defaultTextButton(
                                   color: Colors.red,
                                   text: 'إنشاء حساب ',
-
                                   function: () {
-                                      navigatorTo(context, RegisterScreen());
+                                    navigatorTo(context, RegisterScreen());
                                   }),
                             ],
                           ),
@@ -227,7 +229,6 @@ class LogInScreen extends StatelessWidget {
                             child: defaultTextButton(
                                 color: Colors.red,
                                 text: 'نسيت كلمة المرور ',
-
                                 function: () {
                                   navigatorTo(context, ForgetPassword());
                                 }),
