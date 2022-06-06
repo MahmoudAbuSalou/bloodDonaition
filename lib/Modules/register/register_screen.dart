@@ -324,6 +324,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Container(
                               child: InputDecorator(
                                 decoration: InputDecoration(
+                                decoration: InputDecoration(
                                   labelText: 'تاريخ الميلاد',
 
 
