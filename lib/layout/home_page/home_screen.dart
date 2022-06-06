@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../Modules/profile/profile.dart';
+
 class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
   final double barHeight = 50.0;
 
@@ -63,8 +65,9 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
 
                               )),
                               onTap: () {
-                                // Update the state of the app.
-                                // ...
+                                Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                                  return   Profile();
+                                },));
                               },
                             ),
                             ListTile(
