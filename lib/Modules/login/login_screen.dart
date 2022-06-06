@@ -11,6 +11,7 @@ import '../../cubit/login_cubit/login_cubit.dart';
 import '../../cubit/login_cubit/login_states.dart';
 import '../../shared/components/components.dart';
 
+import '../../shared/validation/userValidation.dart';
 import '../register/register_screen.dart';
 
 // ignore: must_be_immutable
@@ -119,10 +120,9 @@ class LogInScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: email,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال بريد إلكتروني بشكل صحيح';
-                              }
-                              return null;
+
+                              return UserInputValidation.ValidateEmail(value: value.toString());
+
                             },
                             decoration: InputDecoration(
                               label: Text(
@@ -146,10 +146,7 @@ class LogInScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: password,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال كلمة المرور بشكل صحيح ';
-                              }
-                              return null;
+                          return UserInputValidation.ValidatePassword(value: value.toString());
                             },
                             obscureText: cubit.isPassword,
                             decoration: InputDecoration(
@@ -177,28 +174,34 @@ class LogInScreen extends StatelessWidget {
                           ),
                           ConditionalBuilder(
                             condition: state is! LoadingState,
-                            builder: (context) => Container(
-                                width: double.infinity,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: TextButton(
-                                    onPressed: () {
-                                      navigatorToNew(context, HomeLayout());
-                                      if (_formKey.currentState!.validate()) {
-                                        // cubit.userLogin(
-                                        //     email: email.text,
-                                        //     password: password.text);
-                                      }
-                                    },
-                                    child: Text('تسجيل دخول'.toUpperCase(),
-                                        style: GoogleFonts.tajawal(
-                                          textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 17),
-                                        )))),
+
+                            builder: (context) =>
+                                Container(
+                                    width: double.infinity,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: TextButton(
+                                        onPressed: () {
+
+                                          print(_formKey.currentState!
+                                              .validate());
+                                          if (_formKey.currentState!
+                                              .validate()) {
+
+                                            navigatorToNew(context, HomeLayout());//    password: password.text);
+                                          }
+                                        },
+                                        child: Text(
+                                          'تسجيل دخول'.toUpperCase(),
+                                          style: GoogleFonts.tajawal(
+                                            textStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17),
+                                          )
+                                        ))),
                             fallback: (context) =>
                                 Center(child: CircularProgressIndicator()),
                           ),

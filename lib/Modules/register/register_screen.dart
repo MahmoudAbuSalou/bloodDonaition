@@ -1,5 +1,6 @@
 import 'package:blood_donation_project/Modules/forgetPassword/PinEntry.dart';
 import 'package:blood_donation_project/Modules/login/login_screen.dart';
+import 'package:blood_donation_project/shared/validation/userValidation.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,12 +12,24 @@ import '../../cubit/register_cubit/register_states.dart';
 import '../../shared/components/components.dart';
 
 // ignore: must_be_immutable
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen() : super();
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController name = TextEditingController();
+
   TextEditingController email = TextEditingController();
+
   TextEditingController password = TextEditingController();
+
   TextEditingController phone = TextEditingController();
+
+  TextEditingController date = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -87,10 +100,7 @@ class RegisterScreen extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                             controller: name,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال الاسم كاملاً بشكل صحيح';
-                              }
-                              return null;
+                          return UserInputValidation.ValidateName(value: value.toString());
                             },
                             decoration: InputDecoration(
                               label: Text(
@@ -121,10 +131,7 @@ class RegisterScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: phone,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال رقم الهاتف  بشكل صحيح (9XXXXXXXX)';
-                              }
-                              return null;
+                             return UserInputValidation.ValidatePhone(value: value.toString());
                             },
                             decoration: InputDecoration(
                               label: Text(
@@ -150,10 +157,7 @@ class RegisterScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: email,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال بريد إلكتروني بشكل صحيح';
-                              }
-                              return null;
+                              return UserInputValidation.ValidateEmail(value: value.toString());
                             },
                             decoration: InputDecoration(
                               label: Text(
@@ -181,10 +185,7 @@ class RegisterScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: password,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال كلمة المرور بشكل صحيح ';
-                              }
-                              return null;
+                              return UserInputValidation.ValidatePassword(value: value.toString());
                             },
                             obscureText: cubit.isPassword,
                             decoration: InputDecoration(
@@ -324,21 +325,33 @@ class RegisterScreen extends StatelessWidget {
                               child: InputDecorator(
                                 decoration: InputDecoration(
                                   labelText: 'تاريخ الميلاد',
+
+
                                   labelStyle: GoogleFonts.tajawal(
                                       textStyle: TextStyle(
                                           color: Colors.red, fontSize: 55.sp)),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(40.r),
                                   ),
+
                                 ),
+                                child: Text(date.text,style: TextStyle(color: Colors.black,fontSize: 40.sp),),
                               ),
                             ),
                             onTap: () => showDatePicker(
+
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(1960),
                               lastDate: DateTime.now(),
-                            ),
+
+                            ).then((value) {
+                              date.text=value.toString().substring(0,10);
+
+                              print(date.text);
+                              setState(() {});
+
+                            }),
                           ),
 
                           SizedBox(
@@ -393,10 +406,11 @@ class RegisterScreen extends StatelessWidget {
                                 ),
                                 child: TextButton(
                                     onPressed: () async {
-                                      cubit.myLocation = await cubit
+                                      if (formKey.currentState!.validate()) {
+                                      cubit
                                           .determinePosition(context);
-                                      await cubit.convertPosToReality();
-                                      navigatorTo(context, PinEntry());
+                                       // cubit.convertPosToReality();
+                                      navigatorTo(context, PinEntry());}
                                    //   if (formKey.currentState!.validate()) {}
                                     },
                                     child: Text(

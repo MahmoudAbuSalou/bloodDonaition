@@ -96,7 +96,8 @@ class OnBoardingScreen extends StatelessWidget {
                   ],
                 )
               ],
-            ):Column(
+            ):
+            Column(
               children: [
                 Image.asset('assets/images/noConnection.jpg'),
                 Text('يرجى التحقق من الاتصال بالإنترنت',style: GoogleFonts.tajawal(

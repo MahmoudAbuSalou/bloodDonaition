@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../shared/components/components.dart';
+import '../../shared/validation/userValidation.dart';
 import '../register/register_screen.dart';
 import 'PinEntry.dart';
 
@@ -95,10 +96,7 @@ class ResetPassword extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: password,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'يرجى إدخال كلمة المرور بشكل صحيح ';
-                              }
-                              return null;
+                              return UserInputValidation.ValidatePassword(value: value.toString());
                             },
                             obscureText: cubit.isPassword,
                             decoration: InputDecoration(
