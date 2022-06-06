@@ -16,7 +16,7 @@ class UserInputValidation{
     if (value.length > 15) {
       return "هذا الحقل لا يمكن أن يكون أكثر من 15 محرف";
     }
-    return "";
+
   }
 
 
@@ -41,9 +41,9 @@ class UserInputValidation{
     if (value!.isEmpty) {
       return "هذا الحقل لا يمكن أن يكون فارغا";
     }
-    // if (!value.endsWith('gmail.com')) {
-    //   return "هذا الحقل يجب ان ينتهي ب gmail.com";
-    // }
+    if (!value.endsWith('gmail.com')) {
+      return "هذا الحقل يجب ان ينتهي ب gmail.com";
+    }
     if (value.contains(" ")) {
       return "هذا الحقل لا يمكن أن يحتوي فراغات";
     }
@@ -81,7 +81,7 @@ class UserInputValidation{
     if (!regex.hasMatch(value)) {
       return "المدخلات لا تطابق رقم هاتف";;
     }
-    return "";
+
   }
   static  ValidateDate({ String ?value}) {
     if (value!.isEmpty) {
@@ -95,7 +95,7 @@ class UserInputValidation{
     if (!regex.hasMatch(value)) {
       return "المدخلات لا تطابق تاريخ";;
     }
-    return "";
+
   }
 
 
