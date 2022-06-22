@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../cubit/register_cubit/register_states.dart';
+
 import '../../shared/components/components.dart';
 import '../login/login_screen.dart';
 
