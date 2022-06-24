@@ -1,6 +1,6 @@
 
 import 'package:blood_donation_project/Modules/home/add_request_blood/user_info.dart';
-import 'package:blood_donation_project/layout/cubit/home_cubit.dart';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +9,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../Modules/profile/profile.dart';
+import '../../cubit/layoutCubit/home_cubit.dart';
+
 
 class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
   final double barHeight = 50.0;
@@ -133,7 +135,7 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
               ],
               onTap: (index) {
 
-                // cubit.getHomeData();
+                // layoutCubit.getHomeData();
                 cubit.changeScreen(index);
 
               },
