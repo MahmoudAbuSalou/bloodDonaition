@@ -77,8 +77,8 @@ class GoogleMapsScreen extends StatelessWidget {
                     initialCameraPosition: CameraPosition(
                         target: initialCameraPosition, zoom: 15.0),
                     onMapCreated: cubit.onMapCreated,
-                    myLocationEnabled: true,
                     markers: cubit.myMarker,
+                    myLocationButtonEnabled: true,
                     // polylines: {
                     //   cubit.myPolyLine,
                     // },
