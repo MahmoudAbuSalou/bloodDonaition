@@ -1,3 +1,5 @@
+import 'package:blood_donation_project/cubit/Register/register_cubit/register_cubit.dart';
+import 'package:blood_donation_project/cubit/Register/register_cubit/register_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,8 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../Models/onBoarding/onBoardingModel.dart';
-import '../../cubit/register_cubit/register_cubit.dart';
-import '../../cubit/register_cubit/register_states.dart';
+
+import '../../cubit/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
 import 'constants.dart';
 
 Widget buildItem(business, context) {
@@ -169,13 +171,13 @@ class GroupBlood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocConsumer<GlobalSettingRegisterCubit, GlobalSettingRegisterState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = RegisterCubit.get(context);
-        RegisterCubit.get(context).list.add(GroupBlood(
+        var cubit = GlobalSettingRegisterCubit.get(context);
+      cubit.list.add(GroupBlood(
               id: this.id,
               Content: this.Content,
               isSelected: this.isSelected,
@@ -224,7 +226,7 @@ class GroupBlood extends StatelessWidget {
           onTap: () {
             print(id);
             // isSelected=!isSelected;
-            RegisterCubit.get(context).changeelectedGroupBlood(id);
+           GlobalSettingRegisterCubit.get(context).changeelectedGroupBlood(id);
           },
         );
       },
@@ -245,8 +247,8 @@ Widget Choice(
             onChanged: (val) {
               int temp = int.parse(val.toString());
               (TypeQues == 'Gen')
-                  ? RegisterCubit.get(context).changeSelectGen(temp)
-                  : RegisterCubit.get(context).changeSelectWeight(temp);
+                  ? GlobalSettingRegisterCubit.get(context).changeSelectGen(temp)
+                  : GlobalSettingRegisterCubit.get(context).changeSelectWeight(temp);
             }),
         //  SizedBox(width: 20.w,),
         Text(

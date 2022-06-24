@@ -1,9 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../cubit/register_cubit/register_states.dart';
+
 import '../../shared/components/components.dart';
 import '../login/login_screen.dart';
 
@@ -204,6 +205,13 @@ class EditPorfile extends StatelessWidget {
                       SizedBox(
                         height: 50.h,
                       ),
+
+                      MaterialButton(onPressed: (){
+                        if(formKey.currentState!.validate()){
+                          Fluttertoast.showToast(msg: 'تم تعديل الملف الشخصي',textColor: Colors.white,backgroundColor: Colors.green,gravity: ToastGravity.BOTTOM,toastLength: Toast.LENGTH_LONG);
+                        }
+                        else Fluttertoast.showToast(msg: 'فشل تعديل الملف الشخصي',textColor: Colors.white,backgroundColor: Colors.red,gravity: ToastGravity.BOTTOM,toastLength: Toast.LENGTH_LONG);
+                      },child: Text('تعديل الملف الشخصي'),color: Colors.red,minWidth: double.infinity,)
 
 
                     ],

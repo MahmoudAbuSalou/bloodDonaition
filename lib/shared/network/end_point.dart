@@ -1,8 +1,6 @@
+class Urls {
+  static const String baseUrl = "http://10.0.2.2:3000/api/";
 
-const categoriesAcademyProgrammes = 'wp/v2/course_category/';
+  static const String singupUrl =  baseUrl+"users/signUp";
 
-const coursesById='learnpress/v1/courses?category=';
-const Search='learnpress/v1/courses?search=';
-const LOGIN = 'learnpress/v1/token';
-const PROFILE = 'learnpress/v1/users/';
-const Review = 'learnpress/v1/courses/';
+}

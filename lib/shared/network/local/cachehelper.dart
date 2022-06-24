@@ -23,7 +23,9 @@ class CacheHelper {
   static dynamic getData({required String key}) {
     return sharedPreferences.get(key);
   }
-
+  static dynamic  contains(String key) {
+    return sharedPreferences.containsKey(key);
+  }
   static Future<bool> removeData({required String key}) {
     return sharedPreferences.remove(key);
   }
