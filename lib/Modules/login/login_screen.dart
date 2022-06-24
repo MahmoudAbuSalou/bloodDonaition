@@ -1,4 +1,5 @@
 import 'package:blood_donation_project/Modules/forgetPassword/forgetPasswordScreen.dart';
+import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
@@ -120,9 +121,8 @@ class LogInScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: email,
                             validator: (value) {
-
-                              return UserInputValidation.ValidateEmail(value: value.toString());
-
+                              return UserInputValidation.ValidateEmail(
+                                  value: value.toString());
                             },
                             decoration: InputDecoration(
                               label: Text(
@@ -146,7 +146,8 @@ class LogInScreen extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: password,
                             validator: (value) {
-                          return UserInputValidation.ValidatePassword(value: value.toString());
+                              return UserInputValidation.ValidatePassword(
+                                  value: value.toString());
                             },
                             obscureText: cubit.isPassword,
                             decoration: InputDecoration(
@@ -174,34 +175,27 @@ class LogInScreen extends StatelessWidget {
                           ),
                           ConditionalBuilder(
                             condition: state is! LoadingState,
-
-                            builder: (context) =>
-                                Container(
-                                    width: double.infinity,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: TextButton(
-                                        onPressed: () {
-
-                                          print(_formKey.currentState!
-                                              .validate());
-                                          if (_formKey.currentState!
-                                              .validate()) {
-
-                                            navigatorToNew(context, HomeLayout());//    password: password.text);
-                                          }
-                                        },
-                                        child: Text(
-                                          'تسجيل دخول'.toUpperCase(),
-                                          style: GoogleFonts.tajawal(
-                                            textStyle: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 17),
-                                          )
-                                        ))),
+                            builder: (context) => Container(
+                                width: double.infinity,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TextButton(
+                                    onPressed: () {
+                                      print(_formKey.currentState!.validate());
+                                      if (_formKey.currentState!.validate()) {
+                                        navigatorToNew(context,
+                                            HomeLayout()); //    password: password.text);
+                                      }
+                                    },
+                                    child: Text('تسجيل دخول'.toUpperCase(),
+                                        style: GoogleFonts.tajawal(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17),
+                                        )))),
                             fallback: (context) =>
                                 Center(child: CircularProgressIndicator()),
                           ),
@@ -214,12 +208,21 @@ class LogInScreen extends StatelessWidget {
                                       fontSize: 50.sp,
                                     ),
                                   )),
-                              defaultTextButton(
-                                  color: Colors.red,
-                                  text: 'إنشاء حساب ',
-                                  function: () {
-                                    navigatorTo(context, RegisterScreen());
-                                  }),
+                              BlocConsumer<AppCubit, AppState>(
+                                listener: (context, state) {
+                                  // TODO: implement listener
+                                },
+                                builder: (context, state) {
+                                  return defaultTextButton(
+                                      color: Colors.red,
+                                      text: 'إنشاء حساب ',
+                                      function: () async {
+                                       String address = await AppCubit.get(context)
+                                            .determinePosition(context);
+                                        navigatorTo(context, RegisterScreen(Address: address,));
+                                      });
+                                },
+                              ),
                             ],
                           ),
                           SizedBox(

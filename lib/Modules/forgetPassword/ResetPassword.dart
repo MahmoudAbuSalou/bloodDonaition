@@ -174,13 +174,21 @@ class ResetPassword extends StatelessWidget {
                                   fontSize: 50.sp,
                                 ),
                               )),
-                              defaultTextButton(
-                                  color: Colors.red,
-                                  text: 'إنشاء حساب ',
-
-                                  function: () {
-                                    navigatorTo(context, RegisterScreen());
-                                  }),
+                              BlocConsumer<AppCubit, AppState>(
+                                listener: (context, state) {
+                                  // TODO: implement listener
+                                },
+                                builder: (context, state) {
+                                  return defaultTextButton(
+                                      color: Colors.red,
+                                      text: 'إنشاء حساب ',
+                                      function: () async {
+                                        String address = await AppCubit.get(context)
+                                            .determinePosition(context);
+                                        navigatorTo(context, RegisterScreen(Address: address,));
+                                      });
+                                },
+                              ),
                             ],
                           ),
                           SizedBox(

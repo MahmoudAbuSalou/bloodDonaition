@@ -1,9 +1,11 @@
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../cubit/AppCubit/app_cubit.dart';
 import '../../shared/components/components.dart';
 import '../../shared/validation/userValidation.dart';
 import '../register/register_screen.dart';
@@ -158,13 +160,21 @@ class ForgetPassword extends StatelessWidget {
                               fontSize: 50.sp,
                             ),
                           )),
-                          defaultTextButton(
-                              color: Colors.red,
-                              text: 'إنشاء حساب ',
-
-                              function: () {
-                                navigatorTo(context, RegisterScreen());
-                              }),
+                          BlocConsumer<AppCubit, AppState>(
+                            listener: (context, state) {
+                              // TODO: implement listener
+                            },
+                            builder: (context, state) {
+                              return defaultTextButton(
+                                  color: Colors.red,
+                                  text: 'إنشاء حساب ',
+                                  function: () async {
+                                    String address = await AppCubit.get(context)
+                                        .determinePosition(context);
+                                    navigatorTo(context, RegisterScreen(Address: address,));
+                                  });
+                            },
+                          ),
                         ],
                       ),
                       SizedBox(

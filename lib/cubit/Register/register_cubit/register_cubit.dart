@@ -16,6 +16,8 @@ import 'package:geolocator/geolocator.dart';
 
 
 import 'package:geocoding/geocoding.dart';
+import 'package:google_geocoding/google_geocoding.dart';
+
 
 
 import '../../../Models/user/userModel.dart';
@@ -31,8 +33,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   static RegisterCubit get(context) => BlocProvider.of(context);
   //////////////////////////
 
-  List<Placemark>? placemarks;
-  late var myLocation;
+
+
 
 /////////////////////////////
 void signUp({required UserModel user}) async{
@@ -82,76 +84,6 @@ void signUp({required UserModel user}) async{
 
 
 
-  ///get Lat And Lang for device
-  /// Determine the current position of the device.
-  ///
-  /// When the location services are not enabled or permissions
-  /// are denied the `Future` will return an error.
-   determinePosition(context) async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
-
-    myLocation = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(myLocation.latitude);
-    print(myLocation.longitude);
-   dynamic location= await convertPosToReality(this.myLocation);
-
-   return location;
-  }
-
-  //Convert Lat And Lang To Real Location
-  convertPosToReality(myLocation) async {
-    placemarks = await placemarkFromCoordinates(
-        myLocation.latitude, myLocation.longitude,
-        localeIdentifier: 'en');
-
-    print(placemarks![0].locality);
-    return placemarks![0].street;
- //    var googleGeocoding = GoogleGeocoding("AIzaSyB5MZDCjsbRNinF3NztkmEs-wwSfmN_EU4");
- //    late final risult;
- // risult = await googleGeocoding.geocoding.getReverse(LatLon(myLocation.latitude,myLocation.longitude));
- //
- //     print( risult);
- //    return risult;
-
-
-    /*  List<Placemark> placemarks = await placemarkFromCoordinates(myLocation.latitude, myLocation.longitude);
-
-      Placemark place = placemarks[0];
-     var Address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-      print(Address);
-     return Address;*/
-
-
-
-
-  }
 
 }
 //Mahmoud
