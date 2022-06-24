@@ -18,7 +18,8 @@ import '../../shared/components/components.dart';
 
 // ignore: must_be_immutable
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen() : super();
+  RegisterScreen({required this.Address}) : super();
+  String Address;
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -433,9 +434,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                                           if (formKey.currentState!
                                               .validate()) {
-                                            // address =
-                                            //     await RegisterCubit.get(context)
-                                            //         .determinePosition(context);
+
                                             RegisterCubit.get(context).signUp(
                                                 user: UserModel(
                                                     name: name.text,
@@ -443,7 +442,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                         int.parse(phone.text),
                                                     password: password.text,
                                                     email: email.text,
-                                                    address: 'damas'/*address.toString()*/,
+                                                    address: widget.Address,
                                                     gender:
                                                         (cubit.grpValueGen == 0)
                                                             ? 'ذكر'
