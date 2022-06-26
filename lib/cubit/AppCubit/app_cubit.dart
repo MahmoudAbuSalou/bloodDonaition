@@ -228,4 +228,6 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
       showToast(msg: localError, state: ToastState.ERROR);
     }
   }
+
+
 }

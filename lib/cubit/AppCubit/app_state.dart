@@ -50,3 +50,4 @@ class deleteUserError extends AppState {
 
   deleteUserError({this.error});
 }
+
