@@ -1,8 +1,7 @@
 import 'package:blood_donation_project/Models/user/userModel.dart';
 import 'package:blood_donation_project/Modules/forgetPassword/PinEntry.dart';
 import 'package:blood_donation_project/Modules/login/login_screen.dart';
-import 'package:blood_donation_project/cubit/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
-import 'package:blood_donation_project/cubit/Register/register_cubit/register_states.dart';
+
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:blood_donation_project/shared/validation/userValidation.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -12,8 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../cubit/Register/register_cubit/register_cubit.dart';
 
+
+
+import '../../cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
+import '../../cubit/UsenManagmentCubits/Register/register_cubit/register_cubit.dart';
+import '../../cubit/UsenManagmentCubits/Register/register_cubit/register_states.dart';
 import '../../shared/components/components.dart';
 
 // ignore: must_be_immutable
@@ -414,7 +417,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                  showToast(msg: state.error, state: ToastState.ERROR);
                                }
                                if(state is RegisterSuccessState){
-                                 navigatorTo(context, PinEntry());
+                                 navigatorTo(context, PinEntry(email: email.text,page: 'Register',));
                                }
                               },
                               builder: (context, state) {

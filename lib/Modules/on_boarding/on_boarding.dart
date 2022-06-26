@@ -12,11 +12,23 @@ import '../../shared/components/constants.dart';
 import '../../shared/network/local/cachehelper.dart';
 
 // ignore: must_be_immutable
-class OnBoardingScreen extends StatelessWidget {
+class OnBoardingScreen extends StatefulWidget {
   OnBoardingScreen() : super();
-  PageController onBoardingController = PageController();
-  bool isLast = false;
 
+  @override
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
+
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  PageController onBoardingController = PageController();
+
+  bool isLast = false;
+  @override
+  initState(){
+
+      AppCubit.get(context).CheckNet();
+
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
@@ -25,7 +37,7 @@ class OnBoardingScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit=AppCubit.get(context);
-        cubit.CheckNet();
+        //cubit.CheckNet();
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -115,6 +127,7 @@ class OnBoardingScreen extends StatelessWidget {
       },
     );
   }
+
   void submit(context) {
     CacheHelper.saveData(key: "onBoarding", value: true).then((value) {
       if (value) {

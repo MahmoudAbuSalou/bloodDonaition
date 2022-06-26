@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../cubit/AppCubit/app_cubit.dart';
 import '../../shared/components/components.dart';
+import '../../shared/components/constants.dart';
 import '../../shared/validation/userValidation.dart';
 import '../register/register_screen.dart';
 import 'PinEntry.dart';
@@ -132,14 +133,8 @@ class ForgetPassword extends StatelessWidget {
                                 ),
                                 child: TextButton(
                                     onPressed: () {
-                                      // if (_formKey.currentState!
-                                      //     .validate()) {
-                                      //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => PinEntry(),));
-                                      //   // cubit.userLogin(
-                                      //   //     email: email.text,
-                                      //   //     password: password.text);
-                                      // }
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => PinEntry(),));
+
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => PinEntry(email: email.text,page: 'ForgetPassword'),));
                                     },
                                     child: Text(
                                         'تأكيد'.toUpperCase(),
@@ -162,16 +157,30 @@ class ForgetPassword extends StatelessWidget {
                           )),
                           BlocConsumer<AppCubit, AppState>(
                             listener: (context, state) {
-                              // TODO: implement listener
+
                             },
                             builder: (context, state) {
+                              if(state is getLocationLoading){
+                                return Container(
+                                    height: 25,
+                                    width: 25,
+                                    child: CircularProgressIndicator());
+                              }
+
                               return defaultTextButton(
                                   color: Colors.red,
                                   text: 'إنشاء حساب ',
                                   function: () async {
-                                    String address = await AppCubit.get(context)
-                                        .determinePosition(context);
-                                    navigatorTo(context, RegisterScreen(Address: address,));
+                                    await AppCubit.get(context).determinePosition(context);
+                                    if (state is getLocationSuccess){
+                                      print(state.location);
+                                      navigatorTo(context, RegisterScreen(Address:state.location,));
+                                    }
+                                    else if(state is getLocationError)
+                                    {
+                                      showToast(msg: state.error, state: ToastState.ERROR);
+                                    }
+
                                   });
                             },
                           ),

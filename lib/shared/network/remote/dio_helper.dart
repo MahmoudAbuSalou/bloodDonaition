@@ -130,7 +130,7 @@ class DioHelper {
         Map<String, dynamic> ? query}) async {
     dio.options.headers = {
       'lang': lang,
-      'Authorization': "Bearer $token",
+      'Authorization': token,
       'Content-Type': 'application/json'
     };
     return await dio.get(url, queryParameters: query);
@@ -146,7 +146,7 @@ class DioHelper {
 
     dio.options.headers = {
       'lang': lang,
-      'Authorization': "Bearer $token" ,
+      'Authorization': token,
       'Content-Type': 'application/json'
     };
     return await dio.post(url, data: data);
