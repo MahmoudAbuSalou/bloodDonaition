@@ -20,15 +20,11 @@ class AddRequestBlood extends StatefulWidget {
 }
 
 class _AddRequestBloodState extends State<AddRequestBlood> {
-  double value = 10;
-  TextEditingController F_name = TextEditingController();
-  TextEditingController L_name = TextEditingController();
-  TextEditingController phone = TextEditingController();
+
   TextEditingController city = TextEditingController();
-  TextEditingController date = TextEditingController();
+
   GlobalKey scaffoldKey = GlobalKey<ScaffoldState>();
   var formKey = GlobalKey<FormState>();
-  String _val = '1';
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +35,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
         elevation: 2,
         backgroundColor: Colors.white,
 
-        title: Text('تسجيل بيانات المريض',
+        title: Text('تسجيل عنوان المريض',
             style: GoogleFonts.tajawal(color:Color(0xFF192747),fontWeight: FontWeight.bold)),
 
         centerTitle: true,
@@ -49,8 +45,8 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                 Navigator.of(context).maybePop();
               },
               child: Icon(
-                Icons.arrow_forward_ios,
-                color:Color(0xFF192747)
+                  Icons.arrow_forward_ios,
+                  color:Color(0xFF192747)
               )),
           SizedBox(
             width: 15,
@@ -58,7 +54,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
         ],
       ),
       body: Container(
-     //   color: Color(0xFFFDA4BA).withOpacity(.1),
+        //   color: Color(0xFFFDA4BA).withOpacity(.1),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
           child: SingleChildScrollView(
@@ -89,13 +85,13 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
 
                         controller: F_name,
                         validator: (String  ?value){
-                        return  UserInputValidation.ValidateName(value: value);
+                          return  UserInputValidation.ValidateName(value: value);
                           return null;
                         },
                         textDirection: TextDirection.rtl,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(12),
+                          contentPadding: const EdgeInsets.all(12),
                           border: InputBorder.none,
                           hintText: 'الاسم ',
                           hintTextDirection: TextDirection.rtl,
@@ -210,10 +206,10 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                           ),
                           Center(
                               child: Text(
-                            "عدد اكياس الدم المطلوبة : ${value.toInt()}",
-                            style: TextStyle(
-                                color: Color(0xFF192747), fontWeight: FontWeight.bold),
-                          ))
+                                "عدد اكياس الدم المطلوبة : ${value.toInt()}",
+                                style: TextStyle(
+                                    color: Color(0xFF192747), fontWeight: FontWeight.bold),
+                              ))
                         ],
                       ),
                     ),
@@ -289,15 +285,15 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children:[
-                    Text(':لمن تريد الدم ',style: TextStyle(
-                      color: Color(0xFF192747)
-                    ), )
-        ]
+                        Text(':لمن تريد الدم ',style: TextStyle(
+                            color: Color(0xFF192747)
+                        ), )
+                      ]
                   ),
                   Container(
-                  //  height: 50,
+                    //  height: 50,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -363,10 +359,10 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
         onPressed: () {
 
           if(formKey.currentState!.validate())
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BloodType()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BloodType()));
         },
         child: Icon(Icons.add),
-       // mini: true,
+        // mini: true,
       ),
 
     );
