@@ -45,6 +45,19 @@ class ChangePasswordError extends AppState {
   ChangePasswordError({this.error});
 }
 class deleteUserSuccess extends AppState {}
+class CheckEmailErrorState extends AppState {
+  final error;
+
+  CheckEmailErrorState({this.error});
+
+}
+class CheckEmailLoadingState extends AppState {}
+class CheckEmailSuccessState extends AppState {
+  final  user_Response;
+
+  CheckEmailSuccessState({this.user_Response});
+
+}
 class deleteUserError extends AppState {
   final error;
 
