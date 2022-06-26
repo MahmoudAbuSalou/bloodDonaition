@@ -1,6 +1,7 @@
 
 
 
+import 'package:blood_donation_project/Models/blood_post/blood_request.dart';
 import 'package:blood_donation_project/Modules/home/add_request_blood/blood_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,9 @@ class AddRequestBlood extends StatefulWidget {
 }
 
 class _AddRequestBloodState extends State<AddRequestBlood> {
-  double value = 10;
+  BloodRequest bloodRequest = BloodRequest(firstName: '', lastName: '', bloodBags: '0', cityName: '', hospitalName: '', gender: '', postType: false, bloodType: '', bloodOwner: '', phone:'', expiryDate:'');
+  double bloodBagsRequired = 0;
+
   TextEditingController F_name = TextEditingController();
   TextEditingController L_name = TextEditingController();
   TextEditingController phone = TextEditingController();
@@ -29,6 +32,8 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
   GlobalKey scaffoldKey = GlobalKey<ScaffoldState>();
   var formKey = GlobalKey<FormState>();
   String _val = '1';
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,116 +73,9 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
               child: Column(
                 textDirection: TextDirection.rtl,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20,top: 20),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12.withOpacity(0.2),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: TextFormField(
-
-                        controller: F_name,
-                        validator: (String  ?value){
-                        return  UserInputValidation.ValidateName(value: value);
-                          return null;
-                        },
-                        textDirection: TextDirection.rtl,
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(12),
-                          border: InputBorder.none,
-                          hintText: 'الاسم ',
-                          hintTextDirection: TextDirection.rtl,
-                          hintStyle: TextStyle(color:Color(0xFF192747), fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(40),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12.withOpacity(0.2),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: TextFormField(
-                        controller: L_name,
-                        validator: (String  ?value){
-                          return  UserInputValidation.ValidateName(value: value);
-                          return null;
-                        },
-                        textDirection: TextDirection.rtl,
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsetsDirectional.only(end: 20),
-
-                          border: InputBorder.none,
-                          //label: Text('الاسم الاول '),
-                          hintText: 'العائلة ',
-                          hintTextDirection: TextDirection.rtl,
-                          hintStyle: TextStyle(color: Color(0xFF192747), fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12.withOpacity(0.2),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: TextFormField(
-                        controller: phone,
-                        validator: (String  ?value){
-                          return  UserInputValidation.ValidatePhone(value: value);
-                          return null;
-                        },
-                        textDirection: TextDirection.rtl,
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsetsDirectional.only(end: 20),
-
-                          border: InputBorder.none,
-                          //label: Text('الاسم الاول '),
-                          hintText: 'الهاتف ',
-                          hintTextDirection: TextDirection.rtl,
-                          hintStyle: TextStyle(color: Color(0xFF192747), fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ),
+                  TextFormInfo(hintText: 'الاسم', controller: F_name,type: TextInputType.name,function: (String  ?value)=>UserInputValidation.ValidateName(value: value)),
+                  TextFormInfo(hintText: 'العائلة', controller: L_name,type: TextInputType.name,function: (String  ?value)=>UserInputValidation.ValidateName(value: value)),
+                  TextFormInfo(hintText: 'الهاتف', controller: phone,type: TextInputType.phone,function: (String  ?value)=>UserInputValidation.ValidatePhone(value: value)),
                   Padding(
                     padding: EdgeInsets.only(bottom: 30),
                     child: Container(
@@ -198,11 +96,12 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                         children: [
                           Slider(
                             divisions: 20,
-                            label: value.toInt().toString(),
-                            value: value,
+                            label: bloodBagsRequired.toInt().toString(),
+                            value: bloodBagsRequired,
                             onChanged: (v) {
                               setState(() {
-                                value = v;
+                                bloodBagsRequired = v;
+                                bloodRequest.bloodBags = v.toString();
                               });
                             },
                             min: 0,
@@ -210,7 +109,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                           ),
                           Center(
                               child: Text(
-                            "عدد اكياس الدم المطلوبة : ${value.toInt()}",
+                            "عدد اكياس الدم المطلوبة : ${bloodBagsRequired.toInt()}",
                             style: TextStyle(
                                 color: Color(0xFF192747), fontWeight: FontWeight.bold),
                           ))
@@ -218,6 +117,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                       ),
                     ),
                   ),
+                  /// TODO
                   Padding(
                     padding: EdgeInsets.only(bottom: 50),
                     child: Container(
@@ -242,6 +142,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
 
                         },
                         textDirection: TextDirection.rtl,
+
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsetsDirectional.only(end: 20),
@@ -255,6 +156,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                       ),
                     ),
                   ),
+                  /// TODO
                   Padding(
                     padding: EdgeInsets.only(bottom: 20),
                     child: Container(
@@ -338,6 +240,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                           onChanged: (value) {
                             setState(() {
                               _val = value.toString();
+                              bloodRequest.bloodOwner = 'لي';
                             });
                           },
                           activeColor: Colors.red,
@@ -349,6 +252,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                           onChanged: (value) {
                             setState(() {
                               _val = value.toString();
+                              bloodRequest.bloodOwner = 'لقريبي';
                             });
                           },
                           activeColor: Colors.red,
@@ -361,6 +265,7 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
 
                             setState(() {
                               _val = value.toString();
+                              bloodRequest.bloodOwner = 'لشخص اخر';
                             });
                           },
                           activeColor: Colors.red,
@@ -382,12 +287,66 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
         onPressed: () {
 
           if(formKey.currentState!.validate())
+            bloodRequest.firstName=F_name.text;
+            bloodRequest.lastName=L_name.text;
+            bloodRequest.expiryDate=date.text;
+            bloodRequest.phone=phone.text;
+            bloodRequest.cityName=city.text;
+
+            print(bloodRequest.firstName);
+          print(bloodRequest.lastName);
+          print(bloodRequest.phone);
+          print(bloodRequest.cityName);
+          print(bloodRequest.bloodOwner);
+          print(bloodRequest.expiryDate);
+          print(bloodRequest.bloodBags);
+
           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BloodType()));
+
         },
         child: Icon(Icons.add),
        // mini: true,
       ),
 
+    );
+  }
+  Widget TextFormInfo({required TextEditingController controller,required String hintText,required TextInputType type,required Function function}){
+    return  Padding(
+      padding: EdgeInsets.only(bottom: 20,top: 20),
+      child: Container(
+        width: double.infinity,
+        height: 50,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12.withOpacity(0.2),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+              spreadRadius: 0,
+            ),
+          ],
+          borderRadius: BorderRadius.circular(40),
+        ),
+        child: TextFormField(
+
+          controller: controller,
+          validator: (String  ?value){
+            return  function(value);
+
+          },
+          textDirection: TextDirection.rtl,
+          keyboardType: type,
+
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(12),
+            border: InputBorder.none,
+            hintText: hintText,
+            hintTextDirection: TextDirection.rtl,
+            hintStyle: TextStyle(color:Color(0xFF192747), fontSize: 20),
+          ),
+        ),
+      ),
     );
   }
 }
