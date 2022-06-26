@@ -105,7 +105,7 @@ class _PinEntryState extends State<PinEntry> with WidgetsBindingObserver {
                                         color: Colors.white, fontSize: 70.sp)),
                                 emptyIndicatorColor: Colors.black12,
                                 onFullPin: (pin, __) {
-                                
+
                                     if (pin == AppCubit.get(context).pin.pin) {
 
 

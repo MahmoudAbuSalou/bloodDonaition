@@ -130,7 +130,7 @@ class AppCubit extends Cubit<AppState> {
     try {
       final response = await DioHelper.getData(
           url:
-          'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=33.4928577&longitude=36.3177715&localityLanguage=ar');
+          'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${myLocation.latitude}&longitude=${myLocation.longitude}&localityLanguage=ar');
       String Address =
           "${response.data['principalSubdivision']}-${response
           .data['localityInfo']['administrative'][2]['name']}";
