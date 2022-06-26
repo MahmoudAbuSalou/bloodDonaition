@@ -22,13 +22,13 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  void userLogin({required String email, required password,context}) async {
+  void userLogin({required String email, required  String password,context}) async {
     UserResponse userModel;
     emit(LoadingState());
     try {
      final response= await DioHelper.postData(url: Urls.loginUrl, data: {
         'email': email,
-        'password': password,
+        'password': password
       });
      userModel=UserResponse.fromJson(response.data);
 
@@ -59,10 +59,11 @@ class LoginCubit extends Cubit<LoginState> {
     catch(error) {
       if(error is DioError){
         emit(LoginErrorState(error: 'Error'));
-      }
+        showToast(msg:'error' , state: ToastState.ERROR);
+      }else{
       emit(LoginErrorState(error: error));
      if (state is LoginErrorState){
-    showToast(msg: error.toString(), state: ToastState.ERROR);
+           showToast(msg: error.toString(), state: ToastState.ERROR);}
     }
 
     }

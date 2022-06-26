@@ -16,10 +16,10 @@ import 'ResetPassword.dart';
 
 // ignore: must_be_immutable
 class PinEntry extends StatefulWidget {
-  PinEntry({Key? key, required this.email, required this.page, this.user})
+  PinEntry({Key? key, required this.email, required this.page})
       : super(key: key);
   final email;
-  final user;
+
   final page;
   final forgetPass = 'ForgetPassword';
   final register = 'Register';
@@ -110,7 +110,7 @@ class _PinEntryState extends State<PinEntry> with WidgetsBindingObserver {
 
 
                                       if (widget.page == widget.register) {
-
+                                        RegisterCubit.get(context).signUp(user: AppCubit.get(context).userGlobal);
                                         Navigator.of(context)
                                             .pushReplacement(MaterialPageRoute(
                                           builder: (context) => HomePage(),

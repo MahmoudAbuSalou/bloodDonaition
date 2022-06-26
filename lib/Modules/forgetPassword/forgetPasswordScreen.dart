@@ -134,7 +134,7 @@ class ForgetPassword extends StatelessWidget {
                                 child: TextButton(
                                     onPressed: () {
 
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => PinEntry(email: email.text,page: 'ForgetPassword'),));
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => PinEntry(email: email.text,page: 'ForgetPassword',),));
                                     },
                                     child: Text(
                                         'تأكيد'.toUpperCase(),

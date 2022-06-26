@@ -22,7 +22,8 @@ part 'app_state.dart';
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitial());
   bool netConnected = false;
-
+  late UserResponse userModel;
+  late UserModel userGlobal;
   static AppCubit get(context) => BlocProvider.of(context);
 
   IconData suffx = Icons.visibility_outlined;
@@ -230,10 +231,11 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
   }
 
   checkEmail(UserModel user,context) async {
-    late UserResponse userModel;
+
 
     emit(CheckEmailLoadingState());
     try {
+      this.userGlobal=user;
       final response = await DioHelper.postData(
         url: Urls.checkAccountUrl,
 
