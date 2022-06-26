@@ -90,33 +90,26 @@ class AppCubit extends Cubit<AppState> {
           desiredAccuracy: LocationAccuracy.high);
       print(myLocation.latitude);
       print(myLocation.longitude);
-      final location =await convertPosToReality(this.myLocation);
+      final location = await convertPosToReality(this.myLocation);
       print(location);
       emit(getLocationSuccess(location: location));
       if (state is getLocationSuccess) {
-
         navigatorTo(
             context,
             RegisterScreen(
               Address: location,
             ));
       }
-
-
     } catch (error) {
-      var localError='تأكد من كونك متصلاً بالإنترنت';
-      if(error is DioError) {
+      var localError = 'تأكد من كونك متصلاً بالإنترنت';
+      if (error is DioError) {
+        emit(getLocationError(error: localError));
+      } else {
+        localError = error.toString();
         emit(getLocationError(error: localError));
       }
-      else
-        {
-          localError=error.toString();
-          emit(getLocationError(error: localError));
-        }
       if (state is getLocationError) {
-        showToast(
-            msg:localError,
-            state: ToastState.ERROR);
+        showToast(msg: localError, state: ToastState.ERROR);
       }
     }
   }
@@ -129,17 +122,17 @@ class AppCubit extends Cubit<AppState> {
     // var Address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
     //  print(Address);
     try {
+      emit(ConvertLocationLoading());
       final response = await DioHelper.getData(
           url:
               'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=33.4928577&longitude=36.3177715&localityLanguage=ar');
       String Address =
           "${response.data['principalSubdivision']}-${response.data['localityInfo']['administrative'][2]['name']}";
-
-
-
+      emit(ConvertLocationSuccess());
       return Address;
     } catch (err) {
       showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);
+      emit(ConvertLocationError());
     }
 /*
 
@@ -148,81 +141,73 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
  */
   }
 
-  generatePin(String email)async{
+  generatePin(String email) async {
     Pin pin;
-    try{
+    try {
       emit(genPinLoading());
-   final response=await DioHelper.postData(url: Urls.genPinUrl, data: {
-      'email':email,
-    });
-   pin=Pin.fromJson(response.data);
+      final response = await DioHelper.postData(url: Urls.genPinUrl, data: {
+        'email': email,
+      });
+      pin = Pin.fromJson(response.data);
 
-     if(pin.status=='true')
-      emit(genPinSuccess(pin: pin));
-     else
-       emit(genPinError(error: pin.message));
+      if (pin.status == 'true')
+        emit(genPinSuccess(pin: pin));
+      else
+        emit(genPinError(error: pin.message));
+    } catch (error) {
+      if (error is DioError) {
+        emit(genPinError(error: 'Error'));
+      } else {
+        emit(genPinError(error: error.toString()));
+      }
     }
-        catch(error){
-          if (error is DioError) {
-
-            emit(genPinError(error: 'Error'));
-          } else {
-
-            emit(genPinError(error: error.toString()));
-          }
-        }
-
   }
-  
-  deleteUser(context)async{
-    emit(deleteUserLoading());
-    try{
 
-      await DioHelper.getData(url: Urls.deleteUserUrl,token: AppSharedPreferences.getToken);
+  deleteUser(context) async {
+    emit(deleteUserLoading());
+    try {
+      await DioHelper.getData(
+          url: Urls.deleteUserUrl, token: AppSharedPreferences.getToken);
 
       emit(deleteUserSuccess());
-      if(state is deleteUserSuccess){
+      if (state is deleteUserSuccess) {
         print('backToPreviousPage');
         Navigator.of(context).pop();
       }
-
-    }
-    catch(error){
-      if( error is DioError){
-        emit(deleteUserError(error:'Error'));
+    } catch (error) {
+      if (error is DioError) {
+        emit(deleteUserError(error: 'Error'));
       }
-      emit(deleteUserError(error:error.toString()));
-     if(state is deleteUserError){
-    showToast(msg:'خطأ في حذف المستخدم', state: ToastState.ERROR);
-    }
-      
+      emit(deleteUserError(error: error.toString()));
+      if (state is deleteUserError) {
+        showToast(msg: 'خطأ في حذف المستخدم', state: ToastState.ERROR);
+      }
     }
   }
-  
-  changePassword(String password,String email,context)async{
+
+  changePassword(String password, String email, context) async {
     emit(ChangePasswordLoading());
-    try{
-     final response=await DioHelper.postData(url: Urls.changePasswordUrl, data:{
-       'email':email,
-        'password':password
-      });
-     if(response.data['status']=='true'){
-     emit(ChangePasswordSuccess());
-     if(state is ChangePasswordSuccess){
-       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LogInScreen(),));
-     }}
-     else {
-       emit(ChangePasswordError(error: 'Error'));
-       showToast(msg: 'Error', state: ToastState.ERROR);
-     }
-    }
-    catch(error){
-      String localError='';
-      if(error is DioError){
-        localError='Error';
+    try {
+      final response = await DioHelper.postData(
+          url: Urls.changePasswordUrl,
+          data: {'email': email, 'password': password});
+      if (response.data['status'] == 'true') {
+        emit(ChangePasswordSuccess());
+        if (state is ChangePasswordSuccess) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => LogInScreen(),
+          ));
+        }
+      } else {
+        emit(ChangePasswordError(error: 'Error'));
+        showToast(msg: 'Error', state: ToastState.ERROR);
       }
-      else{
-        localError=error.toString();
+    } catch (error) {
+      String localError = '';
+      if (error is DioError) {
+        localError = 'Error';
+      } else {
+        localError = error.toString();
       }
       emit(ChangePasswordError(error: localError));
       showToast(msg: localError, state: ToastState.ERROR);

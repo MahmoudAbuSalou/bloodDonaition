@@ -5,12 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../Models/blood_post/blood_request.dart';
 import '../../../cubit/blood_cubit/blood_cubit.dart';
 
 
 
 class BloodType extends StatelessWidget {
-   BloodType({Key? key}) : super(key: key);
+  BloodRequest bloodRequest;
+   BloodType({Key? key,required this.bloodRequest}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -50,3 +50,13 @@ class deleteUserError extends AppState {
 
   deleteUserError({this.error});
 }
+
+/// Convert Latlong To String
+class ConvertLocationLoading extends AppState {}
+class ConvertLocationSuccess extends AppState {}
+class ConvertLocationError extends AppState {
+
+  final error;
+
+  ConvertLocationError({this.error});
+}
