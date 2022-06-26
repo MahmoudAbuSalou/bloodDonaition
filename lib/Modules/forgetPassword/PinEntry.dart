@@ -49,10 +49,10 @@ class _PinEntryState extends State<PinEntry> with WidgetsBindingObserver {
         print("app in inactive");
         break;
       case AppLifecycleState.paused:
-        AppCubit.get(context).deleteUser(context);;
+        AppCubit.get(context).deleteUser(context);
         break;
       case AppLifecycleState.detached:
-        AppCubit.get(context).deleteUser(context);
+      //  AppCubit.get(context).deleteUser(context);
         break;
     }
   }
