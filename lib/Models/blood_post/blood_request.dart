@@ -11,6 +11,7 @@ class BloodRequest {
     required this.bloodOwner,
     required this.phone,
     required this.expiryDate,
+    required this.bloodBagsCollect,
   });
    String? firstName;
    String? lastName;
@@ -23,6 +24,7 @@ class BloodRequest {
    String ?bloodOwner;
    String ?phone;
    String? expiryDate;
+   int? bloodBagsCollect;
 
 
   BloodRequest.fromJson(Map<String, dynamic> json){
@@ -37,6 +39,7 @@ class BloodRequest {
     bloodOwner = json['bloodOwner'];
     phone = json['phone'];
     expiryDate = json['expiryDate'];
+    expiryDate = json['bloodBagsCollect'];
   }
 
   Map<String, dynamic> toJson() {
@@ -52,6 +55,7 @@ class BloodRequest {
     _data['bloodOwner'] = bloodOwner;
     _data['phone'] = phone;
     _data['expiryDate'] = expiryDate;
+    _data['bloodBagsCollect'] = bloodBagsCollect;
     return _data;
   }
 }

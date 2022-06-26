@@ -1,6 +1,14 @@
 
+import 'package:blood_donation_project/Models/blood_post/blood_request.dart';
+import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+
+import '../../shared/components/components.dart';
+import '../../shared/components/constants.dart';
+import '../../shared/network/end_point.dart';
+import '../../shared/network/local/appSharedPrefernce.dart';
+import '../../shared/network/remote/dio_helper.dart';
 
 part 'blood_state.dart';
 
@@ -17,12 +25,26 @@ class BloodCubit extends Cubit<BloodState> {
     else{
       currentIndex2 = index;
     }
-
-
     emit(ChangeTypeBlood());
+
   }
 
+  addBloodPost({required BloodRequest bloodRequest,required context}) async {
 
+    try {
+      emit(AddPostLoading());
+      final response = await DioHelper.postData(
+        url: Urls.AddRequestBlood, token: AppSharedPreferences.getToken,
+        data:bloodRequest.toJson(),
+      );
 
+      showToast(msg: 'تم اضافة طلبك بنجاح..', state: ToastState.SUCCESS);
+      navigatorToNew(context,HomePage());
+      emit(AddPostSuccess());
 
+    } catch (err) {
+      showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);
+      emit(AddPostError(error: err.toString()));
+    }
+  }
 }

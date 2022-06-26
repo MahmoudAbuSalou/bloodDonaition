@@ -26,16 +26,20 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
       bloodType: '',
       bloodOwner: '',
       phone: '',
-      expiryDate: '');
+      expiryDate: '',
+    bloodBagsCollect: 0
+  );
   double bloodBagsRequired = 0;
 
   TextEditingController F_name = TextEditingController();
+  TextEditingController Hospital_name = TextEditingController();
   TextEditingController L_name = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController date = TextEditingController();
   GlobalKey scaffoldKey = GlobalKey<ScaffoldState>();
   var formKey = GlobalKey<FormState>();
   String _val = '1';
+  String _val2 = '2';
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +84,12 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                   TextFormInfo(
                       hintText: 'العائلة',
                       controller: L_name,
+                      type: TextInputType.name,
+                      function: (String? value) =>
+                          UserInputValidation.ValidateName(value: value)),
+                  TextFormInfo(
+                      hintText: 'اسم المشفى',
+                      controller: Hospital_name,
                       type: TextInputType.name,
                       function: (String? value) =>
                           UserInputValidation.ValidateName(value: value)),
@@ -239,6 +249,62 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                       ],
                     ),
                   ),
+
+
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    Text(
+                      ':جنس المريض ',
+                      style: TextStyle(color: Color(0xFF192747)),
+                    )
+                  ]),
+                  Container(
+                    //  height: 50,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                          spreadRadius: 0,
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Radio(
+                          value: '1',
+                          groupValue: _val2,
+                          onChanged: (value) {
+                            setState(() {
+                              _val2 = value.toString();
+                              bloodRequest.gender = 'ذكر';
+                            });
+                          },
+                          activeColor: Colors.red,
+                        ),
+                        Text('ذكر'),
+                        Radio(
+                          value: '2',
+                          groupValue: _val2,
+                          onChanged: (value) {
+                            setState(() {
+                              _val2 = value.toString();
+                              bloodRequest.gender = 'انثى';
+                            });
+                          },
+                          activeColor: Colors.red,
+                        ),
+                        Text('انثى'),
+
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 50,
                   ),
@@ -255,7 +321,9 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
                               bloodRequest.firstName = F_name.text;
                               bloodRequest.lastName = L_name.text;
                               bloodRequest.expiryDate = date.text;
+                              bloodRequest.hospitalName = Hospital_name.text;
                               bloodRequest.phone = phone.text;
+                              bloodRequest.postType=daysBettwenTwoDate(DateRequired: date.text.toString());
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       UserAddress(bloodRequest: bloodRequest)));
@@ -320,5 +388,14 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
         ),
       ),
     );
+  }
+
+  bool daysBettwenTwoDate({required String DateRequired}){
+    final difference = DateTime.parse(DateRequired.toString()).difference( DateTime.now()).inDays;
+    if(difference <3){
+      return false;
+    }
+    return true;
+
   }
 }

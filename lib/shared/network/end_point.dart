@@ -6,5 +6,7 @@ class Urls {
   static const String deleteUserUrl =  baseUrl+"users/deleteUser";
   static const String loginUrl =  baseUrl+"users/login";
   static const String changePasswordUrl =  baseUrl+"users/chgPassword";
+  static const String checkAccountUrl =  baseUrl+"users/checkEmail";
+  static const String AddRequestBlood =  baseUrl+"home/addReques";
 
 }

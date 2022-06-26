@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:blood_donation_project/Models/user/userModel.dart';
+import 'package:blood_donation_project/Modules/forgetPassword/PinEntry.dart';
 import 'package:blood_donation_project/Modules/login/login_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../Models/Pin/pin.dart';
+import '../../Models/user/User_Respnse.dart';
 import '../../Modules/register/register_screen.dart';
 import '../../shared/network/end_point.dart';
 import '../../shared/network/remote/dio_helper.dart';
@@ -19,7 +22,8 @@ part 'app_state.dart';
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitial());
   bool netConnected = false;
-
+  late UserResponse userModel;
+  late UserModel userGlobal;
   static AppCubit get(context) => BlocProvider.of(context);
 
   IconData suffx = Icons.visibility_outlined;
@@ -104,12 +108,15 @@ class AppCubit extends Cubit<AppState> {
       var localError = 'تأكد من كونك متصلاً بالإنترنت';
       if (error is DioError) {
         emit(getLocationError(error: localError));
-      } else {
+      }
+      else {
         localError = error.toString();
         emit(getLocationError(error: localError));
       }
       if (state is getLocationError) {
-        showToast(msg: localError, state: ToastState.ERROR);
+        showToast(
+            msg: localError,
+            state: ToastState.ERROR);
       }
     }
   }
@@ -125,14 +132,17 @@ class AppCubit extends Cubit<AppState> {
       emit(ConvertLocationLoading());
       final response = await DioHelper.getData(
           url:
-              'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=33.4928577&longitude=36.3177715&localityLanguage=ar');
+          'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${myLocation.latitude}&longitude=${myLocation.longitude}&localityLanguage=ar');
       String Address =
-          "${response.data['principalSubdivision']}-${response.data['localityInfo']['administrative'][2]['name']}";
+          "${response.data['principalSubdivision']}-${response
+          .data['localityInfo']['administrative'][2]['name']}";
+
       emit(ConvertLocationSuccess());
+
       return Address;
     } catch (err) {
       showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);
-      emit(ConvertLocationError());
+      emit(ConvertLocationError(error: err.toString()));
     }
 /*
 
@@ -140,9 +150,9 @@ class AppCubit extends Cubit<AppState> {
 https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=postcode&format=json&apiKey=d548c5ed24604be6a9dd0d989631f783
  */
   }
-
+  late Pin pin;
   generatePin(String email) async {
-    Pin pin;
+
     try {
       emit(genPinLoading());
       final response = await DioHelper.postData(url: Urls.genPinUrl, data: {
@@ -150,11 +160,15 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
       });
       pin = Pin.fromJson(response.data);
 
-      if (pin.status == 'true')
+
+      if (pin.status == 'true'){
         emit(genPinSuccess(pin: pin));
+        print(pin);
+      }
       else
         emit(genPinError(error: pin.message));
-    } catch (error) {
+    }
+    catch (error) {
       if (error is DioError) {
         emit(genPinError(error: 'Error'));
       } else {
@@ -174,7 +188,8 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
         print('backToPreviousPage');
         Navigator.of(context).pop();
       }
-    } catch (error) {
+    }
+    catch (error) {
       if (error is DioError) {
         emit(deleteUserError(error: 'Error'));
       }
@@ -189,28 +204,73 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
     emit(ChangePasswordLoading());
     try {
       final response = await DioHelper.postData(
-          url: Urls.changePasswordUrl,
-          data: {'email': email, 'password': password});
+          url: Urls.changePasswordUrl, data: {
+        'email': email,
+        'password': password
+      });
       if (response.data['status'] == 'true') {
         emit(ChangePasswordSuccess());
         if (state is ChangePasswordSuccess) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => LogInScreen(),
-          ));
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => LogInScreen(),));
         }
-      } else {
+      }
+      else {
         emit(ChangePasswordError(error: 'Error'));
         showToast(msg: 'Error', state: ToastState.ERROR);
       }
-    } catch (error) {
+    }
+    catch (error) {
       String localError = '';
       if (error is DioError) {
         localError = 'Error';
-      } else {
+      }
+      else {
         localError = error.toString();
       }
       emit(ChangePasswordError(error: localError));
       showToast(msg: localError, state: ToastState.ERROR);
+    }
+  }
+
+  checkEmail(UserModel user,context) async {
+
+
+    emit(CheckEmailLoadingState());
+    try {
+      this.userGlobal=user;
+      final response = await DioHelper.postData(
+        url: Urls.checkAccountUrl,
+
+        data: user.toJson(),
+      );
+
+      userModel = UserResponse.fromJson(response.data);
+
+      if (userModel.status == "true") {
+        emit(CheckEmailSuccessState(user_Response: userModel));
+        if(state is CheckEmailSuccessState){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => PinEntry(email: user.email, page: 'Register'),));
+        }
+      }
+      else {
+        emit(CheckEmailErrorState(error: userModel.message));
+        if(state is CheckEmailSuccessState){
+         showToast(msg: 'Error', state: ToastState.ERROR);
+        }
+      }
+    } catch (error) {
+      if (error is DioError) {
+        emit(CheckEmailErrorState(error: 'Error'));
+        if(state is CheckEmailSuccessState){
+          showToast(msg: 'Error', state: ToastState.ERROR);
+        }
+      } else {
+        emit(CheckEmailErrorState(error: error.toString()));
+        if(state is CheckEmailSuccessState){
+          showToast(msg: error.toString(), state: ToastState.ERROR);
+        }
+      }
     }
   }
 }
