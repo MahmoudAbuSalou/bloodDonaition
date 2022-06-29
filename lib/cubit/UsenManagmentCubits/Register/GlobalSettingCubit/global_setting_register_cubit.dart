@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../shared/components/components.dart';
 
 part 'global_setting_register_state.dart';
 

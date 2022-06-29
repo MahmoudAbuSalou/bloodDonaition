@@ -3,13 +3,13 @@ import 'package:blood_donation_project/Modules/home/add_request_blood/user_info.
 import 'package:blood_donation_project/Modules/on_boarding/on_boarding.dart';
 import 'package:blood_donation_project/Modules/register/register_screen.dart';
 import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
-import 'package:blood_donation_project/cubit/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
+
+import 'package:blood_donation_project/cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'cubit/Register/register_cubit/register_cubit.dart';
-import 'cubit/Register/register_cubit/register_states.dart';
+
 import 'shared/bloc_observer.dart';
 import 'shared/network/local/cachehelper.dart';
 import 'shared/network/remote/dio_helper.dart';
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               create: (context) => GlobalSettingRegisterCubit(),
             ),
             BlocProvider(
-             create: (context) => AppCubit()..CheckNet(),
+             create: (context) => AppCubit(),
 
             ),
           ],

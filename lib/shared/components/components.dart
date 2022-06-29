@@ -1,5 +1,4 @@
-import 'package:blood_donation_project/cubit/Register/register_cubit/register_cubit.dart';
-import 'package:blood_donation_project/cubit/Register/register_cubit/register_states.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../Models/onBoarding/onBoardingModel.dart';
 
-import '../../cubit/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
+import '../../cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
 import 'constants.dart';
 
 Widget buildItem(business, context) {
@@ -147,7 +146,8 @@ Widget defaultTextButton(
       },
       child: Text(
         text.toUpperCase(),
-        style: GoogleFonts.tajawal(textStyle: TextStyle(color: color)),
+        style: GoogleFonts.tajawal(textStyle: TextStyle(color: color,fontSize: 50.sp)),
+
       ));
 }
 

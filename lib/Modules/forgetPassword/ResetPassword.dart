@@ -7,14 +7,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../shared/components/components.dart';
+import '../../shared/components/constants.dart';
 import '../../shared/validation/userValidation.dart';
 import '../register/register_screen.dart';
 import 'PinEntry.dart';
 
 // ignore: must_be_immutable
-class ResetPassword extends StatelessWidget {
-  ResetPassword({Key? key}) : super(key: key);
+class ResetPassword extends StatefulWidget {
+  ResetPassword({Key? key,required this.email}) : super(key: key);
+ final email;
+
+  @override
+  State<ResetPassword> createState() => _ResetPasswordState();
+}
+
+class _ResetPasswordState extends State<ResetPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   TextEditingController password = TextEditingController();
 
   @override
@@ -26,19 +35,12 @@ class ResetPassword extends StatelessWidget {
           // TODO: implement listener
         },
         builder: (context, state) {
-          var cubit=AppCubit.get(context);
+          var cubit = AppCubit.get(context);
           return Scaffold(
-
             body: SafeArea(
               child: Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
                 color: Colors.white,
                 child: SingleChildScrollView(
                   child: Padding(
@@ -48,7 +50,6 @@ class ResetPassword extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           Stack(
                             children: [
                               SizedBox(
@@ -56,11 +57,16 @@ class ResetPassword extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-
-                                  IconButton(onPressed: () {
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LogInScreen(),));
-                                  }, icon: Icon(Icons.arrow_back_ios))
-                                ],)
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushReplacement(MaterialPageRoute(
+                                          builder: (context) => LogInScreen(),
+                                        ));
+                                      },
+                                      icon: Icon(Icons.arrow_back_ios))
+                                ],
+                              )
                             ],
                           ),
                           Center(
@@ -69,7 +75,9 @@ class ResetPassword extends StatelessWidget {
                               height: 1000.h,
                               child: FittedBox(
                                 fit: BoxFit.fill,
-                                child: Image.asset('images/resetPassword.jpg',),
+                                child: Image.asset(
+                                  'assets/images/resetPassword.jpg',
+                                ),
                               ),
                             ),
                           ),
@@ -77,17 +85,13 @@ class ResetPassword extends StatelessWidget {
                             height: 50.h,
                           ),
 
-
-                          Text(
-                              'أدخل كلمة المرور الجديدة ',
+                          Text('أدخل كلمة المرور الجديدة ',
                               style: GoogleFonts.tajawal(
-                                textStyle: Theme
-                                    .of(context)
+                                textStyle: Theme.of(context)
                                     .textTheme
                                     .bodyText1
                                     ?.copyWith(color: Colors.grey),
-                              )
-                          ),
+                              )),
                           SizedBox(
                             height: 60.h,
                           ),
@@ -96,7 +100,8 @@ class ResetPassword extends StatelessWidget {
                             textDirection: TextDirection.ltr,
                             controller: password,
                             validator: (value) {
-                              return UserInputValidation.ValidatePassword(value: value.toString());
+                              return UserInputValidation.ValidatePassword(
+                                  value: value.toString());
                             },
                             obscureText: cubit.isPassword,
                             decoration: InputDecoration(
@@ -104,7 +109,7 @@ class ResetPassword extends StatelessWidget {
                                 'كلمة المرور',
                                 style: GoogleFonts.tajawal(
                                     textStyle:
-                                    const TextStyle(color: Colors.red)),
+                                        const TextStyle(color: Colors.red)),
                               ),
                               labelStyle: GoogleFonts.tajawal(
                                   textStyle: TextStyle(
@@ -127,66 +132,72 @@ class ResetPassword extends StatelessWidget {
                             height: 50.h,
                           ),
 
-
                           SizedBox(
                             height: 30,
                           ),
-                          ConditionalBuilder(
-                            condition: true /*state is! LoadingState*/,
-                            builder: (context) =>
-                                Container(
-                                    width: double.infinity,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: TextButton(
-                                        onPressed: () {
-                                          // if (_formKey.currentState!
-                                          //     .validate()) {
-                                          //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => PinEntry(),));
-                                          //   // cubit.userLogin(
-                                          //   //     email: email.text,
-                                          //   //     password: password.text);
-                                          // }
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PinEntry(),));
-                                        },
-                                        child: Text(
-                                            'تأكيد'.toUpperCase(),
-                                            style: GoogleFonts.tajawal(
-                                              textStyle: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 70.sp),
-                                            )
-                                        ))),
-                            fallback: (context) =>
-                                Center(child: CircularProgressIndicator()),
+                          (state is ChangePasswordLoading)?Center(child: CircularProgressIndicator(),):Container(
+                              width: double.infinity,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: TextButton(
+                                  onPressed: () {
+                                    AppCubit.get(context).changePassword(password.text,widget.email, context);
+                                  },
+                                  child: Text('تأكيد'.toUpperCase(),
+                                      style: GoogleFonts.tajawal(
+                                        textStyle: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 70.sp),
+                                      )))
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('لا تمتلك حساب', style: GoogleFonts.tajawal(
-                                textStyle: TextStyle(
-                                  fontSize: 50.sp,
-                                ),
-                              )),
-                              defaultTextButton(
-                                  color: Colors.red,
-                                  text: 'إنشاء حساب ',
+                              Text('لا تمتلك حساب',
+                                  style: GoogleFonts.tajawal(
+                                    textStyle: TextStyle(
+                                      fontSize: 50.sp,
+                                    ),
+                                  )),
+                              BlocConsumer<AppCubit, AppState>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  if (state is getLocationLoading) {
+                                    return Container(
+                                        height: 25,
+                                        width: 25,
+                                        child: CircularProgressIndicator());
+                                  }
 
-                                  function: () {
-                                    navigatorTo(context, RegisterScreen());
-                                  }),
+                                  return defaultTextButton(
+                                      color: Colors.red,
+                                      text: 'إنشاء حساب ',
+                                      function: () async {
+                                        await AppCubit.get(context)
+                                            .determinePosition(context);
+                                        if (state is getLocationSuccess) {
+                                          print(state.location);
+                                          navigatorTo(
+                                              context,
+                                              RegisterScreen(
+                                                Address: state.location,
+                                              ));
+                                        } else if (state is getLocationError) {
+                                          showToast(
+                                              msg: state.error,
+                                              state: ToastState.ERROR);
+                                        }
+                                      });
+                                },
+                              ),
                             ],
                           ),
                           SizedBox(
                             height: 75.h,
                           ),
-
                         ],
                       ),
                     ),

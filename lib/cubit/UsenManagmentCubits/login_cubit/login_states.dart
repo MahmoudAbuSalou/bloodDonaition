@@ -8,9 +8,11 @@ abstract class LoginState {}
  LoginSuccessState();
  }
  class LoginErrorState extends LoginState{
-  final String error;
+  final  error;
 
-  LoginErrorState(this.error);
+  LoginErrorState({this.error});
+
+
 
  }
 

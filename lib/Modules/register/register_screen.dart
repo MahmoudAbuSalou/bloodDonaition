@@ -1,8 +1,8 @@
 import 'package:blood_donation_project/Models/user/userModel.dart';
 import 'package:blood_donation_project/Modules/forgetPassword/PinEntry.dart';
 import 'package:blood_donation_project/Modules/login/login_screen.dart';
-import 'package:blood_donation_project/cubit/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
-import 'package:blood_donation_project/cubit/Register/register_cubit/register_states.dart';
+import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
+
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:blood_donation_project/shared/validation/userValidation.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -12,13 +12,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../cubit/Register/register_cubit/register_cubit.dart';
-
+import '../../cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
+import '../../cubit/UsenManagmentCubits/Register/register_cubit/register_cubit.dart';
+import '../../cubit/UsenManagmentCubits/Register/register_cubit/register_states.dart';
 import '../../shared/components/components.dart';
 
 // ignore: must_be_immutable
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen() : super();
+  RegisterScreen({required this.Address}) : super();
+  String Address;
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -404,75 +406,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
 
                           //    Register Button
-                          BlocProvider(
-                            create: (context) =>
-                                RegisterCubit(RegisterInitialState()),
-                            child: BlocConsumer<RegisterCubit, RegisterState>(
-                              listener: (context, state) {
-                               if(state is RegisterErrorState){
-                                 showToast(msg: state.error, state: ToastState.ERROR);
-                               }
-                               if(state is RegisterSuccessState){
-                                 navigatorTo(context, PinEntry());
-                               }
-                              },
-                              builder: (context, state) {
-
-                                return Container(
-                                    width: double.infinity,
-                                    height: 100.h,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(50.r),
-                                    ),
-                                    child:(state is RegisterLoadingState)?Padding(
+                          Container(
+                              width: double.infinity,
+                              height: 100.h,
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(50.r),
+                              ),
+                              child: (state is CheckEmailLoadingState)
+                                  ? Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Center(child: CircularProgressIndicator(color: Colors.white,)),
-                                    ) :TextButton(
-                                        onPressed: () async {
-
-                                          if (formKey.currentState!
-                                              .validate()) {
-                                            // address =
-                                            //     await RegisterCubit.get(context)
-                                            //         .determinePosition(context);
-                                            RegisterCubit.get(context).signUp(
-                                                user: UserModel(
-                                                    name: name.text,
-                                                    phone:
-                                                        int.parse(phone.text),
-                                                    password: password.text,
-                                                    email: email.text,
-                                                    address: 'damas'/*address.toString()*/,
-                                                    gender:
-                                                        (cubit.grpValueGen == 0)
-                                                            ? 'ذكر'
-                                                            : 'أنثى',
-                                                    weight: (cubit
-                                                                .grpValueWeight ==
-                                                            0)
-                                                        ? 'بين ال 40 وال 60 كيلو غرام'
-                                                        : 'أكثر من 60 كيلو غرام',
-                                                    bloodType: cubit
-                                                        .list[cubit.indexG]
-                                                        .Content,
-                                                    isAdmin: false,
-                                                    birthDate: date.text));
-                                            // cubit.convertPosToReality();
-                                            //  navigatorTo(context, PinEntry());
-                                          }
-                                          //   if (formKey.currentState!.validate()) {}
-                                        },
-                                        child: Text('إنشاء حساب'.toUpperCase(),
-                                            style: GoogleFonts.tajawal(
-                                              textStyle: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 50.sp),
-                                            ))));
-                                }
-
-                            ),
-                          ),
+                                      child: Center(
+                                          child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )),
+                                    )
+                                  : TextButton(
+                                      onPressed: () async {
+                                        if (formKey.currentState!.validate()) {
+                                          AppCubit.get(context).checkEmail(
+                                              UserModel(
+                                                  name: name.text,
+                                                  phone: int.parse(phone.text),
+                                                  password: password.text,
+                                                  email: email.text,
+                                                  address: widget.Address,
+                                                  gender:
+                                                      (cubit.grpValueGen == 0)
+                                                          ? 'ذكر'
+                                                          : 'أنثى',
+                                                  weight: (cubit
+                                                              .grpValueWeight ==
+                                                          0)
+                                                      ? 'بين ال 40 وال 60 كيلو غرام'
+                                                      : 'أكثر من 60 كيلو غرام',
+                                                  bloodType: cubit
+                                                      .list[cubit.indexG]
+                                                      .Content,
+                                                  isAdmin: false,
+                                                  birthDate: date.text),context);
+                                        }
+                                        //   if (formKey.currentState!.validate()) {}
+                                      },
+                                      child: Text('إنشاء حساب'.toUpperCase(),
+                                          style: GoogleFonts.tajawal(
+                                            textStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 50.sp),
+                                          )))),
 
                           SizedBox(height: 50.h)
                         ],
