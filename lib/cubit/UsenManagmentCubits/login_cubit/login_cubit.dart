@@ -49,8 +49,8 @@ class LoginCubit extends Cubit<LoginState> {
      }
      }
      else{
-       final error='Error';
-     emit(LoginErrorState(error:'Error'));
+       final error='البيانات المدخلة خاطئة';
+     emit(LoginErrorState(error:error));
      if (state is LoginErrorState){
      showToast(msg:error , state: ToastState.ERROR);
      }
