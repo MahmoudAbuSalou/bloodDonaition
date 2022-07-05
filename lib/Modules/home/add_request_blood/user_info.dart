@@ -21,10 +21,10 @@ class _AddRequestBloodState extends State<AddRequestBlood> {
       bloodBags: '0',
       cityName: '',
       hospitalName: '',
-      gender: '',
+      gender: 'male',
       postType: false,
       bloodType: '',
-      bloodOwner: '',
+      bloodOwner: 'me',
       phone: '',
       expiryDate: '',
     bloodBagsCollect: 0

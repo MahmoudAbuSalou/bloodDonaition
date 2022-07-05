@@ -54,7 +54,7 @@ dependencies:
   fluttertoast: ^8.0.8
   conditional_builder_null_safety: ^0.0.6
   carousel_slider: ^4.0.0
-
+  pull_to_refresh: ^2.0.0
   fancy_shimmer_image: ^2.0.0+2
   flutter_screenutil:
   webview_flutter: ^2.8.0

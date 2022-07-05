@@ -25,6 +25,8 @@ class BloodRequest {
    String ?phone;
    String? expiryDate;
    int? bloodBagsCollect;
+   double? position_Lat;
+   double? position_Lang;
 
 
   BloodRequest.fromJson(Map<String, dynamic> json){
@@ -40,6 +42,8 @@ class BloodRequest {
     phone = json['phone'];
     expiryDate = json['expiryDate'];
     expiryDate = json['bloodBagsCollect'];
+    position_Lat = json['position_Lat'];
+    position_Lang = json['position_Lang'];
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +58,8 @@ class BloodRequest {
     _data['bloodType'] = bloodType;
     _data['bloodOwner'] = bloodOwner;
     _data['phone'] = phone;
+    _data['position_Lat'] = position_Lat;
+    _data['position_Lang'] = position_Lang;
     _data['expiryDate'] = expiryDate;
     _data['bloodBagsCollect'] = bloodBagsCollect;
     return _data;

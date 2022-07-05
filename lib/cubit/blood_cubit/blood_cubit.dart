@@ -34,7 +34,7 @@ class BloodCubit extends Cubit<BloodState> {
     try {
       emit(AddPostLoading());
       final response = await DioHelper.postData(
-        url: Urls.AddRequestBlood, token: AppSharedPreferences.getToken,
+        url: Urls.AddRequestBlood, token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU3MDExMzQ2fQ.9vd3RO_PHIKe4swFaycqoizaXwYsDHR5iMUGj__6Whc",
         data:bloodRequest.toJson(),
       );
 
