@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../cubit/home/all_post_cubit.dart';
+
 class HomePage extends StatelessWidget implements PreferredSizeWidget {
   final double barHeight = 50.0;
 
@@ -20,69 +22,79 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: PreferredSize(
-              child: ClipPath(
-                clipper: WaveClip(),
-                child: Container(
-                  color: Colors.redAccent,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.only(start: 20.w),
-                            child: Text(
-                              'قائمة الطلبات',
-                              style:
-                              TextStyle(color: Colors.white, fontSize: 70.sp),
-                            ),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(end: 8.0),
-                            child: IconButton(
-                              icon: Icon(
-                                IconBroken.Location,
-                                size: 35.0,
-                                color: Colors.white,
+      create: (context) => AllPostCubit()..getPost(),
+      child: BlocConsumer<AllPostCubit, AllPostState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          return Scaffold(
+              backgroundColor: Colors.white,
+              appBar: PreferredSize(
+                  child: ClipPath(
+                    clipper: WaveClip(),
+                    child: Container(
+                      color: Colors.redAccent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.only(
+                                    start: 20.w),
+                                child: Text(
+                                  'قائمة الطلبات',
+                                  style:
+                                  TextStyle(
+                                      color: Colors.white, fontSize: 70.sp),
+                                ),
                               ),
-                              onPressed: () {
-                                navigatorTo(context, GoogleMapsScreen());
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(
-                                end: 15.0),
-                            child: IconButton(
-                              icon: Icon(
-                                IconBroken.Search,
-                                size: 30.0,
-                                color: Colors.white,
+                              Spacer(),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.only(
+                                    end: 8.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    IconBroken.Location,
+                                    size: 35.0,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    navigatorTo(context, GoogleMapsScreen());
+                                  },
+                                ),
                               ),
-                              onPressed: () {
-                                navigatorTo(context, SearchScreen());
-                              },
-                            ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.only(
+                                    end: 15.0),
+                                child: IconButton(
+                                  icon: Icon(
+                                    IconBroken.Search,
+                                    size: 30.0,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    navigatorTo(context, SearchScreen());
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
-          body: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: 30,
-              itemBuilder: (context, index) {
-                return listItem(context);
-              })),
+                  preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
+              body: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: 30,
+                  itemBuilder: (context, index) {
+                    return listItem(context);
+                  }));
+        },
+      ),
     );
   }
 
