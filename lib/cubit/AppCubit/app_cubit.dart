@@ -182,7 +182,7 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
 
       emit(deleteUserSuccess());
       if (state is deleteUserSuccess) {
-        print('backToPreviousPage');
+
         Navigator.of(context).pop();
       }
     }
