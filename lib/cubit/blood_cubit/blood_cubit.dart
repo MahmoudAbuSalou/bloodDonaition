@@ -39,7 +39,7 @@ class BloodCubit extends Cubit<BloodState> {
       );
 
       showToast(msg: 'تم اضافة طلبك بنجاح..', state: ToastState.SUCCESS);
-      navigatorToNew(context,HomePage());
+      navigatorToNew(context,HomePage(type: true,));
       emit(AddPostSuccess());
 
     } catch (err) {

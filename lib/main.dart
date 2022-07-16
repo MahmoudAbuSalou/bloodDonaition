@@ -6,11 +6,13 @@ import 'package:blood_donation_project/Modules/register/register_screen.dart';
 import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 
 import 'package:blood_donation_project/cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
+import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'cubit/home/all_post_cubit.dart';
 import 'shared/bloc_observer.dart';
 import 'shared/network/local/cachehelper.dart';
 import 'shared/network/remote/dio_helper.dart';
@@ -55,6 +57,10 @@ class MyApp extends StatelessWidget {
              create: (context) => AppCubit(),
 
             ),
+            BlocProvider(
+              create: (context) => AllPostCubit()..getPost(),
+
+            ),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -69,7 +75,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
               textTheme: TextTheme(bodyText2: TextStyle(fontSize: 30.sp)),
             ),
-            home: HomePage(),
+            home: HomeLayout(),
           ),
         );
       },

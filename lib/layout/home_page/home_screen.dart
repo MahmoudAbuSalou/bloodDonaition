@@ -134,7 +134,6 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
 
               ],
               onTap: (index) {
-
                 // layoutCubit.getHomeData();
                 cubit.changeScreen(index);
 

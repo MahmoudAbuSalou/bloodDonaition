@@ -8,97 +8,106 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:share_plus/share_plus.dart';
 
+import '../../../Models/post/Post.dart';
 import '../../../cubit/home/all_post_cubit.dart';
 
 class HomePage extends StatelessWidget implements PreferredSizeWidget {
   final double barHeight = 50.0;
+  bool type;
 
-  HomePage();
+  HomePage({required this.type});
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight + 100.0);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AllPostCubit()..getPost(),
-      child: BlocConsumer<AllPostCubit, AllPostState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          return Scaffold(
-              backgroundColor: Colors.white,
-              appBar: PreferredSize(
-                  child: ClipPath(
-                    clipper: WaveClip(),
-                    child: Container(
-                      color: Colors.redAccent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.only(
-                                    start: 20.w),
-                                child: Text(
-                                  'قائمة الطلبات',
-                                  style:
-                                  TextStyle(
-                                      color: Colors.white, fontSize: 70.sp),
-                                ),
+    return BlocConsumer<AllPostCubit, AllPostState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: PreferredSize(
+                child: ClipPath(
+                  clipper: WaveClip(),
+                  child: Container(
+                    color: Colors.redAccent,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(
+                                  start: 20.w),
+                              child: Text(
+                                'قائمة الطلبات',
+                                style:
+                                TextStyle(
+                                    color: Colors.white, fontSize: 70.sp),
                               ),
-                              Spacer(),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.only(
-                                    end: 8.0),
-                                child: IconButton(
-                                  icon: Icon(
-                                    IconBroken.Location,
-                                    size: 35.0,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    navigatorTo(context, GoogleMapsScreen());
-                                  },
+                            ),
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.only(
+                                  end: 8.0),
+                              child: IconButton(
+                                icon: Icon(
+                                  IconBroken.Location,
+                                  size: 35.0,
+                                  color: Colors.white,
                                 ),
+                                onPressed: () {
+                                  navigatorTo(context, GoogleMapsScreen());
+                                },
                               ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.only(
-                                    end: 15.0),
-                                child: IconButton(
-                                  icon: Icon(
-                                    IconBroken.Search,
-                                    size: 30.0,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    navigatorTo(context, SearchScreen());
-                                  },
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.only(
+                                  end: 15.0),
+                              child: IconButton(
+                                icon: Icon(
+                                  IconBroken.Search,
+                                  size: 30.0,
+                                  color: Colors.white,
                                 ),
+                                onPressed: () {
+                                  navigatorTo(context, SearchScreen());
+                                },
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
-              body: ListView.builder(
+                ),
+                preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
+            body: state is GetPostSuccessfully?SmartRefresher(
+              controller: AllPostCubit.get(context).refreshController,
+              enablePullUp: true,
+              onLoading: ()async{
+                AllPostCubit.get(context).getPost();
+              },
+              child: ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: 30,
+                  itemCount: type==false?state.Emergency.length:state.normal.length,
                   itemBuilder: (context, index) {
-                    return listItem(context);
-                  }));
-        },
-      ),
+                    return listItem(context,type==false?state.Emergency[index]:state.normal[index]);
+                  }),
+            ):state is GetPostLoading?Center(child: CircularProgressIndicator(),):Center(child: Text("Empty"),)
+        );
+      },
     );
   }
 
-  Widget listItem(context) {
+  Widget listItem(context,Data post) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: GestureDetector(
@@ -131,7 +140,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               )),
                           child: Center(
                               child: Text(
-                                'AB+',
+                                '${post.bloodType}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -207,7 +216,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               ),
                             ),
                             Text(
-                              '  غصن خالد محسن',
+                              '${post.firstName}${post.lastName}',
                               style: TextStyle(color: Color(0xff041b2d)),
                             ),
                           ],
@@ -230,7 +239,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               ),
                             ),
                             Text(
-                              'مشفى المجتهد',
+                              '${post.cityName}',
                               style: TextStyle(color: Color(0xff041b2d)),
                             ),
                           ],
@@ -257,7 +266,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               width: 10,
                             ),
                             Text(
-                              'مشفى المجتهد',
+                              '${post.hospitalName}',
                               style: TextStyle(color: Color(0xff94b0b7)),
                             ),
                           ],
@@ -268,7 +277,9 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () async{
+                              await Share.share('check out my website https://example.com', subject: 'Look what I made!');
+                            },
                             icon: Icon(
                               Icons.share,
                               color: Color(0xff384e7b),

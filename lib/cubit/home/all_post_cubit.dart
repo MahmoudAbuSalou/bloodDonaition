@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../Models/post/Post.dart';
 import '../../shared/components/components.dart';
@@ -15,14 +18,15 @@ class AllPostCubit extends Cubit<AllPostState> {
 
 
   static  AllPostCubit get(context) => BlocProvider.of(context);
-
+  RefreshController refreshController = RefreshController(initialRefresh: false);
   late Post post;
+  List<Data> normal = [];
+  List<Data> Emergency = [];
   int pageCount = 0;
 
   getPost() async {
     try {
-      //192.168.43.59
-      //http://192.168.183.177:3000/api//home/getAll/1
+
       pageCount++;
       emit(GetPostLoading());
 
@@ -33,9 +37,18 @@ class AllPostCubit extends Cubit<AllPostState> {
       );
 
       post = Post.fromJson(response.data);
-
-      emit(GetPostSuccessfully(post: post));
+      post.data?.forEach((element) {
+        if(element.postType==true){
+          Emergency.add(element);
+        }
+        else{
+          normal.add(element);
+        }
+      });
+refreshController.loadComplete();
+      emit(GetPostSuccessfully(normal: normal,Emergency: Emergency));
     } catch (err) {
+      refreshController.loadFailed();
       print(err);
       showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);
       emit(GetPostError(Error: err.toString()));

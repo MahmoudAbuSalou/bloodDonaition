@@ -44,6 +44,7 @@ dependencies:
   delayed_display: ^2.0.0
   flutter_pin_code_fields: ^1.1.0
   bloc: ^7.1.0
+  share_plus: ^4.0.10
   flutter_pin_code_widget: ^0.0.4
 
   connectivity_plus: ^2.3.0
