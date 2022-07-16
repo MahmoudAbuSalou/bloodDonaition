@@ -18,8 +18,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   int indexScreen = 1;
   List<Widget>screen=[
-    HomePage(),
-    HomePage(),
+    HomePage(type: false),
+    HomePage(type: true),
     Profile(),
   ];
 

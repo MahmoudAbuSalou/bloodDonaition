@@ -45,7 +45,7 @@ class LoginCubit extends Cubit<LoginState> {
      AppSharedPreferences.saveName(userModel.user!.name);
      if(state is LoginSuccessState)
      {
-       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage(),));
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage(type: true),));
      }
      }
      else{

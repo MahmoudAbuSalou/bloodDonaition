@@ -44,6 +44,7 @@ dependencies:
   delayed_display: ^2.0.0
   flutter_pin_code_fields: ^1.1.0
   bloc: ^7.1.0
+  share_plus: ^4.0.10
   flutter_pin_code_widget: ^0.0.4
 
   connectivity_plus: ^2.3.0
@@ -54,7 +55,7 @@ dependencies:
   fluttertoast: ^8.0.8
   conditional_builder_null_safety: ^0.0.6
   carousel_slider: ^4.0.0
-
+  pull_to_refresh: ^2.0.0
   fancy_shimmer_image: ^2.0.0+2
   flutter_screenutil:
   webview_flutter: ^2.8.0

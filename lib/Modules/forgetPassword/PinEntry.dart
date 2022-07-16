@@ -113,7 +113,7 @@ class _PinEntryState extends State<PinEntry> with WidgetsBindingObserver {
                                         RegisterCubit.get(context).signUp(user: AppCubit.get(context).userGlobal);
                                         Navigator.of(context)
                                             .pushReplacement(MaterialPageRoute(
-                                          builder: (context) => HomePage(),
+                                          builder: (context) => HomePage(type: true),
                                         ));
                                       }
                                       if (widget.page == widget.forgetPass)

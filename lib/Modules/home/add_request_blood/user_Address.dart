@@ -70,10 +70,12 @@ class _UserAddressState extends State<UserAddress> {
                           onMapCreated: onMapCreated,
                           myLocationEnabled: true,
                           onTap: (LatLng latLng) async {
-                            final lat = latLng.latitude;
-                            final long = latLng.longitude;
-                            print(long.toString());
-                            print(lat.toString());
+                            widget.bloodRequest.position_Lat = latLng.latitude;
+                            widget.bloodRequest.position_Lang =
+                                latLng.longitude;
+
+                            print(widget.bloodRequest.position_Lat);
+                            print(widget.bloodRequest.position_Lang);
 
                             city.text = await cubit.convertPosToReality(latLng);
 
@@ -115,7 +117,9 @@ class _UserAddressState extends State<UserAddress> {
                       ),
                       if (state is ConvertLocationLoading)
                         CircularProgressIndicator(),
-                      SizedBox(height: 30.h,),
+                      SizedBox(
+                        height: 30.h,
+                      ),
                       Container(
                           width: double.infinity,
                           height: 40,
@@ -125,12 +129,20 @@ class _UserAddressState extends State<UserAddress> {
                           ),
                           child: TextButton(
                               onPressed: () {
-                                if(city.text.isNotEmpty){
-                                  widget.bloodRequest.cityName = city.text.toString();
-                                  navigatorTo(context, BloodType(bloodRequest: widget.bloodRequest,));
-                                }
-                                else{
-                                  showToast(msg: 'الرجاء تحديد الموقع أولا ', state: ToastState.WARING);
+                                /// TODO
+                                city.text = 'دمشق';
+                                if (city.text.isNotEmpty) {
+                                  widget.bloodRequest.cityName =
+                                      city.text.toString();
+                                  navigatorTo(
+                                      context,
+                                      BloodType(
+                                        bloodRequest: widget.bloodRequest,
+                                      ));
+                                } else {
+                                  showToast(
+                                      msg: 'الرجاء تحديد الموقع أولا ',
+                                      state: ToastState.WARING);
                                 }
                               },
                               child: Text('التالي'.toUpperCase(),
