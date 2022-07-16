@@ -57,8 +57,9 @@ class EditPorfile extends StatelessWidget {
                           ),
                       ),
 
-                      
-
+                      SizedBox(
+                        height: 30.h,
+                      ),
 
                       /*Text('مساهمتك تنقذ حياة غيرك',
                           style: GoogleFonts.tajawal(
@@ -69,7 +70,7 @@ class EditPorfile extends StatelessWidget {
                           )),*/
 
                       SizedBox(
-                        height: 120.h,
+                        height: 80.h,
                       ),
 
                       //Name
