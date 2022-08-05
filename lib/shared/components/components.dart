@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +22,6 @@ Widget buildItem(business, context) {
               image: DecorationImage(
                 image: NetworkImage('${business['urlToImage']}'),
                 fit: BoxFit.cover,
-
               )),
         ),
         const SizedBox(
@@ -146,8 +144,8 @@ Widget defaultTextButton(
       },
       child: Text(
         text.toUpperCase(),
-        style: GoogleFonts.tajawal(textStyle: TextStyle(color: color,fontSize: 50.sp)),
-
+        style: GoogleFonts.tajawal(
+            textStyle: TextStyle(color: color, fontSize: 50.sp)),
       ));
 }
 
@@ -177,11 +175,11 @@ class GroupBlood extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = GlobalSettingRegisterCubit.get(context);
-      cubit.list.add(GroupBlood(
-              id: this.id,
-              Content: this.Content,
-              isSelected: this.isSelected,
-            ));
+        cubit.list.add(GroupBlood(
+          id: this.id,
+          Content: this.Content,
+          isSelected: this.isSelected,
+        ));
         return InkWell(
           child: Directionality(
             textDirection: TextDirection.ltr,
@@ -226,7 +224,7 @@ class GroupBlood extends StatelessWidget {
           onTap: () {
             print(id);
             // isSelected=!isSelected;
-           GlobalSettingRegisterCubit.get(context).changeelectedGroupBlood(id);
+            GlobalSettingRegisterCubit.get(context).changeelectedGroupBlood(id);
           },
         );
       },
@@ -247,8 +245,10 @@ Widget Choice(
             onChanged: (val) {
               int temp = int.parse(val.toString());
               (TypeQues == 'Gen')
-                  ? GlobalSettingRegisterCubit.get(context).changeSelectGen(temp)
-                  : GlobalSettingRegisterCubit.get(context).changeSelectWeight(temp);
+                  ? GlobalSettingRegisterCubit.get(context)
+                      .changeSelectGen(temp)
+                  : GlobalSettingRegisterCubit.get(context)
+                      .changeSelectWeight(temp);
             }),
         //  SizedBox(width: 20.w,),
         Text(

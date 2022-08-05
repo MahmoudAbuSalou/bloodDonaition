@@ -1,3 +1,5 @@
+import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
+import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -399,7 +401,9 @@ class DetailsScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Color(0xFF192747),
-        onPressed: () {},
+        onPressed: () {
+          navigatorTo(context, DonateScreen());
+        },
         label: Text(
           '    تبرع الان    ',
           style: GoogleFonts.tajawal(

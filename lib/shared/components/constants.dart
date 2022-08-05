@@ -72,3 +72,73 @@ List<Hospital> hospitals = [
   Hospital(name: "مشفى المهايني", position: LatLng(33.48868648145837, 36.29464398684215)),
   Hospital(name: "مشفى الرازي", position: LatLng(33.50438825172212, 36.261076343142015)),
 ];
+
+
+// ===*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=====
+// List Of Question to Accept the donation process of 10 elements.
+final questions = const [
+  {
+    'question': 'هل تبرعت بالدم خلال مدة لاتتجاوز الشهرين؟',
+    'answers': [
+      {'answerText': 'نعم, تبرعت', 'score': false},
+      {'answerText': 'لا, لم أتبرع', 'score': true},
+      {'answerText': 'غير ذلك', 'score': false},
+    ],
+  },
+  {
+    'question': 'هل عمرك أكثر من 17 سنة, ووزنك أكبر من 50 كيلو غرام؟',
+    'answers': [
+      {'answerText': 'نعم', 'score': true},
+      {'answerText': 'لا', 'score': false},
+      {'answerText': 'غير ذلك', 'score': false},
+    ],
+  },
+  {
+    'question': 'هل تقوم بتناول المضادات الحيوية, أو أنك مصاب بالحمى أو السعال المصاحب للبلغم؟',
+    'answers': [
+      {'answerText': 'نعم', 'score': false},
+      {'answerText': 'لا', 'score': true},
+      {'answerText': 'غير ذلك', 'score': false},
+    ],
+  },
+  {
+    'question': 'هل تعاني من أحد أمراض الدم المعدية التالية:',
+    'answers': [
+      {'answerText': 'الإيدز', 'score': false},
+      {'answerText': 'التهاب الكبد نوع ب أو نوع ج', 'score': false},
+      {'answerText': 'لا أعاني من أي نوع', 'score': true},
+    ],
+  },
+  {
+    'question': 'هل أصبت بمرض الملاريا خلال مدة أقل من ثلاث سنوات؟',
+    'answers': [
+      {'answerText': 'نعم, أصبت', 'score': false},
+      {'answerText': 'لا', 'score': true},
+      {'answerText': 'غير ذلك', 'score': false},
+    ],
+  },
+  {
+    'question': 'هل قمت برسم وشم خلال مدة مدة أقل من 12 شهر, أو أصبت بالجروح؟',
+    'answers': [
+      {'answerText': 'نعم', 'score': false},
+      {'answerText': 'لا', 'score': true},
+      {'answerText': 'غير ذلك', 'score': false},
+    ],
+  },
+  {
+    'question': 'إذا كنتِ متزوجة, هل ستقومين بالتبرع بالدم خلال فترة الحمل؟',
+    'answers': [
+      {'answerText': 'نعم', 'score': false},
+      {'answerText': 'لا', 'score': true},
+      {'answerText': 'لا, أنا ذكر', 'score': true},
+    ],
+  },
+  {
+    'question': 'هل تقوم بتعاطي المخدرات بالحقن الوريدي؟',
+    'answers': [
+      {'answerText': 'نعم', 'score': false},
+      {'answerText': 'مرة واحدة فقط منذ سنين', 'score': false},
+      {'answerText': 'لا, مطلقاً', 'score': true},
+    ],
+  },
+];

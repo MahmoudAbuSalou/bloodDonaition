@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
 import 'package:blood_donation_project/Modules/google_maps/google_maps_screen.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
 import 'package:blood_donation_project/cubit/search_cubit/search_screen.dart';
@@ -159,7 +160,9 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                             BoxShadow(color: Colors.grey, blurRadius: 4)
                           ]),
                       child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            navigatorTo(context, DonateScreen());
+                          },
                           child: Text(
                             'Donate',
                             style: TextStyle(color: Colors.white),
