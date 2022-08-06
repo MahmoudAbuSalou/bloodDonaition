@@ -1,5 +1,6 @@
 import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
+import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +18,13 @@ class _DonateScreenState extends State<DonateScreen> {
   bool answerWasSelected = false;
   bool endOfQuiz = false;
   bool correctAnswerSelected = false;
+
+  int acceptanceRate = 0;
+
+  int acceptDonationRate() {
+    acceptanceRate = _totalScore * 100 ~/ questions.length;
+    return acceptanceRate;
+  }
 
   void _questionAnswered(bool answerScore) {
     setState(() {
@@ -109,14 +117,15 @@ class _DonateScreenState extends State<DonateScreen> {
                     SizedBox(
                       height: 25.0,
                     ),
-                  if (_scoreTracker.length > 0) ..._scoreTracker
+                  if (_scoreTracker.length > 0) ..._scoreTracker,
                 ],
               ),
               Container(
                 width: double.infinity,
                 height: 140.0,
-                margin: EdgeInsets.only(bottom: 10.0, left: 30.0, right: 30.0),
-                padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
+                margin: EdgeInsets.only(
+                    top: 5.0, bottom: 10.0, left: 30.0, right: 30.0),
+                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.deepOrange,
                   borderRadius: BorderRadius.circular(10.0),
@@ -167,7 +176,13 @@ class _DonateScreenState extends State<DonateScreen> {
                   }
                   _nextQuestion();
                 },
-                child: Text(endOfQuiz ? 'إعادة الاختبار' : 'Next Question'),
+                child: Text(
+                  endOfQuiz ? 'إعادة الاختبار' : 'السؤال التالي',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(20.0),
@@ -178,14 +193,21 @@ class _DonateScreenState extends State<DonateScreen> {
               ),
               if (answerWasSelected && !endOfQuiz)
                 Container(
-                  height: 100,
                   width: double.infinity,
-                  color: correctAnswerSelected ? Colors.green : Colors.red,
+                  height: 100.0,
+                  margin: EdgeInsets.only(
+                      top: 5.0, bottom: 10.0, left: 30.0, right: 30.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+                  decoration: BoxDecoration(
+                    color: correctAnswerSelected ? Colors.green : Colors.red,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                   child: Center(
                     child: Text(
-                      correctAnswerSelected ? 'هذا صحيح ✔️' : 'خطأ ‼️',
+                      correctAnswerSelected ? ' ✔️ هذا صحيح' : '‼️ خطأ',
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 25.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -194,14 +216,21 @@ class _DonateScreenState extends State<DonateScreen> {
                 ),
               if (endOfQuiz)
                 Container(
-                  height: 100,
                   width: double.infinity,
-                  color: Colors.black38,
+                  height: 100.0,
+                  margin: EdgeInsets.only(
+                      top: 5.0, bottom: 10.0, left: 20.0, right: 20.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                   child: Center(
                     child: Text(
                       _totalScore > 4
-                          ? ' $_totalScore :تهانينا, نيجة الاختبار هي  '
-                          : ' $_totalScore : نتيجة الاختبار هي (^///^) ',
+                          ? ' ${acceptDonationRate()} :تهانينا, نيجة الاختبار هي '
+                          : ' ${acceptDonationRate()} : نتيجة الاختبار هي (^///^) ',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
@@ -210,6 +239,21 @@ class _DonateScreenState extends State<DonateScreen> {
                     ),
                   ),
                 ),
+              if (endOfQuiz)
+                SizedBox(
+                  height: 10.0,
+                ),
+              if (endOfQuiz)
+                OutlinedButton(
+                  onPressed: () {
+
+                    navigatorToNew(context, HomePage());
+                  },
+                  child: Text('التأكيد و العودة الى الرئيسية'),
+                ),
+              SizedBox(
+                height: 30.0,
+              ),
             ],
           ),
         ),
