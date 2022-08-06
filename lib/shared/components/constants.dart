@@ -82,7 +82,6 @@ final questions = const [
     'answers': [
       {'answerText': 'نعم, تبرعت', 'score': false},
       {'answerText': 'لا, لم أتبرع', 'score': true},
-      {'answerText': 'غير ذلك', 'score': false},
     ],
   },
   {
@@ -90,7 +89,6 @@ final questions = const [
     'answers': [
       {'answerText': 'نعم', 'score': true},
       {'answerText': 'لا', 'score': false},
-      {'answerText': 'غير ذلك', 'score': false},
     ],
   },
   {
@@ -98,7 +96,6 @@ final questions = const [
     'answers': [
       {'answerText': 'نعم', 'score': false},
       {'answerText': 'لا', 'score': true},
-      {'answerText': 'غير ذلك', 'score': false},
     ],
   },
   {
@@ -114,7 +111,6 @@ final questions = const [
     'answers': [
       {'answerText': 'نعم, أصبت', 'score': false},
       {'answerText': 'لا', 'score': true},
-      {'answerText': 'غير ذلك', 'score': false},
     ],
   },
   {
@@ -122,7 +118,6 @@ final questions = const [
     'answers': [
       {'answerText': 'نعم', 'score': false},
       {'answerText': 'لا', 'score': true},
-      {'answerText': 'غير ذلك', 'score': false},
     ],
   },
   {

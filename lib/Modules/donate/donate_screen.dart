@@ -161,14 +161,13 @@ class _DonateScreenState extends State<DonateScreen> {
                 onPressed: () {
                   if (!answerWasSelected) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                          'Please select an answer before going to the next question'),
+                      content: Text('الرجاء الإجابة على هذاا السؤال أولا'),
                     ));
                     return;
                   }
                   _nextQuestion();
                 },
-                child: Text(endOfQuiz ? 'Restart Quiz' : 'Next Question'),
+                child: Text(endOfQuiz ? 'إعادة الاختبار' : 'Next Question'),
               ),
               Container(
                 padding: EdgeInsets.all(20.0),
@@ -184,9 +183,7 @@ class _DonateScreenState extends State<DonateScreen> {
                   color: correctAnswerSelected ? Colors.green : Colors.red,
                   child: Center(
                     child: Text(
-                      correctAnswerSelected
-                          ? 'Well done, you got it right!'
-                          : 'Wrong :/',
+                      correctAnswerSelected ? 'هذا صحيح ✔️' : 'خطأ ‼️',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
@@ -199,12 +196,12 @@ class _DonateScreenState extends State<DonateScreen> {
                 Container(
                   height: 100,
                   width: double.infinity,
-                  color: Colors.black,
+                  color: Colors.black38,
                   child: Center(
                     child: Text(
                       _totalScore > 4
-                          ? 'Congratulations! Your final score is: $_totalScore'
-                          : 'Your final score is: $_totalScore. Better luck next time!',
+                          ? ' $_totalScore :تهانينا, نيجة الاختبار هي  '
+                          : ' $_totalScore : نتيجة الاختبار هي (^///^) ',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
