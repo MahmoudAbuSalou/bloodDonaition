@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DonateScreen extends StatefulWidget {
+  // DonateScreen({required int postID});
   @override
   State<DonateScreen> createState() => _DonateScreenState();
 }
@@ -163,33 +164,46 @@ class _DonateScreenState extends State<DonateScreen> {
                 ),
               ),
               SizedBox(height: 20.0),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 40.0),
-                ),
-                onPressed: () {
-                  if (!answerWasSelected) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('الرجاء الإجابة على هذاا السؤال أولا'),
-                    ));
-                    return;
-                  }
-                  _nextQuestion();
-                },
-                child: Text(
-                  endOfQuiz ? 'إعادة الاختبار' : 'السؤال التالي',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 20.0),
+                    child: Container(
+                      width: 80.0,
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                        '${_totalScore.toString()}/${questions.length}',
+                        style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(20.0),
-                child: Text(
-                  '${_totalScore.toString()}/${questions.length}',
-                  style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
-                ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 25.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 40.0),
+                        ),
+                        onPressed: () {
+                          if (!answerWasSelected) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('الرجاء الإجابة على هذاا السؤال أولا'),
+                            ));
+                            return;
+                          }
+                          _nextQuestion();
+                        },
+                        child: Text(
+                          endOfQuiz ? 'إعادة الاختبار' : 'السؤال التالي',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               if (answerWasSelected && !endOfQuiz)
                 Container(
@@ -217,7 +231,7 @@ class _DonateScreenState extends State<DonateScreen> {
               if (endOfQuiz)
                 Container(
                   width: double.infinity,
-                  height: 100.0,
+                  height: 70.0,
                   margin: EdgeInsets.only(
                       top: 5.0, bottom: 10.0, left: 20.0, right: 20.0),
                   padding:
@@ -241,12 +255,11 @@ class _DonateScreenState extends State<DonateScreen> {
                 ),
               if (endOfQuiz)
                 SizedBox(
-                  height: 10.0,
+                  height: 5.0,
                 ),
               if (endOfQuiz)
                 OutlinedButton(
                   onPressed: () {
-
                     navigatorToNew(context, HomePage());
                   },
                   child: Text('التأكيد و العودة الى الرئيسية'),
