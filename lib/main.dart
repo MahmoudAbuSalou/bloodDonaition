@@ -55,7 +55,6 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider(
              create: (context) => AppCubit(),
-
             ),
             BlocProvider(
               create: (context) => AllPostCubit()..getPost(),
