@@ -1,5 +1,6 @@
 import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
+import 'package:blood_donation_project/cubit/search_cubit/search_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,7 @@ class _DonateScreenState extends State<DonateScreen> {
   int acceptanceRate = 0;
 
   int acceptDonationRate() {
-    acceptanceRate = _totalScore * 100 ~/ questions.length;
-    return acceptanceRate;
+    return acceptanceRate = _totalScore * 100 ~/ questions.length;
   }
 
   void _questionAnswered(bool answerScore) {
@@ -63,16 +63,16 @@ class _DonateScreenState extends State<DonateScreen> {
     });
     // what happens at the end of the quiz
     if (_questionIndex >= questions.length) {
-      _resetQuiz();
+      _sendRate();
     }
   }
 
-  void _resetQuiz() {
+  void _sendRate() {
     setState(() {
-      _questionIndex = 0;
-      _totalScore = 0;
-      _scoreTracker = [];
-      endOfQuiz = false;
+      // _questionIndex = 0;
+      // _totalScore = 0;
+      // _scoreTracker = [];
+      endOfQuiz = true;
     });
   }
 
@@ -123,10 +123,10 @@ class _DonateScreenState extends State<DonateScreen> {
               ),
               Container(
                 width: double.infinity,
-                height: 140.0,
+                height: 150.0,
                 margin: EdgeInsets.only(
                     top: 5.0, bottom: 10.0, left: 30.0, right: 30.0),
-                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.deepOrange,
                   borderRadius: BorderRadius.circular(10.0),
@@ -173,34 +173,56 @@ class _DonateScreenState extends State<DonateScreen> {
                       padding: EdgeInsets.all(5.0),
                       child: Text(
                         '${_totalScore.toString()}/${questions.length}',
-                        style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 40.0, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsetsDirectional.only(end: 25.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 40.0),
-                        ),
-                        onPressed: () {
-                          if (!answerWasSelected) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('الرجاء الإجابة على هذاا السؤال أولا'),
-                            ));
-                            return;
-                          }
-                          _nextQuestion();
-                        },
-                        child: Text(
-                          endOfQuiz ? 'إعادة الاختبار' : 'السؤال التالي',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                      ),
+                      child: endOfQuiz
+                          ? OutlinedButton(
+                              onPressed: () {
+                                // Here we use logic to send rate To DB
+                                navigatorToNew(
+                                    context,
+                                    HomePage(
+                                      type: true,
+                                    ));
+                              },
+                              child: Text(
+                                'التأكيد و العودة الى الرئيسية',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.amber,
+                                ),
+                              ),
+                            )
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(double.infinity, 40.0),
+                              ),
+                              onPressed: () {
+                                if (!answerWasSelected) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(
+                                        'الرجاء الإجابة على هذاا السؤال أولا'),
+                                  ));
+                                  return;
+                                }
+                                _nextQuestion();
+                              },
+                              child: Text(
+                                'السؤال التالي',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                            ),
                     ),
                   ),
                 ],
@@ -253,20 +275,6 @@ class _DonateScreenState extends State<DonateScreen> {
                     ),
                   ),
                 ),
-              if (endOfQuiz)
-                SizedBox(
-                  height: 5.0,
-                ),
-              if (endOfQuiz)
-                OutlinedButton(
-                  onPressed: () {
-                    // navigatorToNew(context, HomePage());
-                  },
-                  child: Text('التأكيد و العودة الى الرئيسية'),
-                ),
-              SizedBox(
-                height: 30.0,
-              ),
             ],
           ),
         ),

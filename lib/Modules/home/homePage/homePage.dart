@@ -77,7 +77,8 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  navigatorTo(context, SearchScreen());
+                                  // navigatorTo(context, SearchScreen());
+                                  navigatorTo(context, DonateScreen());
                                 },
                               ),
                             ),

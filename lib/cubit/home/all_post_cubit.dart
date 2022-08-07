@@ -26,10 +26,8 @@ class AllPostCubit extends Cubit<AllPostState> {
 
   getPost() async {
     try {
-
       pageCount++;
       emit(GetPostLoading());
-
       final response = await DioHelper.getData(
         url: Urls.getPOST + pageCount.toString(),
         token:
