@@ -40,7 +40,7 @@ main() async {
   var token = await FirebaseMessaging.instance.getToken();
   print("*************************");
   print(token);
-  AppSharedPreferences.saveTokenPh(token.toString());
+
   print("*************************");
   FirebaseMessaging.onMessage.listen((event) {
 
@@ -61,6 +61,7 @@ main() async {
   //END  Notifications
 
   await CacheHelper.init();
+  AppSharedPreferences.saveTokenPh(token.toString());
   DioHelper.init();
   //bool onBoarding = CacheHelper.getData(key: 'onBoarding');
   runApp(const MyApp());
@@ -113,7 +114,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
               textTheme: TextTheme(bodyText2: TextStyle(fontSize: 30.sp)),
             ),
-            home: HomeLayout(),
+            home: (AppSharedPreferences.hasToken)?HomeLayout():OnBoardingScreen(),
           ),
         );
       },
