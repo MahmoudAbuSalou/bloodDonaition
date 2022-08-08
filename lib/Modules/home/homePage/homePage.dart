@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
 import 'package:blood_donation_project/Modules/google_maps/google_maps_screen.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
 import 'package:blood_donation_project/cubit/layoutCubit/home_cubit.dart';
@@ -44,19 +45,17 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                         Row(
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.only(
-                                  start: 20.w),
+                              padding: EdgeInsetsDirectional.only(start: 20.w),
                               child: Text(
                                 'قائمة الطلبات',
-                                style:
-                                TextStyle(
+                                style: TextStyle(
                                     color: Colors.white, fontSize: 70.sp),
                               ),
                             ),
                             Spacer(),
                             Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  end: 8.0),
+                              padding:
+                                  const EdgeInsetsDirectional.only(end: 8.0),
                               child: IconButton(
                                 icon: Icon(
                                   IconBroken.Location,
@@ -69,8 +68,8 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  end: 15.0),
+                              padding:
+                                  const EdgeInsetsDirectional.only(end: 15.0),
                               child: IconButton(
                                 icon: Icon(
                                   IconBroken.Search,
@@ -89,209 +88,135 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
-            body: state is GetPostSuccessfully?SmartRefresher(
-              controller: AllPostCubit.get(context).refreshController,
-              enablePullUp: true,
-              onLoading: ()async{
-                AllPostCubit.get(context).getPost();
-              },
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: type==false?state.Emergency.length:state.normal.length,
-                  itemBuilder: (context, index) {
-                    return listItem(context,type==false?state.Emergency[index]:state.normal[index]);
-                  }),
-            ):state is GetPostLoading?Center(child: CircularProgressIndicator(),):Center(child: Text("Empty"),)
-        );
+            body: state is GetPostSuccessfully
+                ? SmartRefresher(
+                    controller: AllPostCubit.get(context).refreshController,
+                    enablePullUp: true,
+                    onLoading: () async {
+                      AllPostCubit.get(context).getPost();
+                    },
+                    child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: type == false
+                            ? state.Emergency.length
+                            : state.normal.length,
+                        itemBuilder: (context, index) {
+                          return listItem(
+                              context,
+                              type == false
+                                  ? state.Emergency[index]
+                                  : state.normal[index]);
+                        }),
+                  )
+                : state is GetPostLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Center(
+                        child: Text("Empty"),
+                      ));
       },
     );
   }
 
-  Widget listItem(context,Data post) {
+  Widget listItem(context, Data post) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: GestureDetector(
-        onTap: () {
-          navigatorTo(context, DetailsScreen(id: 0,));
-        },
-        child: Container(
-          height: 500.h,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 3)],
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(35), topLeft: Radius.circular(50)),
-          ),
-          child: Column(
-            children: [
-              Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          height: double.infinity,
-                          width: 40,
-                          decoration: BoxDecoration(
-                              color: Color(0xff0B0742),
-                              borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(35),
-                              )),
-                          child: Center(
-                              child: Text(
-                                '${post.bloodType}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                        ),
-                      ),
-                      SizedBox(width: 7),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 7),
-                            Text(
-                              'Request Blood',
-                              style: TextStyle(
-                                color: Color(0xff041b2d),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'in progress',
-                              style: TextStyle(
-                                color: Color(0xffddddda),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          width: 100,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Color(0xfffe676e),
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(color: Colors.grey, blurRadius: 4)
-                              ]),
-                          child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Donate',
-                                style: TextStyle(color: Colors.white),
-                              )),
-                        ),
-                      ),
-                      SizedBox(width: 7),
-                    ],
-                  )),
-              SizedBox(
-                height: 1,
-              ),
-              Divider(height: 1),
-              Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          textDirection: TextDirection.rtl,
-                          children: [
-                            Text(
-                              '    :المريض',
-                              style: TextStyle(
-                                color: Color(0xff041b2d),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '${post.firstName}${post.lastName}',
-                              style: TextStyle(color: Color(0xff041b2d)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          textDirection: TextDirection.rtl,
-                          children: [
-                            Text(
-                              '    :العنوان ',
-                              style: TextStyle(
-                                color: Color(0xff041b2d),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '${post.cityName}',
-                              style: TextStyle(color: Color(0xff041b2d)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )),
-              SizedBox(
-                height: 1,
-              ),
-              Divider(height: 1),
-              Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.add_location_alt,
-                              size: 18,
-                              color: Color(0xff384e7b),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '${post.hospitalName}',
-                              style: TextStyle(color: Color(0xff94b0b7)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: GestureDetector(
+          onTap: () {
+            navigatorTo(
+                context,
+                DetailsScreen(
+                  id: 0,
+                ));
+          },
+          child: Container(
+            height: 500.h,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 3)],
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(35),
+                  topLeft: Radius.circular(50)),
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                    child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        height: double.infinity,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            color: Color(0xff0B0742),
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(35),
+                            )),
+                        child: Center(
+                            child: Text(
+                          '${post.bloodType}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
-                          child: IconButton(
-                            onPressed: () async{
-                              await Share.share('check out my website https://example.com', subject: 'Look what I made!');
-                            },
-                            icon: Icon(
-                              Icons.share,
-                              color: Color(0xff384e7b),
+                        )),
+                      ),
+                    ),
+                    SizedBox(width: 7),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 7),
+                          Text(
+                            'Request Blood',
+                            style: TextStyle(
+                              color: Color(0xff041b2d),
+                              fontWeight: FontWeight.bold,
                             ),
-                          ))
-                    ],
-                  )),
-            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            'in progress',
+                            style: TextStyle(
+                              color: Color(0xffddddda),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        width: 100,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Color(0xfffe676e),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(color: Colors.grey, blurRadius: 4)
+                            ]),
+                        child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Donate',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
+                    ),
+                    SizedBox(width: 7),
+                  ],
+                )),
+              ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 

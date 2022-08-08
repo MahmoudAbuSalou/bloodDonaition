@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
 import 'package:blood_donation_project/Modules/forgetPassword/forgetPasswordScreen.dart';
 import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 import 'package:blood_donation_project/layout/home_page/home_screen.dart';
@@ -153,9 +154,9 @@ class LogInScreen extends StatelessWidget {
                               // TODO: implement listener
                             },
                             builder: (context, state) {
-
-                               if (state is LoadingState){
-                                return Center(child: CircularProgressIndicator());
+                              if (state is LoadingState) {
+                                return Center(
+                                    child: CircularProgressIndicator());
                               }
 
                               return Container(
@@ -167,9 +168,8 @@ class LogInScreen extends StatelessWidget {
                                   ),
                                   child: TextButton(
                                       onPressed: () {
-                                        print(
-                                            _formKey.currentState!.validate());
                                         if (_formKey.currentState!.validate()) {
+
                                           LoginCubit.get(context).userLogin(email: email.text, password: password.text,token:AppSharedPreferences.getTokenPh,context: context);
 
                                         }
