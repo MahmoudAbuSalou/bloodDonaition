@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/Modules/my_posts/my_posts_screen.dart';
 import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:blood_donation_project/shared/network/local/cachehelper.dart';
 import 'package:flutter/material.dart';
@@ -46,16 +47,31 @@ class Profile extends StatelessWidget {
         buildNameEmail(),
         buildContainer(),
         Padding(
-          padding:EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+          padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
           child: Column(
             children: [
+              buildTextTile(
+                  title: 'زمرة الدم',
+                  subtitle: '',
+                  trailing: '${AppSharedPreferences.getBlood_type}',
+                  leading: Icon(Icons.location_on)),
+              buildTextTile(
+                  title: 'رقم الهاتف',
+                  subtitle: '',
+                  trailing: '${AppSharedPreferences.getPhone}',
+                  leading: Icon(Icons.phone_enabled)),
+              buildTextTile(
+                  title: 'العنوان',
+                  subtitle: '',
+                  trailing: '${AppSharedPreferences.getAddress}',
+                  leading: Icon(Icons.location_on)),
+              buildTextTile(
+                  title: 'البريد الإلكتروني',
+                  subtitle: '',
+                  trailing: '${AppSharedPreferences.getEmail}',
+                  leading: Icon(Icons.email_outlined)),
 
-              buildTextTile(title: 'زمرة الدم',subtitle: '',trailing: '${AppSharedPreferences.getBlood_type}',leading: Icon(Icons.location_on)),
-              buildTextTile(title: 'رقم الهاتف',subtitle: '',trailing: '${AppSharedPreferences.getPhone}',leading: Icon(Icons.phone_enabled)),
-              buildTextTile(title: 'العنوان',subtitle: '',trailing: '${AppSharedPreferences.getAddress}',leading: Icon(Icons.location_on)),
-              buildTextTile(title: 'البريد الإلكتروني',subtitle: '',trailing: '${AppSharedPreferences.getEmail}',leading: Icon(Icons.email_outlined)),
-
-            /*  buildFormFiled(
+              /*  buildFormFiled(
                 text: 'الأسم',
                 onTap: () {},
                 rIcon: Icons.location_on,
@@ -110,6 +126,19 @@ PreferredSize buildAppBar(BuildContext context) {
                       ),
                       onPressed: () {
                         navigatorTo(context, EditPorfile());
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(end: 15.0),
+                    child: IconButton(
+                      icon: Icon(
+                        IconBroken.Folder,
+                        size: 30.0,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        navigatorTo(context, MyPostsScreen());
                       },
                     ),
                   ),
@@ -333,53 +362,48 @@ Widget buildTextTile(
     required String trailing,
     required Icon leading}) {
   return Directionality(
-      textDirection: TextDirection.rtl,
-      child: ListTile(
-
-        leading: leading,
-        title:Container(
-          decoration: BoxDecoration(
-
-            border: Border(
-
-              bottom: BorderSide(
-                color: Colors.grey.shade400,
-                width: 1.5,
-              ),
+    textDirection: TextDirection.rtl,
+    child: ListTile(
+      leading: leading,
+      title: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.grey.shade400,
+              width: 1.5,
             ),
           ),
-          height: 45,
-          child: Text(
+        ),
+        height: 45,
+        child: Text(
           title,
           style: TextStyle(
             fontSize: 16,
-            fontWeight:FontWeight.bold,
+            fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),
-        ),
+      ),
 
-        /* */
-        subtitle: Text(
-          subtitle,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black45,
-          ),
+      /* */
+      subtitle: Text(
+        subtitle,
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.black45,
         ),
-        trailing:Directionality(
-          textDirection: TextDirection.ltr,
-          child:Text(
-
+      ),
+      trailing: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Text(
           trailing,
-          overflow: TextOverflow.ellipsis ,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
-
             fontSize: 12,
             color: Colors.black45,
           ),
-        ),) ,
-
+        ),
       ),
+    ),
   );
 }

@@ -185,11 +185,11 @@ class _DonateScreenState extends State<DonateScreen> {
                           ? OutlinedButton(
                               onPressed: () {
                                 // Here we use logic to send rate To DB
-                                navigatorToNew(
-                                    context,
-                                    HomePage(
-                                      type: true,
-                                    ));
+                                // navigatorToNew(
+                                //     context,
+                                //     HomePage(
+                                //       type: true,
+                                //     ));
                               },
                               child: Text(
                                 'التأكيد و العودة الى الرئيسية',

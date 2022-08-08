@@ -16,9 +16,9 @@ part 'all_post_state.dart';
 class AllPostCubit extends Cubit<AllPostState> {
   AllPostCubit() : super(AllPostInitial());
 
-
-  static  AllPostCubit get(context) => BlocProvider.of(context);
-  RefreshController refreshController = RefreshController(initialRefresh: false);
+  static AllPostCubit get(context) => BlocProvider.of(context);
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   late Post post;
   List<Data> normal = [];
   List<Data> Emergency = [];
@@ -31,20 +31,19 @@ class AllPostCubit extends Cubit<AllPostState> {
       final response = await DioHelper.getData(
         url: Urls.getPOST + pageCount.toString(),
         token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU3MTg0OTcwfQ.BOdbtbomzcq-7DV2vfav4hn2HVUbF_luaLptlFw7yLg",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU3MTg0OTcwfQ.BOdbtbomzcq-7DV2vfav4hn2HVUbF_luaLptlFw7yLg",
       );
 
       post = Post.fromJson(response.data);
       post.data?.forEach((element) {
-        if(element.postType==true){
+        if (element.postType == true) {
           Emergency.add(element);
-        }
-        else{
+        } else {
           normal.add(element);
         }
       });
-refreshController.loadComplete();
-      emit(GetPostSuccessfully(normal: normal,Emergency: Emergency));
+      refreshController.loadComplete();
+      emit(GetPostSuccessfully(normal: normal, Emergency: Emergency));
     } catch (err) {
       refreshController.loadFailed();
       print(err);

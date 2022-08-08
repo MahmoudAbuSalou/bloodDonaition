@@ -77,8 +77,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  // navigatorTo(context, SearchScreen());
-                                  navigatorTo(context, DonateScreen());
+                                  navigatorTo(context, SearchScreen());
                                 },
                               ),
                             ),
@@ -204,7 +203,9 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               BoxShadow(color: Colors.grey, blurRadius: 4)
                             ]),
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              navigatorTo(context, DonateScreen());
+                            },
                             child: Text(
                               'Donate',
                               style: TextStyle(color: Colors.white),
