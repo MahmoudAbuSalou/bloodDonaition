@@ -114,7 +114,8 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                       )
                     : Center(
                         child: Text("Empty"),
-                      ));
+                      )
+        );
       },
     );
   }

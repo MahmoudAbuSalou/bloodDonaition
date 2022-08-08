@@ -1,4 +1,7 @@
+import 'package:blood_donation_project/Models/post/Post.dart';
 import 'package:blood_donation_project/Modules/my_posts/my_posts_screen.dart';
+import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
+import 'package:blood_donation_project/cubit/home/all_post_cubit.dart';
 import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:blood_donation_project/shared/network/local/cachehelper.dart';
 import 'package:flutter/material.dart';
@@ -138,7 +141,9 @@ PreferredSize buildAppBar(BuildContext context) {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        navigatorTo(context, MyPostsScreen());
+                        navigatorTo(
+                            context,
+                            MyPostsScreen());
                       },
                     ),
                   ),
