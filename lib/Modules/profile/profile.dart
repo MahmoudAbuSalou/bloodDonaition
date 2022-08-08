@@ -45,35 +45,18 @@ class Profile extends StatelessWidget {
         ),
         buildNameEmail(),
         buildContainer(),
-        Padding(
-          padding:EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-          child: Column(
-            children: [
+        Column(
+          children: [
 
-              buildTextTile(title: 'زمرة الدم',subtitle: '',trailing: '${AppSharedPreferences.getBlood_type}',leading: Icon(Icons.location_on)),
-              buildTextTile(title: 'رقم الهاتف',subtitle: '',trailing: '${AppSharedPreferences.getPhone}',leading: Icon(Icons.phone_enabled)),
-              buildTextTile(title: 'العنوان',subtitle: '',trailing: '${AppSharedPreferences.getAddress}',leading: Icon(Icons.location_on)),
-              buildTextTile(title: 'البريد الإلكتروني',subtitle: '',trailing: '${AppSharedPreferences.getEmail}',leading: Icon(Icons.email_outlined)),
+            buildTextTile(title: 'زمرة الدم',subtitle: '',trailing: '${AppSharedPreferences.getBlood_type}',leading: Icon(Icons.location_on)),
+            buildTextTile(title: 'رقم الهاتف',subtitle: '',trailing: '${AppSharedPreferences.getPhone}',leading: Icon(Icons.phone_enabled)),
+            buildTextTile(title: 'العنوان',subtitle: '',trailing: '${AppSharedPreferences.getAddress}',leading: Icon(Icons.location_on)),
+            buildTextTile(title: 'البريد الإلكتروني',subtitle: '',trailing: '${AppSharedPreferences.getEmail}',leading: Icon(Icons.email_outlined)),
 
-            /*  buildFormFiled(
-                text: 'الأسم',
-                onTap: () {},
-                rIcon: Icons.location_on,
-                text2: '${CacheHelper.getData(key: 'name')}',
-              ),
-              buildFormFiled(
-                  text: 'رقم الهاتف',
-                  onTap: () {},
-                  rIcon: Icons.phone_enabled,
-                  text2: '${CacheHelper.getData(key: 'phone')}'),
-              buildFormFiled(
-                text: 'البريد الإلكتروني',
-                onTap: () {},
-                rIcon: Icons.email_outlined,
-                text2: '${CacheHelper.getData(key: 'email')}',
-              ),*/
-            ],
-          ),
+           
+
+
+          ],
         )
       ]),
     );
@@ -246,86 +229,6 @@ Widget buildContainer() => Padding(
       ),
     );
 
-Widget buildFormFiled(
-        {required IconData rIcon,
-        required String text,
-        required String text2,
-        required var onTap}) =>
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          /*IconButton(
-        color: Colors.redAccent,
-        onPressed: onTap,
-        icon: Icon(Icons.edit,size: 20,),
-    ),*/
-          CustomListTile(text, onTap, text2),
-          Icon(
-            rIcon,
-          ),
-        ],
-      ),
-    );
-
-class CustomListTile extends StatelessWidget {
-  String text;
-  String text2;
-  var onTap;
-
-  CustomListTile(this.text, this.onTap, this.text2);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(19.0, 0, 19.0, 0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: Colors.grey.shade400),
-          ),
-        ),
-        child: InkWell(
-          splashColor: Colors.redAccent,
-          onTap: this.onTap,
-          child: Container(
-            height: 50,
-            width: MediaQuery.of(context).size.width - 85,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    text2,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black45,
-                    ),
-                  ),
-                ),
-                Spacer(),
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        text,
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 Widget buildTextTile(
     {required String title,

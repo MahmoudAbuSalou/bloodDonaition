@@ -1,6 +1,7 @@
 import 'package:blood_donation_project/Modules/forgetPassword/forgetPasswordScreen.dart';
 import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 import 'package:blood_donation_project/layout/home_page/home_screen.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -169,7 +170,7 @@ class LogInScreen extends StatelessWidget {
                                         print(
                                             _formKey.currentState!.validate());
                                         if (_formKey.currentState!.validate()) {
-                                          LoginCubit.get(context).userLogin(email: email.text, password: password.text,context: context);
+                                          LoginCubit.get(context).userLogin(email: email.text, password: password.text,token:AppSharedPreferences.getTokenPh,context: context);
 
                                         }
                                       },
