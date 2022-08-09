@@ -278,7 +278,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                           ),
                           child: IconButton(
                             onPressed: () async{
-                              await Share.share('check out my website https://example.com', subject: 'Look what I made!');
+                              await Share.share('مريض بحاجة إلى زمرة دم ${post.bloodType} عدد الأكياس المطلوبة ${post.bloodBags}من يستطيع التبرع أو يعرف شخصا قادر على التبرع يتواصل معنا مباشرة على الرقم التالي :${post.phone} ', subject: 'need Help!');
                             },
                             icon: Icon(
                               Icons.share,
