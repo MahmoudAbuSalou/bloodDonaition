@@ -10,6 +10,7 @@ class UserModel {
     required this.bloodType,
     required this.isAdmin,
     required this.birthDate,
+    required this.token,
   });
   late final String name;
   late final int phone;
@@ -21,6 +22,7 @@ class UserModel {
   late final String bloodType;
   late final bool isAdmin;
   late final String birthDate;
+  late final String token;
   UserModel.fromJson(Map<String, dynamic> json){
     name = json['name'];
     phone = json['phone'];
@@ -32,6 +34,7 @@ class UserModel {
     bloodType = json['blood_type'];
     isAdmin = json['isAdmin'];
     birthDate = json['birthDate'];
+    token = json['tokenPh'];
   }
 
   Map<String, dynamic> toJson() {
@@ -46,6 +49,7 @@ class UserModel {
     _data['blood_type'] = bloodType;
     _data['isAdmin'] = isAdmin;
     _data['birthDate'] = birthDate;
+    _data['tokenPh'] = token;
     return _data;
   }
 }

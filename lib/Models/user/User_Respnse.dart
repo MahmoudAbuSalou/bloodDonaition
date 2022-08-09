@@ -6,11 +6,11 @@ class UserResponse {
     required this.userprofile,
     required this.token,
   });
-  late final String status;
-  late final String message;
-   User? user;
-    Userprofile ? userprofile;
-    String  ? token;
+  late final  status;
+  late final  message;
+  User? user;
+  Userprofile ? userprofile;
+  var   token;
 
   UserResponse.fromJson(Map<String, dynamic> json){
     status = json['status'];
@@ -18,9 +18,9 @@ class UserResponse {
     if(json['user']!=null)
       user = User.fromJson(json['user']);
     if(json['userprofile']!=null)
-    userprofile = Userprofile.fromJson(json['userprofile']);
+      userprofile = Userprofile.fromJson(json['userprofile']);
     if(json['token']!=null)
-    token = json['token'];
+      token = json['token'];
   }
 
 
@@ -36,13 +36,13 @@ class User {
     required this.isAdmin,
     required this.birthDate,
   });
-  late final int userId;
-  late final int phone;
-  late final String address;
-  late final String name;
-  late final String email;
-  late final bool isAdmin;
-  late final String birthDate;
+  late final  userId;
+  late final  phone;
+  late final  address;
+  late final  name;
+  late final  email;
+  late final  isAdmin;
+  late final  birthDate;
 
   User.fromJson(Map<String, dynamic> json){
     userId = json['user_id'];
@@ -52,6 +52,7 @@ class User {
     email = json['email'];
     isAdmin = json['isAdmin'];
     birthDate = json['birthDate'];
+    print(this.phone);
   }
 
   Map<String, dynamic> toJson() {
@@ -73,9 +74,9 @@ class Userprofile {
     required this.gender,
     required this.bloodType,
   });
-  late final String weight;
-  late final String gender;
-  late final String bloodType;
+  late final  weight;
+  late final  gender;
+  late final  bloodType;
 
   Userprofile.fromJson(Map<String, dynamic> json){
     weight = json['weight'];

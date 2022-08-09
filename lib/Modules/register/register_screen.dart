@@ -4,6 +4,7 @@ import 'package:blood_donation_project/Modules/login/login_screen.dart';
 import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 
 import 'package:blood_donation_project/shared/components/constants.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:blood_donation_project/shared/validation/userValidation.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -427,6 +428,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           AppCubit.get(context).checkEmail(
                                               UserModel(
                                                   name: name.text,
+                                                  token: AppSharedPreferences.getTokenPh,
                                                   phone: int.parse(phone.text),
                                                   password: password.text,
                                                   email: email.text,

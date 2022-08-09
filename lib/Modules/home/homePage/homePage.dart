@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
 import 'package:blood_donation_project/Modules/google_maps/google_maps_screen.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
 import 'package:blood_donation_project/cubit/layoutCubit/home_cubit.dart';
@@ -44,19 +45,17 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                         Row(
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.only(
-                                  start: 20.w),
+                              padding: EdgeInsetsDirectional.only(start: 20.w),
                               child: Text(
                                 'قائمة الطلبات',
-                                style:
-                                TextStyle(
+                                style: TextStyle(
                                     color: Colors.white, fontSize: 70.sp),
                               ),
                             ),
                             Spacer(),
                             Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  end: 8.0),
+                              padding:
+                                  const EdgeInsetsDirectional.only(end: 8.0),
                               child: IconButton(
                                 icon: Icon(
                                   IconBroken.Location,
@@ -69,8 +68,8 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  end: 15.0),
+                              padding:
+                                  const EdgeInsetsDirectional.only(end: 15.0),
                               child: IconButton(
                                 icon: Icon(
                                   IconBroken.Search,
@@ -89,25 +88,38 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
-            body: state is GetPostSuccessfully?SmartRefresher(
-              controller: AllPostCubit.get(context).refreshController,
-              enablePullUp: true,
-              onLoading: ()async{
-                AllPostCubit.get(context).getPost();
-              },
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: type==false?state.Emergency.length:state.normal.length,
-                  itemBuilder: (context, index) {
-                    return listItem(context,type==false?state.Emergency[index]:state.normal[index]);
-                  }),
-            ):state is GetPostLoading?Center(child: CircularProgressIndicator(),):Center(child: Text("Empty"),)
-        );
+            body: state is GetPostSuccessfully
+                ? SmartRefresher(
+                    controller: AllPostCubit.get(context).refreshController,
+                    enablePullUp: true,
+                    onLoading: () async {
+                      AllPostCubit.get(context).getPost();
+                    },
+                    child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: type == false
+                            ? state.Emergency.length
+                            : state.normal.length,
+                        itemBuilder: (context, index) {
+                          return listItem(
+                              context,
+                              type == false
+                                  ? state.Emergency[index]
+                                  : state.normal[index]);
+                        }),
+                  )
+                : state is GetPostLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Center(
+                        child: Text("Empty"),
+                      ));
       },
     );
   }
 
-  Widget listItem(context,Data post) {
+  Widget listItem(context, Data post) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: GestureDetector(
