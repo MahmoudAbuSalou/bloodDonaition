@@ -203,7 +203,9 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               BoxShadow(color: Colors.grey, blurRadius: 4)
                             ]),
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+
+                            },
                             child: Text(
                               'Donate',
                               style: TextStyle(color: Colors.white),
