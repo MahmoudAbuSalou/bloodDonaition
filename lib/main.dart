@@ -55,13 +55,13 @@ class MyApp extends StatelessWidget {
               create: (context) => GlobalSettingRegisterCubit(),
             ),
             BlocProvider(
-             create: (context) => AppCubit(),
+              create: (context) => AppCubit(),
             ),
             BlocProvider(
               create: (context) => AllPostCubit()..getPost(),
             ),
             BlocProvider(
-              create: (context) => MyPostsCubit()..getMyPosts(),
+              create: (context) => MyPostsCubit()..getMyPosts()..getDonors(3),
             ),
           ],
           child: MaterialApp(

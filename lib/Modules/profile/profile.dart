@@ -132,21 +132,6 @@ PreferredSize buildAppBar(BuildContext context) {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 15.0),
-                    child: IconButton(
-                      icon: Icon(
-                        IconBroken.Folder,
-                        size: 30.0,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        navigatorTo(
-                            context,
-                            MyPostsScreen());
-                      },
-                    ),
-                  ),
                 ],
               ),
             ],

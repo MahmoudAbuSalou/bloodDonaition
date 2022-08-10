@@ -1,7 +1,6 @@
 import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
 import 'package:blood_donation_project/Modules/google_maps/google_maps_screen.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
-import 'package:blood_donation_project/cubit/layoutCubit/home_cubit.dart';
 import 'package:blood_donation_project/cubit/search_cubit/search_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/style/icon_broken.dart';
@@ -10,8 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:share_plus/share_plus.dart';
-
 import '../../../Models/post/Post.dart';
 import '../../../cubit/home/all_post_cubit.dart';
 

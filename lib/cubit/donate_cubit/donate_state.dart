@@ -1,13 +1,11 @@
-//      /=/=/=/=/=/=/=/
-//      Al-Rifai Added MyPosts States:
-
+import 'package:blood_donation_project/Models/donation/donors_model.dart';
 import 'package:blood_donation_project/Models/post/Post.dart';
 
 abstract class MyPostsStates {}
 
 class MyPostsInitialState extends MyPostsStates {}
 
-
+// MyPosts
 class GetMyPostLoadingState extends MyPostsStates {}
 
 // ignore: must_be_immutable
@@ -24,3 +22,20 @@ class GetMyPostErrorState extends MyPostsStates {
   GetMyPostErrorState({required this.Error});
 }
 
+// All Donors For One Post Of Me
+
+class GetDonorsLoadingState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class GetDonorsSuccessState extends MyPostsStates {
+  List<DataMode> donors;
+
+  GetDonorsSuccessState({required this.donors});
+}
+
+// ignore: must_be_immutable
+class GetDonorsErrorState extends MyPostsStates {
+  String Error;
+
+  GetDonorsErrorState({required this.Error});
+}
