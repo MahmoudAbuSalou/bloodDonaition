@@ -7,6 +7,11 @@ import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 
 import 'package:blood_donation_project/cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
 import 'package:blood_donation_project/layout/home_page/home_screen.dart';
+import 'package:blood_donation_project/shared/components/components.dart';
+import 'package:blood_donation_project/shared/components/constants.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,16 +22,50 @@ import 'shared/bloc_observer.dart';
 import 'shared/network/local/cachehelper.dart';
 import 'shared/network/remote/dio_helper.dart';
 
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("on background massage");
+  print(message.data.toString());
+  showToast(msg: "on background massage", state: ToastState.SUCCESS);
+}
+
 main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 
+
+  // START  Notifications
+
+  await Firebase.initializeApp();
+  var token = await FirebaseMessaging.instance.getToken();
+  print("*************************");
+  print(token);
+  print("*************************");
+  FirebaseMessaging.onMessage.listen((event) {
+
+    print("on onMessage");
+    print(event.data.toString());
+    showToast(msg: "on massage", state: ToastState.SUCCESS);
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((event) {
+
+    print("on onMessage Opened App");
+    print(event.data.toString());
+    showToast(msg: "on onMessage Opened App", state: ToastState.SUCCESS);
+
+  });
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  //END  Notifications
+
   await CacheHelper.init();
+  AppSharedPreferences.saveTokenPh(token.toString());
   DioHelper.init();
   //bool onBoarding = CacheHelper.getData(key: 'onBoarding');
   runApp(const MyApp());
 }
+
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -74,7 +113,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
               textTheme: TextTheme(bodyText2: TextStyle(fontSize: 30.sp)),
             ),
-            home: HomeLayout(),
+            home: (AppSharedPreferences.hasToken)?HomeLayout():OnBoardingScreen(),
           ),
         );
       },

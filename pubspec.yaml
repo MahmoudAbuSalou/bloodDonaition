@@ -71,6 +71,10 @@ dependencies:
   #- For Google Maps [ Muhammad Al-Rifai ]:
   google_maps_flutter: ^2.1.5
 
+  #- For FireBase [ Muhammad Al-khateeb ]:
+  firebase_messaging:
+  firebase_core:
+
 
 dev_dependencies:
   flutter_test:

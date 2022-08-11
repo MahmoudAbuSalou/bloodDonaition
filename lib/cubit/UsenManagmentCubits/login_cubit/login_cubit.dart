@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Modules/home/homePage/homePage.dart';
+import '../../../layout/home_page/home_screen.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/constants.dart';
 import '../../../shared/components/constants.dart';
@@ -22,30 +23,31 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  void userLogin({required String email, required  String password,context}) async {
+  void userLogin({required String email, required  String password,context,required token}) async {
     UserResponse userModel;
     emit(LoadingState());
     try {
      final response= await DioHelper.postData(url: Urls.loginUrl, data: {
         'email': email,
-        'password': password
+        'password': password,
+        'tokenPh': token
       });
      userModel=UserResponse.fromJson(response.data);
 
      if(userModel.status=='true'){
      emit(LoginSuccessState());
      AppSharedPreferences.saveToken(userModel.token!);
-     AppSharedPreferences.saveEmail(userModel.user!.email);
-     AppSharedPreferences.saveAddress(userModel.user!.address);
-     AppSharedPreferences.saveBlood_type(userModel.userprofile!.bloodType);
-     AppSharedPreferences.saveBirthDate(userModel.user!.birthDate);
-     AppSharedPreferences.saveGender(userModel.userprofile!.gender);
+     AppSharedPreferences.saveEmail(userModel.user!.email!);
+     AppSharedPreferences.saveAddress(userModel.user!.address!);
+     AppSharedPreferences.saveBlood_type(userModel.userprofile!.bloodType!);
+     AppSharedPreferences.saveBirthDate(userModel.user!.birthDate!);
+     AppSharedPreferences.saveGender(userModel.userprofile!.gender!);
      AppSharedPreferences.savePhone(userModel.user!.phone.toString());
-     AppSharedPreferences.saveWeight(userModel.userprofile!.weight);
-     AppSharedPreferences.saveName(userModel.user!.name);
+     AppSharedPreferences.saveWeight(userModel.userprofile!.weight.toString());
+     AppSharedPreferences.saveName(userModel.user!.name!);
      if(state is LoginSuccessState)
      {
-       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage(type: true),));
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeLayout(),));
      }
      }
      else{

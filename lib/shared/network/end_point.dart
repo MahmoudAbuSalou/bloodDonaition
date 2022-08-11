@@ -12,6 +12,7 @@ class Urls {
   static const String getSinglePOST = baseUrl + "home/getSinglePost/";
   static const String deleteSinglePOST = baseUrl + "home/deletePost/";
   static const String upDateSinglePOST = baseUrl + "home/updatePost/";
+  static const String updateProfile = baseUrl + "users/updateProfile";
 
   // Added by Muhammad Al-Rifai.
   static const String acceptanceRate = baseUrl + "Donation/acceptance_rate";

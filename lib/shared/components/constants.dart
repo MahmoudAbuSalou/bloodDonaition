@@ -45,7 +45,7 @@ Color toastColor(ToastState state) {
   return color;
 }
 
-String token = CacheHelper.getData(key: 'token');
+// String token = CacheHelper.getData(key: 'token');
 
 // ===*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=====
 

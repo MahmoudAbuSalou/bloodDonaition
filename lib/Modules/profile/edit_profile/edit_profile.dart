@@ -1,4 +1,5 @@
-import 'package:blood_donation_project/Modules/profile/profile_cubit/profile_cubit.dart';
+import 'package:blood_donation_project/cubit/profile_cubit/profile_cubit.dart';
+import 'package:blood_donation_project/cubit/profile_cubit/profile_state.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
 import '../../../shared/components/components.dart';
 import '../../login/login_screen.dart';
-import '../profile_cubit/profile_state.dart';
 
 class EditPorfile extends StatelessWidget {
   TextEditingController name = TextEditingController();
@@ -308,12 +309,25 @@ class EditPorfile extends StatelessWidget {
 
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
+
+                                    ProfileCubit.get(context).updateUserData(
+                                        name: name.text,
+                                        phone: int.parse(phone.text),
+                                        email: email.text,
+                                        bloodType: GlobalSettingRegisterCubit.get(context)
+                                            .list[GlobalSettingRegisterCubit.get(context).indexG]
+                                            .Content,
+                                        weight: ProfileCubit.get(context).value_slider.round(),
+                                    );
+
                                     Fluttertoast.showToast(
                                         msg: 'تم تعديل الملف الشخصي',
                                         textColor: Colors.white,
                                         backgroundColor: Colors.green,
                                         gravity: ToastGravity.BOTTOM,
                                         toastLength: Toast.LENGTH_LONG);
+
+
                                   } else
                                     Fluttertoast.showToast(
                                         msg: 'فشل تعديل الملف الشخصي',

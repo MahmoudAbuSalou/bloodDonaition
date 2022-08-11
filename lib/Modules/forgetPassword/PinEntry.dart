@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../cubit/UsenManagmentCubits/Register/register_cubit/register_states.dart';
+import '../../layout/home_page/home_screen.dart';
 import 'ResetPassword.dart';
 
 // ignore: must_be_immutable
@@ -113,7 +114,7 @@ class _PinEntryState extends State<PinEntry> with WidgetsBindingObserver {
                                         RegisterCubit.get(context).signUp(user: AppCubit.get(context).userGlobal);
                                         Navigator.of(context)
                                             .pushReplacement(MaterialPageRoute(
-                                          builder: (context) => HomePage(type: true),
+                                          builder: (context) => HomeLayout(),
                                         ));
                                       }
                                       if (widget.page == widget.forgetPass)
