@@ -1,5 +1,5 @@
 class Urls {
-  //static const String baseUrl = "http://10.0.2.2:3000/api/";
+  // static const String baseUrl = "http://10.0.2.2:3000/api/";
   static const String baseUrl = "http://192.168.131.232:3000/api/";
   static const String singupUrl = baseUrl + "users/signUp";
   static const String genPinUrl = baseUrl + "genPin/";
