@@ -79,13 +79,6 @@ class GoogleMapsScreen extends StatelessWidget {
                     onMapCreated: cubit.onMapCreated,
                     myLocationEnabled: true,
                     markers: cubit.myMarker,
-
-                    // polylines: {
-                    //   cubit.myPolyLine,
-                    // },
-                    // polygons: {
-                    //   cubit.myPolygon,
-                    // },
                   ),
                 ),
               ],

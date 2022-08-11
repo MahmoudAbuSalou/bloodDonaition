@@ -13,4 +13,19 @@ class Urls {
   static const String deleteSinglePOST=  baseUrl+"home/deletePost/";
   static const String upDateSinglePOST=  baseUrl+"home/updatePost/";
 
+  // Added by Muhammad Al-Rifai.
+  static const String acceptanceRate = baseUrl + "Donation/acceptance_rate";
+  static const String userPosts = baseUrl + "Donation/user_posts";
+  static const String getDonors = baseUrl + "Donation/getDonors/";
+  static const String deleteDonor = baseUrl + "Donation/delete/";
+  static const String confirmDonor = baseUrl + "Donation/confirm/";
+
+  // ==*=*=====*======*
+
+  //static const String updateProfile =  baseUrl+"users/updateProfile";
+  static const String notification = "https://fcm.googleapis.com/fcm/send";
+
+  //static const String updateProfile = "http://10.0.2.2:3000/api/users/updateProfile";
+  static const String updateProfile = baseUrl + "users/updateProfile";
+  static const String tokenPh = baseUrl + "users/getTokenPhone/";
 }

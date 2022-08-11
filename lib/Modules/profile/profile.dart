@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
+import 'package:blood_donation_project/shared/network/local/cachehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../shared/components/components.dart';
 import '../../shared/style/icon_broken.dart';
-import 'edit_profile.dart';
+import 'edit_profile/edit_profile.dart';
 
 class Profile extends StatelessWidget {
   TextEditingController textEditingController1 = TextEditingController();
@@ -29,11 +30,10 @@ class Profile extends StatelessWidget {
                     backgroundColor: Colors.black54,
                     //child: Text("AB+"),
                     child: Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-
+                      Icons.edit,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 ),
               ),
@@ -47,23 +47,14 @@ class Profile extends StatelessWidget {
         buildContainer(),
         Column(
           children: [
-            buildFormFiled(
-              text: 'الأسم',
-              onTap: () {},
-              rIcon: Icons.location_on,
-              text2: 'mohammad',
-            ),
-            buildFormFiled(
-                text: 'رقم الهاتف',
-                onTap: () {},
-                rIcon: Icons.phone_enabled,
-                text2: '0932068077'),
-            buildFormFiled(
-              text: 'البريد الإلكتروني',
-              onTap: () {},
-              rIcon: Icons.email_outlined,
-              text2: 'mohammadalkhatb',
-            ),
+
+            buildTextTile(title: 'زمرة الدم',subtitle: '',trailing: '${AppSharedPreferences.getBlood_type}',leading: Icon(Icons.location_on)),
+            buildTextTile(title: 'رقم الهاتف',subtitle: '',trailing: '${AppSharedPreferences.getPhone}',leading: Icon(Icons.phone_enabled)),
+            buildTextTile(title: 'العنوان',subtitle: '',trailing: '${AppSharedPreferences.getAddress}',leading: Icon(Icons.location_on)),
+            buildTextTile(title: 'البريد الإلكتروني',subtitle: '',trailing: '${AppSharedPreferences.getEmail}',leading: Icon(Icons.email_outlined)),
+
+           
+
 
           ],
         )
@@ -101,7 +92,7 @@ PreferredSize buildAppBar(BuildContext context) {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        navigatorTo(context,EditPorfile());
+                        navigatorTo(context, EditPorfile());
                       },
                     ),
                   ),
@@ -161,14 +152,14 @@ Widget buildImage() {
 Widget buildNameEmail() => Column(
       children: [
         Text(
-          "Mohammad Kh",
+          "${AppSharedPreferences.getName}",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
         ),
         const SizedBox(
           height: 4,
         ),
         Text(
-          "Mohammad alkhateb880@gmail.com",
+          "${AppSharedPreferences.getEmail}",
           style: TextStyle(color: Colors.grey[600]),
         ),
       ],
@@ -186,17 +177,15 @@ Widget buildContainer() => Padding(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("هل تبرعت بالدم من قبل ؟",
-                      style: TextStyle(
-                      fontSize: 14,
-                        color: Colors.red
-                    ),
+                    child: Text(
+                      "هل تبرعت بالدم من قبل ؟",
+                      style: TextStyle(fontSize: 14, color: Colors.red),
                     ),
                   ),
                   SizedBox(
                     height: 4,
                   ),
-                   //Text("154"),
+                  //Text("154"),
                 ],
               ),
             ),
@@ -218,11 +207,9 @@ Widget buildContainer() => Padding(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("هل تبرعت بالدم من قبل ؟",
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.red
-                    ),
+                  child: Text(
+                    "عدد الأيام المتبقة للتبرع",
+                    style: TextStyle(fontSize: 14, color: Colors.red),
                   ),
                 ),
                 // Text("154"),
@@ -243,83 +230,59 @@ Widget buildContainer() => Padding(
     );
 
 
+Widget buildTextTile(
+    {required String title,
+    required String subtitle,
+    required String trailing,
+    required Icon leading}) {
+  return Directionality(
+      textDirection: TextDirection.rtl,
+      child: ListTile(
 
-Widget buildFormFiled(
-        {required IconData rIcon,
-        required String text,
-        required String text2,
-        required var onTap}) =>
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          /*IconButton(
-        color: Colors.redAccent,
-        onPressed: onTap,
-        icon: Icon(Icons.edit,size: 20,),
-    ),*/
-          CustomListTile(text, onTap, text2),
-          Icon(
-            rIcon,
-          ),
-        ],
-      ),
-    );
+        leading: leading,
+        title:Container(
+          decoration: BoxDecoration(
 
-class CustomListTile extends StatelessWidget {
-  String text;
-  String text2;
-  var onTap;
+            border: Border(
 
-  CustomListTile(this.text, this.onTap, this.text2);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(19.0, 0, 19.0, 0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: Colors.grey.shade400),
-          ),
-        ),
-        child: InkWell(
-          splashColor: Colors.redAccent,
-          onTap: this.onTap,
-          child: Container(
-            height: 50,
-            width: MediaQuery.of(context).size.width - 85,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    text2,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black45,),
-                  ),
-                ),
-                Spacer(),
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        text,
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              bottom: BorderSide(
+                color: Colors.grey.shade400,
+                width: 1.5,
+              ),
             ),
           ),
+          height: 45,
+          child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight:FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
+        ),
+
+        /* */
+        subtitle: Text(
+          subtitle,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black45,
+          ),
+        ),
+        trailing:Directionality(
+          textDirection: TextDirection.ltr,
+          child:Text(
+
+          trailing,
+          overflow: TextOverflow.ellipsis ,
+          style: TextStyle(
+
+            fontSize: 12,
+            color: Colors.black45,
+          ),
+        ),) ,
+
       ),
-    );
-  }
+  );
 }
