@@ -1,12 +1,20 @@
 import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
+import 'package:blood_donation_project/cubit/home/all_post_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_states.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class DonateScreen extends StatefulWidget {
+
+
   // DonateScreen({required int postID});
   @override
   State<DonateScreen> createState() => _DonateScreenState();
@@ -22,9 +30,11 @@ class _DonateScreenState extends State<DonateScreen> {
 
   int acceptanceRate = 0;
 
+
   int acceptDonationRate() {
     acceptanceRate = _totalScore * 100 ~/ questions.length;
     return acceptanceRate;
+
   }
 
   void _questionAnswered(bool answerScore) {
@@ -257,12 +267,26 @@ class _DonateScreenState extends State<DonateScreen> {
                 SizedBox(
                   height: 5.0,
                 ),
-              if (endOfQuiz)
-                OutlinedButton(
-                  onPressed: () {
-                    // navigatorToNew(context, HomePage());
-                  },
-                  child: Text('التأكيد و العودة الى الرئيسية'),
+              if (true)
+                BlocProvider(
+                  create: (BuildContext context)=> NotificationCubit()..getTokenPh(1),
+                  child: BlocConsumer<NotificationCubit,NotificationStates>(
+                    listener: (context, state) {},
+                    builder: (context,state){
+                      return OutlinedButton(
+                        onPressed: ()  {
+                           var to=NotificationCubit.get(context).tokenPhone?.tokenPh;
+                           NotificationCubit.get(context).sendNotification(
+                               tokenPh: to.toString(),
+                               title: 'Blood Donation',
+                               body: '${AppSharedPreferences.getName} يريد التبرع لك');
+                          // navigatorToNew(context, HomePage());
+
+                    },
+                        child: Text('التأكيد و العودة الى الرئيسية'),
+                      );
+                    },
+                  )
                 ),
               SizedBox(
                 height: 30.0,

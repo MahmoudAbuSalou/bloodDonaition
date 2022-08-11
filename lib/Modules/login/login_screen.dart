@@ -174,8 +174,7 @@ class LogInScreen extends StatelessWidget {
 
                                         }
                                       },
-                                      child: Text('تسجيل دخول'.toUpperCase(),
-                                          style: GoogleFonts.tajawal(
+                                      child: Text('تسجيل دخول'.toUpperCase(), style: GoogleFonts.tajawal(
                                             textStyle: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 17),

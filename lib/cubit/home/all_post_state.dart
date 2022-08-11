@@ -20,3 +20,5 @@ class GetPostError extends AllPostState{
   String Error;
   GetPostError({required this.Error});
 }
+
+

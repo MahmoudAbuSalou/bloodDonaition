@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:bloc/bloc.dart';
+import 'package:blood_donation_project/Models/token_phone/token_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -23,6 +24,10 @@ class AllPostCubit extends Cubit<AllPostState> {
   List<Data> normal = [];
   List<Data> Emergency = [];
   int pageCount = 0;
+  int postId = 0;
+
+
+
 
   getPost() async {
     try {
@@ -54,4 +59,6 @@ refreshController.loadComplete();
       emit(GetPostError(Error: err.toString()));
     }
   }
+
+
 }

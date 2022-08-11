@@ -7,6 +7,8 @@ import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:blood_donation_project/shared/validation/userValidation.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -447,6 +449,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       .Content,
                                                   isAdmin: false,
                                                   birthDate: date.text),context);
+                                          FirebaseMessaging.instance.subscribeToTopic(
+                                              '${cubit.list[cubit.indexG].Content.substring(0, cubit.list[cubit.indexG].Content.length - 1)}');
                                         }
                                         //   if (formKey.currentState!.validate()) {}
                                       },

@@ -2,6 +2,7 @@ import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
 import 'package:blood_donation_project/Modules/google_maps/google_maps_screen.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
 import 'package:blood_donation_project/cubit/layoutCubit/home_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
 import 'package:blood_donation_project/cubit/search_cubit/search_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/style/icon_broken.dart';
@@ -121,102 +122,208 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
 
   Widget listItem(context, Data post) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: GestureDetector(
-          onTap: () {
-            navigatorTo(
-                context,
-                DetailsScreen(
-                  id: 0,
-                ));
-          },
-          child: Container(
-            height: 500.h,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 3)],
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(35),
-                  topLeft: Radius.circular(50)),
-            ),
-            child: Column(
-              children: [
-                Expanded(
-                    child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        height: double.infinity,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            color: Color(0xff0B0742),
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(35),
-                            )),
-                        child: Center(
-                            child: Text(
-                          '${post.bloodType}',
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: GestureDetector(
+        onTap: () {
+          navigatorTo(
+              context,
+              DetailsScreen(
+                id: 0,
+              ));
+        },
+        child: Container(
+          height: 500.h,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 3)],
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(35), topLeft: Radius.circular(50)),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                  child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      height: double.infinity,
+                      width: 40,
+                      decoration: BoxDecoration(
+                          color: Color(0xff0B0742),
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(35),
+                          )),
+                      child: Center(
+                          child: Text(
+                        '${post.bloodType}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                    ),
+                  ),
+                  SizedBox(width: 7),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 7),
+                        Text(
+                          'Request Blood',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xff041b2d),
                             fontWeight: FontWeight.bold,
                           ),
-                        )),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'in progress',
+                          style: TextStyle(
+                            color: Color(0xffddddda),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: 100,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Color(0xfffe676e),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(color: Colors.grey, blurRadius: 4)
+                          ]),
+                      child: TextButton(
+                          onPressed: () async {
+                            navigatorToNew(context,DonateScreen());
+
+                            print("______________________****");
+                            print(post.userId);
+                           // var x= await NotificationCubit.get(context).getTokenPh(post.userId);
+                            //print(x);
+                            print("*****______________________");
+
+                                //token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU1MTM3NDA0fQ.tM7A-DNAouIYF8R4CDuAusi6OuH5qRMJkAp0VHCqkac');
+
+                            //AllPostCubit.get(context).postId = post.postId!;
+                          },
+                          child: Text(
+                            'Donate',
+                            style: TextStyle(color: Colors.white),
+                          ),
                       ),
                     ),
-                    SizedBox(width: 7),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 7),
-                          Text(
-                            'Request Blood',
-                            style: TextStyle(
-                              color: Color(0xff041b2d),
-                              fontWeight: FontWeight.bold,
-                            ),
+                  ),
+                  SizedBox(width: 7),
+                ],
+              )),
+              SizedBox(
+                height: 1,
+              ),
+              Divider(height: 1),
+              Expanded(
+                  child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      textDirection: TextDirection.rtl,
+                      children: [
+                        Text(
+                          '    :المريض',
+                          style: TextStyle(
+                            color: Color(0xff041b2d),
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'in progress',
-                            style: TextStyle(
-                              color: Color(0xffddddda),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                        Text(
+                          '${post.firstName}${post.lastName}',
+                          style: TextStyle(color: Color(0xff041b2d)),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 100,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Color(0xfffe676e),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(color: Colors.grey, blurRadius: 4)
-                            ]),
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Donate',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      textDirection: TextDirection.rtl,
+                      children: [
+                        Text(
+                          '    :العنوان ',
+                          style: TextStyle(
+                            color: Color(0xff041b2d),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '${post.cityName}',
+                          style: TextStyle(color: Color(0xff041b2d)),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 7),
-                  ],
-                )),
-              ],
-            ),
+                  ),
+                ],
+              )),
+              SizedBox(
+                height: 1,
+              ),
+              Divider(height: 1),
+              Expanded(
+                  child: Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.add_location_alt,
+                          size: 18,
+                          color: Color(0xff384e7b),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          '${post.hospitalName}',
+                          style: TextStyle(color: Color(0xff94b0b7)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: IconButton(
+                        onPressed: () async {
+                          await Share.share(
+                              'مريض بحاجة إلى زمرة دم ${post.bloodType} عدد الأكياس المطلوبة ${post.bloodBags}من يستطيع التبرع أو يعرف شخصا قادر على التبرع يتواصل معنا مباشرة على الرقم التالي :${post.phone} ',
+                              subject: 'need Help!');
+                        },
+                        icon: Icon(
+                          Icons.share,
+                          color: Color(0xff384e7b),
+                        ),
+                      ))
+                ],
+              )),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
