@@ -6,6 +6,7 @@ import 'package:blood_donation_project/Modules/register/register_screen.dart';
 import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 
 import 'package:blood_donation_project/cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
+import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
 import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
@@ -93,11 +94,13 @@ class MyApp extends StatelessWidget {
               create: (context) => GlobalSettingRegisterCubit(),
             ),
             BlocProvider(
-             create: (context) => AppCubit(),
+              create: (context) => AppCubit(),
             ),
             BlocProvider(
               create: (context) => AllPostCubit()..getPost(),
-
+            ),
+            BlocProvider(
+              create: (context) => MyPostsCubit()..getMyPosts()..getDonors(3),
             ),
           ],
           child: MaterialApp(

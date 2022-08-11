@@ -1,14 +1,6 @@
-
-
 import 'cachehelper.dart';
 
 class AppSharedPreferences {
-
-
-
-
-
-
   //token
  static String Token='token';
   static String get getToken => CacheHelper.getData(key: Token) ?? '';
@@ -74,6 +66,4 @@ class AppSharedPreferences {
  static saveAddress(String value) => CacheHelper.saveData(key: Address, value: value);
  static bool get hasAddress => CacheHelper.contains(Address);
  static dynamic get removeAddress => CacheHelper.removeData(key: Address);
-
-
 }

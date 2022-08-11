@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                             Spacer(),
                             Padding(
                               padding:
-                                  const EdgeInsetsDirectional.only(end: 8.0),
+                              const EdgeInsetsDirectional.only(end: 8.0),
                               child: IconButton(
                                 icon: Icon(
                                   IconBroken.Location,
@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsetsDirectional.only(end: 15.0),
+                              const EdgeInsetsDirectional.only(end: 15.0),
                               child: IconButton(
                                 icon: Icon(
                                   IconBroken.Search,
@@ -77,8 +77,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  // navigatorTo(context, SearchScreen());
-                                  navigatorTo(context, DonateScreen());
+                                  navigatorTo(context, SearchScreen());
                                 },
                               ),
                             ),
@@ -91,31 +90,31 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                 preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
             body: state is GetPostSuccessfully
                 ? SmartRefresher(
-                    controller: AllPostCubit.get(context).refreshController,
-                    enablePullUp: true,
-                    onLoading: () async {
-                      AllPostCubit.get(context).getPost();
-                    },
-                    child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        itemCount: type == false
-                            ? state.Emergency.length
-                            : state.normal.length,
-                        itemBuilder: (context, index) {
-                          return listItem(
-                              context,
-                              type == false
-                                  ? state.Emergency[index]
-                                  : state.normal[index]);
-                        }),
-                  )
+              controller: AllPostCubit.get(context).refreshController,
+              enablePullUp: true,
+              onLoading: () async {
+                AllPostCubit.get(context).getPost();
+              },
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: type == false
+                      ? state.Emergency.length
+                      : state.normal.length,
+                  itemBuilder: (context, index) {
+                    return listItem(
+                        context,
+                        type == false
+                            ? state.Emergency[index]
+                            : state.normal[index]);
+                  }),
+            )
                 : state is GetPostLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Center(
-                        child: Text("Empty"),
-                      ));
+                ? Center(
+              child: CircularProgressIndicator(),
+            )
+                : Center(
+              child: Text("Empty"),
+            ));
       },
     );
   }
@@ -125,11 +124,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: GestureDetector(
         onTap: () {
-          navigatorTo(
-              context,
-              DetailsScreen(
-                id: 0,
-              ));
+          navigatorTo(context, DetailsScreen(id: 0,));
         },
         child: Container(
           height: 500.h,
@@ -144,168 +139,166 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Expanded(
                   child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      height: double.infinity,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          color: Color(0xff0B0742),
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(35),
-                          )),
-                      child: Center(
-                          child: Text(
-                        '${post.bloodType}',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          height: double.infinity,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              color: Color(0xff0B0742),
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(35),
+                              )),
+                          child: Center(
+                              child: Text(
+                                '${post.bloodType}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                         ),
-                      )),
-                    ),
-                  ),
-                  SizedBox(width: 7),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 7),
-                        Text(
-                          'Request Blood',
-                          style: TextStyle(
-                            color: Color(0xff041b2d),
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      SizedBox(width: 7),
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 7),
+                            Text(
+                              'Request Blood',
+                              style: TextStyle(
+                                color: Color(0xff041b2d),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'in progress',
+                              style: TextStyle(
+                                color: Color(0xffddddda),
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 5,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          width: 100,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Color(0xfffe676e),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(color: Colors.grey, blurRadius: 4)
+                              ]),
+                          child: TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Donate',
+                                style: TextStyle(color: Colors.white),
+                              )),
                         ),
-                        Text(
-                          'in progress',
-                          style: TextStyle(
-                            color: Color(0xffddddda),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      width: 100,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: Color(0xfffe676e),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(color: Colors.grey, blurRadius: 4)
-                          ]),
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Donate',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ),
-                  ),
-                  SizedBox(width: 7),
-                ],
-              )),
+                      ),
+                      SizedBox(width: 7),
+                    ],
+                  )),
               SizedBox(
                 height: 1,
               ),
               Divider(height: 1),
               Expanded(
                   child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      textDirection: TextDirection.rtl,
-                      children: [
-                        Text(
-                          '    :المريض',
-                          style: TextStyle(
-                            color: Color(0xff041b2d),
-                            fontWeight: FontWeight.bold,
-                          ),
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          textDirection: TextDirection.rtl,
+                          children: [
+                            Text(
+                              '    :المريض',
+                              style: TextStyle(
+                                color: Color(0xff041b2d),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${post.firstName}${post.lastName}',
+                              style: TextStyle(color: Color(0xff041b2d)),
+                            ),
+                          ],
                         ),
-                        Text(
-                          '${post.firstName}${post.lastName}',
-                          style: TextStyle(color: Color(0xff041b2d)),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          textDirection: TextDirection.rtl,
+                          children: [
+                            Text(
+                              '    :العنوان ',
+                              style: TextStyle(
+                                color: Color(0xff041b2d),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${post.cityName}',
+                              style: TextStyle(color: Color(0xff041b2d)),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      textDirection: TextDirection.rtl,
-                      children: [
-                        Text(
-                          '    :العنوان ',
-                          style: TextStyle(
-                            color: Color(0xff041b2d),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          '${post.cityName}',
-                          style: TextStyle(color: Color(0xff041b2d)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )),
+                      ),
+                    ],
+                  )),
               SizedBox(
                 height: 1,
               ),
               Divider(height: 1),
               Expanded(
                   child: Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.add_location_alt,
-                          size: 18,
-                          color: Color(0xff384e7b),
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.add_location_alt,
+                              size: 18,
+                              color: Color(0xff384e7b),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '${post.hospitalName}',
+                              style: TextStyle(color: Color(0xff94b0b7)),
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          '${post.hospitalName}',
-                          style: TextStyle(color: Color(0xff94b0b7)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
                       ),
-                      child: IconButton(
-                        onPressed: () async {
-                          await Share.share(
-                              'مريض بحاجة إلى زمرة دم ${post.bloodType} عدد الأكياس المطلوبة ${post.bloodBags}من يستطيع التبرع أو يعرف شخصا قادر على التبرع يتواصل معنا مباشرة على الرقم التالي :${post.phone} ',
-                              subject: 'need Help!');
-                        },
-                        icon: Icon(
-                          Icons.share,
-                          color: Color(0xff384e7b),
-                        ),
-                      ))
-                ],
-              )),
+                      Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: IconButton(
+                            onPressed: () async{
+                              await Share.share('مريض بحاجة إلى زمرة دم ${post.bloodType} عدد الأكياس المطلوبة ${post.bloodBags}من يستطيع التبرع أو يعرف شخصا قادر على التبرع يتواصل معنا مباشرة على الرقم التالي :${post.phone} ', subject: 'need Help!');
+                            },
+                            icon: Icon(
+                              Icons.share,
+                              color: Color(0xff384e7b),
+                            ),
+                          ))
+                    ],
+                  )),
             ],
           ),
         ),

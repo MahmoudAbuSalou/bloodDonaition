@@ -48,22 +48,22 @@ class Data {
 
   Data(
       {this.postId,
-        this.firstName,
-        this.lastName,
-        this.bloodBags,
-        this.bloodBagsCollect,
-        this.cityName,
-        this.hospitalName,
-        this.gender,
-        this.postType,
-        this.bloodType,
-        this.bloodOwner,
-        this.phone,
-        this.expiryDate,
-        this.createdAt,
-        this.updatedAt,
-        this.userId,
-        this.user});
+      this.firstName,
+      this.lastName,
+      this.bloodBags,
+      this.bloodBagsCollect,
+      this.cityName,
+      this.hospitalName,
+      this.gender,
+      this.postType,
+      this.bloodType,
+      this.bloodOwner,
+      this.phone,
+      this.expiryDate,
+      this.createdAt,
+      this.updatedAt,
+      this.userId,
+      this.user});
 
   Data.fromJson(Map<String, dynamic> json) {
     postId = json['post_id'];
@@ -124,15 +124,15 @@ class User {
 
   User(
       {this.userId,
-        this.name,
-        this.email,
-        this.password,
-        this.phone,
-        this.address,
-        this.isAdmin,
-        this.birthDate,
-        this.createdAt,
-        this.updatedAt});
+      this.name,
+      this.email,
+      this.password,
+      this.phone,
+      this.address,
+      this.isAdmin,
+      this.birthDate,
+      this.createdAt,
+      this.updatedAt});
 
   User.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];

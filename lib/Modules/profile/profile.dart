@@ -47,15 +47,26 @@ class Profile extends StatelessWidget {
         buildContainer(),
         Column(
           children: [
-
-            buildTextTile(title: 'زمرة الدم',subtitle: '',trailing: '${AppSharedPreferences.getBlood_type}',leading: Icon(Icons.location_on)),
-            buildTextTile(title: 'رقم الهاتف',subtitle: '',trailing: '${AppSharedPreferences.getPhone}',leading: Icon(Icons.phone_enabled)),
-            buildTextTile(title: 'العنوان',subtitle: '',trailing: '${AppSharedPreferences.getAddress}',leading: Icon(Icons.location_on)),
-            buildTextTile(title: 'البريد الإلكتروني',subtitle: '',trailing: '${AppSharedPreferences.getEmail}',leading: Icon(Icons.email_outlined)),
-
-           
-
-
+            buildTextTile(
+                title: 'زمرة الدم',
+                subtitle: '',
+                trailing: '${AppSharedPreferences.getBlood_type}',
+                leading: Icon(Icons.location_on)),
+            buildTextTile(
+                title: 'رقم الهاتف',
+                subtitle: '',
+                trailing: '${AppSharedPreferences.getPhone}',
+                leading: Icon(Icons.phone_enabled)),
+            buildTextTile(
+                title: 'العنوان',
+                subtitle: '',
+                trailing: '${AppSharedPreferences.getAddress}',
+                leading: Icon(Icons.location_on)),
+            buildTextTile(
+                title: 'البريد الإلكتروني',
+                subtitle: '',
+                trailing: '${AppSharedPreferences.getEmail}',
+                leading: Icon(Icons.email_outlined)),
           ],
         )
       ]),
@@ -229,60 +240,54 @@ Widget buildContainer() => Padding(
       ),
     );
 
-
 Widget buildTextTile(
     {required String title,
     required String subtitle,
     required String trailing,
     required Icon leading}) {
   return Directionality(
-      textDirection: TextDirection.rtl,
-      child: ListTile(
-
-        leading: leading,
-        title:Container(
-          decoration: BoxDecoration(
-
-            border: Border(
-
-              bottom: BorderSide(
-                color: Colors.grey.shade400,
-                width: 1.5,
-              ),
+    textDirection: TextDirection.rtl,
+    child: ListTile(
+      leading: leading,
+      title: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.grey.shade400,
+              width: 1.5,
             ),
           ),
-          height: 45,
-          child: Text(
+        ),
+        height: 45,
+        child: Text(
           title,
           style: TextStyle(
             fontSize: 16,
-            fontWeight:FontWeight.bold,
+            fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),
-        ),
+      ),
 
-        /* */
-        subtitle: Text(
-          subtitle,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black45,
-          ),
+      /* */
+      subtitle: Text(
+        subtitle,
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.black45,
         ),
-        trailing:Directionality(
-          textDirection: TextDirection.ltr,
-          child:Text(
-
+      ),
+      trailing: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Text(
           trailing,
-          overflow: TextOverflow.ellipsis ,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
-
             fontSize: 12,
             color: Colors.black45,
           ),
-        ),) ,
-
+        ),
       ),
+    ),
   );
 }
