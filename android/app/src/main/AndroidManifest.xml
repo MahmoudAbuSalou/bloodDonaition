@@ -39,7 +39,7 @@
         <!-- This Line For Connect App To Google map Services Across API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB5MZDCjsbRNinF3NztkmEs-wwSfmN_EU4" />
+            android:value="AIzaSyDwAijua5neT54ErCmwPOyhGwonSEijeoU" />
 
     </application>
 </manifest>
