@@ -15,15 +15,13 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
   static MyPostsCubit get(context) => BlocProvider.of(context);
 
   late Post myPostModel;
-  List<Data> myPosts = []; // To Store MyPosts That Has Logging with Token
+  List<Data> myPosts = []; // To Store MyPosts
 
   getMyPosts() async {
     emit(GetMyPostLoadingState());
     await DioHelper.getData(
       url: Urls.userPosts,
-      // token: AppSharedPreferences.getToken,
-      token:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjYwMDE4ODA5fQ.gNJ8qkA1Gc-EZXnkDWWll40jKGqTLliTilf7dY9xSqc',
+      token:AppSharedPreferences.getToken,
     ).then((value) {
       myPostModel = Post.fromJson(value.data);
       print("Status IS: ==> " + value.data["status"]);

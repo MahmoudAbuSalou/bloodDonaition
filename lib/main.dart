@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => MyPostsCubit()
                 ..getMyPosts()
-                ..getDonors(3),
+                // ..getDonors(3),
             ),
           ],
           child: MaterialApp(

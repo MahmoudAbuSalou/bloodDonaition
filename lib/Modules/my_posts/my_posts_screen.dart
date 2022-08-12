@@ -1,13 +1,16 @@
+import 'package:blood_donation_project/Modules/donate/all_donors_one_post/all_donors_screen.dart';
 import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_state.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
+import 'package:blood_donation_project/shared/style/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class MyPostsScreen extends StatelessWidget {
@@ -47,20 +50,19 @@ class MyPostsScreen extends StatelessWidget {
               ),
               preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
           body: ListView.separated(
-              itemBuilder: (context, index){
-                return postItem(context,MyPostsCubit.get(context).myPosts[index]);
+              itemBuilder: (context, index) {
+                return postItem(
+                    context, MyPostsCubit.get(context).myPosts[index]);
               },
-              separatorBuilder: (context, index)=>myDivider(),
-              itemCount: MyPostsCubit.get(context).myPosts.length
-          ),
+              separatorBuilder: (context, index) => myDivider(),
+              itemCount: MyPostsCubit.get(context).myPosts.length),
         );
       },
     );
   }
-}
 
-Widget postItem(context, post) {
-  return Padding(
+  Widget postItem(context, post) {
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: GestureDetector(
         onTap: () {
@@ -98,9 +100,9 @@ Widget postItem(context, post) {
                           child: Text(
                         '${post.bloodType}',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0),
                       )),
                     ),
                   ),
@@ -112,7 +114,7 @@ Widget postItem(context, post) {
                       children: [
                         SizedBox(height: 7),
                         Text(
-                          'Request Blood',
+                          'طلب تبرُّع بالدم',
                           style: TextStyle(
                             color: Color(0xff041b2d),
                             fontWeight: FontWeight.bold,
@@ -122,7 +124,7 @@ Widget postItem(context, post) {
                           height: 5,
                         ),
                         Text(
-                          'in progress',
+                          'قيد التقدُّم',
                           style: TextStyle(
                             color: Color(0xffddddda),
                           ),
@@ -143,10 +145,14 @@ Widget postItem(context, post) {
                           ]),
                       child: TextButton(
                           onPressed: () {
-                            // navigatorTo(context, DonateScreen());
+                            MyPostsCubit.get(context).getDonors(post.postId);
+                            navigatorTo(
+                              context,
+                              AllDonorsScreen(postID: post.postId),
+                            );
                           },
                           child: Text(
-                            'Donate',
+                            'المتبرّعين',
                             style: TextStyle(color: Colors.white),
                           )),
                     ),
@@ -154,12 +160,135 @@ Widget postItem(context, post) {
                   SizedBox(width: 7),
                 ],
               )),
+              SizedBox(
+                height: 1,
+              ),
+              Divider(height: 1),
+              Expanded(
+                  child: Row(
+                textDirection: TextDirection.rtl,
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          textDirection: TextDirection.rtl,
+                          children: [
+                            Text(
+                              '    :المريض',
+                              style: TextStyle(
+                                color: Color(0xff041b2d),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${post.firstName} ${post.lastName}',
+                              style: TextStyle(color: Color(0xff041b2d)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          textDirection: TextDirection.rtl,
+                          children: [
+                            Text(
+                              '    :العنوان ',
+                              style: TextStyle(
+                                color: Color(0xff041b2d),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${post.cityName}',
+                              style: TextStyle(color: Color(0xff041b2d)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.add_location_alt,
+                        size: 18,
+                        color: Color(0xff384e7b),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        '${post.hospitalName}',
+                        style: TextStyle(color: Color(0xff94b0b7)),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
+              SizedBox(
+                height: 1,
+              ),
+              Divider(height: 1),
+              Expanded(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: IconButton(
+                          onPressed: () async {
+                            await Share.share(
+                                'مريض بحاجة إلى زمرة دم ${post.bloodType} عدد الأكياس المطلوبة ${post.bloodBags}من يستطيع التبرع أو يعرف شخصا قادر على التبرع يتواصل معنا مباشرة على الرقم التالي :${post.phone} ',
+                                subject: 'need Help!');
+                          },
+                          icon: Icon(
+                            Icons.share,
+                            color: Color(0xff384e7b),
+                          ),
+                        )),
+                  ),
+                  Expanded(
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Colors.redAccent[100],
+                        ),
+                        child: IconButton(
+                          onPressed: () async {},
+                          icon: Icon(IconBroken.Delete,color: Colors.yellow,size: 24.0),
+                        )),
+                  ),
+                  Expanded(
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: IconButton(
+                          onPressed: () async {},
+                          icon: Icon(IconBroken.Edit_Square,color: Color(0xff384e7b),size: 24.0),
+                        )),
+                  ),
+                ],
+              )),
             ],
           ),
         ),
-      ));
+      ),
+    );
+  }
 }
-
 
 class WaveClip extends CustomClipper<Path> {
   @override
@@ -182,4 +311,3 @@ class WaveClip extends CustomClipper<Path> {
     return false;
   }
 }
-

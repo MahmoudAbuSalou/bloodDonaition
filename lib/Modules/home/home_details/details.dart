@@ -431,7 +431,7 @@ class DetailsScreen extends StatelessWidget {
                 // navigatorTo(context, DonateScreen());
               },
               label: Text(
-                '    تبرع الان    ',
+                '    تبرّع الان    ',
                 style: GoogleFonts.tajawal(
                     fontSize: 60.sp,
                     fontWeight: FontWeight.bold,
