@@ -34,7 +34,6 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 
-
   // START  Notifications
 
   await Firebase.initializeApp();
@@ -43,17 +42,14 @@ main() async {
   print(token);
   print("*************************");
   FirebaseMessaging.onMessage.listen((event) {
-
     print("on onMessage");
     print(event.data.toString());
     showToast(msg: "on massage", state: ToastState.SUCCESS);
   });
   FirebaseMessaging.onMessageOpenedApp.listen((event) {
-
     print("on onMessage Opened App");
     print(event.data.toString());
     showToast(msg: "on onMessage Opened App", state: ToastState.SUCCESS);
-
   });
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -66,7 +62,6 @@ main() async {
   //bool onBoarding = CacheHelper.getData(key: 'onBoarding');
   runApp(const MyApp());
 }
-
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -100,7 +95,9 @@ class MyApp extends StatelessWidget {
               create: (context) => AllPostCubit()..getPost(),
             ),
             BlocProvider(
-              create: (context) => MyPostsCubit()..getMyPosts()..getDonors(3),
+              create: (context) => MyPostsCubit()
+                ..getMyPosts()
+                ..getDonors(3),
             ),
           ],
           child: MaterialApp(
@@ -116,7 +113,9 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
               textTheme: TextTheme(bodyText2: TextStyle(fontSize: 30.sp)),
             ),
-            home: (AppSharedPreferences.hasToken)?HomeLayout():OnBoardingScreen(),
+            home: (AppSharedPreferences.hasToken)
+                ? HomeLayout()
+                : OnBoardingScreen(),
           ),
         );
       },

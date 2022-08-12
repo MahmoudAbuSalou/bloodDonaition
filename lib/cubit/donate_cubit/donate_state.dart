@@ -39,3 +39,24 @@ class GetDonorsErrorState extends MyPostsStates {
 
   GetDonorsErrorState({required this.Error});
 }
+
+
+
+
+// Acceptance Rate After Press Donate Now
+
+class AcceptanceRateLoadingState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class AcceptanceRateSuccessState extends MyPostsStates {
+
+  // AcceptanceRateSuccessState({required this.donors});
+}
+
+// ignore: must_be_immutable
+class AcceptanceRateErrorState extends MyPostsStates {
+  String Error;
+
+  AcceptanceRateErrorState({required this.Error});
+}
+

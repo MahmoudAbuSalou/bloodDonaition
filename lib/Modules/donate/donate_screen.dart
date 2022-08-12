@@ -1,14 +1,18 @@
 import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
-import 'package:blood_donation_project/cubit/search_cubit/search_screen.dart';
+import 'package:blood_donation_project/Modules/profile/profile.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class DonateScreen extends StatefulWidget {
-  // DonateScreen({required int postID});
+  final int? postID;
+
+  DonateScreen({required this.postID});
+
   @override
   State<DonateScreen> createState() => _DonateScreenState();
 }
@@ -184,12 +188,9 @@ class _DonateScreenState extends State<DonateScreen> {
                       child: endOfQuiz
                           ? OutlinedButton(
                               onPressed: () {
+                                print("PostID is: ${widget.postID}");
                                 // Here we use logic to send rate To DB
-                                // navigatorToNew(
-                                //     context,
-                                //     HomePage(
-                                //       type: true,
-                                //     ));
+                                navigatorTo(context, Profile());
                               },
                               child: Text(
                                 'التأكيد و العودة الى الرئيسية',
@@ -282,3 +283,26 @@ class _DonateScreenState extends State<DonateScreen> {
     );
   }
 }
+
+class WaveClip extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = new Path();
+    final lowPoint = size.height - 30;
+    final highPoint = size.height - 60;
+    //
+    path.lineTo(0, size.height);
+    path.quadraticBezierTo(size.width / 4, highPoint, size.width / 2, lowPoint);
+    path.quadraticBezierTo(
+        3 / 4 * size.width, size.height, size.width, lowPoint);
+    path.lineTo(size.width, 0);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
+

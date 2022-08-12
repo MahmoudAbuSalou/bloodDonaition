@@ -19,7 +19,7 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
       url: Urls.userPosts,
       // token: AppSharedPreferences.getToken,
       token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjYwMDE4ODA5fQ.gNJ8qkA1Gc-EZXnkDWWll40jKGqTLliTilf7dY9xSqc',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjYwMDE4ODA5fQ.gNJ8qkA1Gc-EZXnkDWWll40jKGqTLliTilf7dY9xSqc',
     ).then((value) {
       myPostModel = Post.fromJson(value.data);
       print("Status IS: ==> " + value.data["status"]);
@@ -39,9 +39,9 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
   getDonors(int postId) async {
     emit(GetDonorsLoadingState());
     await DioHelper.getData(
-        url: Urls.getDonors + postId.toString(),
-        token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjYwMDIwNjkyfQ.wW3orrn_eojGAw3RXnY8yWPFbj72BZxZDFJjsd8gnCo')
+            url: Urls.getDonors + postId.toString(),
+            token:
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjYwMDIwNjkyfQ.wW3orrn_eojGAw3RXnY8yWPFbj72BZxZDFJjsd8gnCo')
         .then((value) {
       donorsModel = DonorsModel.fromJson(value.data);
       donorsModel.data!.forEach((element) {
@@ -53,6 +53,27 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
     }).catchError((error) {
       print(error.toString());
       emit(GetDonorsErrorState(Error: error));
+    });
+  }
+
+  acceptanceRate({
+    required int acceptanceRate,
+    required int postID,
+  }) async {
+    emit(AcceptanceRateLoadingState());
+
+    await DioHelper.postData(
+      url: Urls.acceptanceRate,
+      data: {
+        'acceptance_rate': acceptanceRate,
+        'post_id': postID,
+      },
+    ).then((value) {
+      print(value.data);
+      emit(AcceptanceRateSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AcceptanceRateErrorState(Error: error.toString()));
     });
   }
 }

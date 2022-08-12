@@ -428,7 +428,7 @@ class DetailsScreen extends StatelessWidget {
             floatingActionButton: FloatingActionButton.extended(
               backgroundColor: Color(0xFF192747),
               onPressed: () {
-                navigatorTo(context, DonateScreen());
+                // navigatorTo(context, DonateScreen());
               },
               label: Text(
                 '    تبرع الان    ',
