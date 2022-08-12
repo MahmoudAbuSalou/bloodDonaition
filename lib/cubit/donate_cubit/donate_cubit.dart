@@ -1,7 +1,11 @@
+import 'package:blood_donation_project/Models/donation/acceptance_rate_model.dart';
 import 'package:blood_donation_project/Models/donation/donors_model.dart';
 import 'package:blood_donation_project/Models/post/Post.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_state.dart';
+import 'package:blood_donation_project/shared/components/components.dart';
+import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:blood_donation_project/shared/network/end_point.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:blood_donation_project/shared/network/remote/dio_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -56,20 +60,29 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
     });
   }
 
+  late AcceptanceRateModel acceptanceRateModel;
+
   acceptanceRate({
     required int acceptanceRate,
-    required int postID,
+    required int? postID,
   }) async {
     emit(AcceptanceRateLoadingState());
 
     await DioHelper.postData(
-      url: Urls.acceptanceRate,
-      data: {
-        'acceptance_rate': acceptanceRate,
-        'post_id': postID,
-      },
-    ).then((value) {
+            url: Urls.acceptanceRate,
+            data: {
+              'acceptance_rate': acceptanceRate,
+              'post_id': postID,
+            },
+            token: AppSharedPreferences.getToken)
+        .then((value) {
       print(value.data);
+      acceptanceRateModel = AcceptanceRateModel.fromJson(value.data);
+      print('acceptance Rate Message Is: ');
+      print(acceptanceRateModel.message);
+      showToast(
+          msg: 'تم إرسال طلب التبرُّع بنجاح, شكراً لك❤️',
+          state: ToastState.SUCCESS);
       emit(AcceptanceRateSuccessState());
     }).catchError((error) {
       print(error.toString());

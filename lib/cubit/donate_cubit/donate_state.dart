@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/Models/donation/acceptance_rate_model.dart';
 import 'package:blood_donation_project/Models/donation/donors_model.dart';
 import 'package:blood_donation_project/Models/post/Post.dart';
 
@@ -40,18 +41,12 @@ class GetDonorsErrorState extends MyPostsStates {
   GetDonorsErrorState({required this.Error});
 }
 
-
-
-
 // Acceptance Rate After Press Donate Now
 
 class AcceptanceRateLoadingState extends MyPostsStates {}
 
 // ignore: must_be_immutable
-class AcceptanceRateSuccessState extends MyPostsStates {
-
-  // AcceptanceRateSuccessState({required this.donors});
-}
+class AcceptanceRateSuccessState extends MyPostsStates {}
 
 // ignore: must_be_immutable
 class AcceptanceRateErrorState extends MyPostsStates {
@@ -59,4 +54,3 @@ class AcceptanceRateErrorState extends MyPostsStates {
 
   AcceptanceRateErrorState({required this.Error});
 }
-

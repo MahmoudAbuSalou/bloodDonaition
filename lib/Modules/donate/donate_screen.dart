@@ -1,6 +1,7 @@
 import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
 import 'package:blood_donation_project/Modules/profile/profile.dart';
+import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -190,7 +191,11 @@ class _DonateScreenState extends State<DonateScreen> {
                               onPressed: () {
                                 print("PostID is: ${widget.postID}");
                                 // Here we use logic to send rate To DB
-                                navigatorTo(context, Profile());
+                                MyPostsCubit.get(context).acceptanceRate(
+                                  acceptanceRate: acceptDonationRate(),
+                                  postID: widget.postID,
+                                );
+                                // navigatorTo(context, Profile());
                               },
                               child: Text(
                                 'التأكيد و العودة الى الرئيسية',
@@ -305,4 +310,3 @@ class WaveClip extends CustomClipper<Path> {
     return false;
   }
 }
-
