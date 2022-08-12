@@ -67,6 +67,8 @@ dependencies:
   awesome_dialog: ^2.2.0
   pretty_dio_logger: ^1.1.1
   http:
+  flutter_conditional_rendering: ^2.0.0
+
 
   #- For Google Maps [ Muhammad Al-Rifai ]:
   google_maps_flutter: ^2.1.5

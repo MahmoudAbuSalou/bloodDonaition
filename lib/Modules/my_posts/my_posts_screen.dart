@@ -1,6 +1,4 @@
 import 'package:blood_donation_project/Modules/donate/all_donors_one_post/all_donors_screen.dart';
-import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
-import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_state.dart';
@@ -144,8 +142,8 @@ class MyPostsScreen extends StatelessWidget {
                             BoxShadow(color: Colors.grey, blurRadius: 4)
                           ]),
                       child: TextButton(
-                          onPressed: () {
-                            MyPostsCubit.get(context).getDonors(post.postId);
+                          onPressed: () async {
+                            await MyPostsCubit.get(context).getDonors(post.postId);
                             navigatorTo(
                               context,
                               AllDonorsScreen(postID: post.postId),
@@ -267,7 +265,8 @@ class MyPostsScreen extends StatelessWidget {
                         ),
                         child: IconButton(
                           onPressed: () async {},
-                          icon: Icon(IconBroken.Delete,color: Colors.yellow,size: 24.0),
+                          icon: Icon(IconBroken.Delete,
+                              color: Colors.yellow, size: 24.0),
                         )),
                   ),
                   Expanded(
@@ -277,7 +276,8 @@ class MyPostsScreen extends StatelessWidget {
                         ),
                         child: IconButton(
                           onPressed: () async {},
-                          icon: Icon(IconBroken.Edit_Square,color: Color(0xff384e7b),size: 24.0),
+                          icon: Icon(IconBroken.Edit_Square,
+                              color: Color(0xff384e7b), size: 24.0),
                         )),
                   ),
                 ],

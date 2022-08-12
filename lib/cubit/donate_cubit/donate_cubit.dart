@@ -39,11 +39,12 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
   List<DataMode> dataMode = [];
 
   getDonors(int postId) async {
+    dataMode = [];
     emit(GetDonorsLoadingState());
     await DioHelper.getData(
             url: Urls.getDonors + postId.toString(),
-            token:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjYwMDIwNjkyfQ.wW3orrn_eojGAw3RXnY8yWPFbj72BZxZDFJjsd8gnCo')
+            token: AppSharedPreferences.getToken
+    )
         .then((value) {
       donorsModel = DonorsModel.fromJson(value.data);
       donorsModel.data!.forEach((element) {
