@@ -130,7 +130,6 @@ class _UserAddressState extends State<UserAddress> {
                           child: TextButton(
                               onPressed: () {
                                 /// TODO
-                                city.text = 'دمشق';
                                 if (city.text.isNotEmpty) {
                                   widget.bloodRequest.cityName =
                                       city.text.toString();

@@ -36,10 +36,10 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
   }
 
   late DonorsModel donorsModel;
-  List<DataMode> dataMode = [];
+  List<DataModel> dataModel = [];
 
   getDonors(int postId) async {
-    dataMode = [];
+    dataModel = [];
     emit(GetDonorsLoadingState());
     await DioHelper.getData(
             url: Urls.getDonors + postId.toString(),
@@ -48,11 +48,11 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
         .then((value) {
       donorsModel = DonorsModel.fromJson(value.data);
       donorsModel.data!.forEach((element) {
-        dataMode.add(element);
+        dataModel.add(element);
       });
       print('DataMode Length Is =====>');
-      print(dataMode.length);
-      emit(GetDonorsSuccessState(donors: dataMode));
+      print(dataModel.length);
+      emit(GetDonorsSuccessState(donors: dataModel));
     }).catchError((error) {
       print(error.toString());
       emit(GetDonorsErrorState(Error: error));

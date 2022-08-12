@@ -34,13 +34,11 @@ class AllPostCubit extends Cubit<AllPostState> {
       emit(GetPostLoading());
       final response = await DioHelper.getData(
         url: Urls.getPOST + pageCount.toString(),
-        token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU3MTg0OTcwfQ.BOdbtbomzcq-7DV2vfav4hn2HVUbF_luaLptlFw7yLg",
       );
 
       post = Post.fromJson(response.data);
       post.data?.forEach((element) {
-        if (element.postType == true) {
+        if (element.postType == false) {
           Emergency.add(element);
         } else {
           normal.add(element);

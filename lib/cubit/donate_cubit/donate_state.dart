@@ -29,7 +29,7 @@ class GetDonorsLoadingState extends MyPostsStates {}
 
 // ignore: must_be_immutable
 class GetDonorsSuccessState extends MyPostsStates {
-  List<DataMode> donors;
+  List<DataModel> donors;
 
   GetDonorsSuccessState({required this.donors});
 }
