@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/cubit/home/all_post_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,8 @@ class BloodType extends StatelessWidget {
     return BlocProvider(
       create: (context) => BloodCubit(),
       child: BlocConsumer<BloodCubit, BloodState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+        },
         builder: (context, state) {
           BloodCubit cubit = BloodCubit().get(context);
           return SafeArea(
@@ -151,8 +153,10 @@ class BloodType extends StatelessWidget {
                         ),
                         child: TextButton(
                             onPressed: () async {
-                              if (cubit.currentIndex1 != 0 || cubit.currentIndex2 != 0) {
-                                bloodRequest.bloodType = getUserBloodTypeFinal(cubit: cubit);
+                              if (cubit.currentIndex1 != 0 ||
+                                  cubit.currentIndex2 != 0) {
+                                bloodRequest.bloodType =
+                                    getUserBloodTypeFinal(cubit: cubit);
                                 await cubit.addBloodPost(
                                     bloodRequest: bloodRequest,
                                     context: context);
@@ -308,7 +312,6 @@ String getUserBloodTypeFinal({required BloodCubit cubit}) {
   }
   return result;
 }
-
 
 // print(bloodRequest.firstName.toString());
 // print(bloodRequest.lastName.toString());

@@ -1,3 +1,4 @@
+import 'package:blood_donation_project/Models/SinglePost/SinglePost.dart';
 import 'package:blood_donation_project/Models/donation/acceptance_rate_model.dart';
 import 'package:blood_donation_project/Models/donation/donors_model.dart';
 import 'package:blood_donation_project/Models/post/Post.dart';
@@ -54,3 +55,53 @@ class AcceptanceRateErrorState extends MyPostsStates {
 
   AcceptanceRateErrorState({required this.Error});
 }
+
+
+// Confirm Donor
+
+class ConfirmDonorLoadingState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class ConfirmDonorSuccessState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class ConfirmDonorErrorState extends MyPostsStates {
+  String Error;
+
+  ConfirmDonorErrorState({required this.Error});
+}
+
+
+
+
+
+// Delete Donor
+
+class DeleteDonorLoadingState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class DeleteDonorSuccessState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class DeleteDonorErrorState extends MyPostsStates {
+  String Error;
+
+  DeleteDonorErrorState({required this.Error});
+}
+
+
+
+/// Get Single Post
+class GetSinglePostForDonorsLoading extends MyPostsStates{}
+// ignore: must_be_immutable
+class GetSinglePostForDonorsSuccessfully extends MyPostsStates{
+  late SinglePost singlePost;
+  GetSinglePostForDonorsSuccessfully({required this.singlePost});
+}
+// ignore: must_be_immutable
+class GetSinglePostForDonorsError extends MyPostsStates{
+  String Error;
+  GetSinglePostForDonorsError({required this.Error});
+}
+
+

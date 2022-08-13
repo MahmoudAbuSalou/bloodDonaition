@@ -22,7 +22,6 @@ class SinglePostCubit extends Cubit<SinglePostState> {
 
   getSinglePost({required  int id}) async {
     try {
-
       emit(GetSinglePostLoading());
       final response = await DioHelper.getData(
         url: Urls.getSinglePOST + id.toString(),

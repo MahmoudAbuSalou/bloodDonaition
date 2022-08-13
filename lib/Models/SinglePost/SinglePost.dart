@@ -1,14 +1,14 @@
 class SinglePost {
   String? status;
   String? message;
-  Data? data;
+  SinglePostData? data;
 
   SinglePost({this.status, this.message, this.data});
 
   SinglePost.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new SinglePostData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class SinglePost {
   }
 }
 
-class Data {
+class SinglePostData {
   int? postId;
   String? firstName;
   String? lastName;
@@ -40,7 +40,7 @@ class Data {
   String? updatedAt;
   int? userId;
 
-  Data(
+  SinglePostData(
       {this.postId,
         this.firstName,
         this.lastName,
@@ -58,7 +58,7 @@ class Data {
         this.updatedAt,
         this.userId});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  SinglePostData.fromJson(Map<String, dynamic> json) {
     postId = json['post_id'];
     firstName = json['firstName'];
     lastName = json['lastName'];

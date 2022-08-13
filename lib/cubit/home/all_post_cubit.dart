@@ -37,7 +37,6 @@ class AllPostCubit extends Cubit<AllPostState> {
       final response = await DioHelper.getData(
         url: Urls.getPOST + pageCount.toString(),
       );
-
       post = Post.fromJson(response.data);
       post.data?.forEach((element) {
         if (element.postType == false) {

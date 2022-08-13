@@ -196,7 +196,7 @@ class _DonateScreenState extends State<DonateScreen> {
                                   acceptanceRate: acceptDonationRate(),
                                   postID: widget.postID,
                                 );
-                                // navigatorTo(context, HomePage(type: true));
+                                Navigator.pop(context);
                               },
                               child: Text(
                                 'التأكيد و العودة الى الرئيسية',
