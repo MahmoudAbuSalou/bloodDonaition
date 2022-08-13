@@ -90,7 +90,9 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                 preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
             body: state is GetPostSuccessfully
                 ? SmartRefresher(
-                    controller: AllPostCubit.get(context).refreshController,
+                    controller: type == false
+                        ? AllPostCubit.get(context).refreshController2
+                        : AllPostCubit.get(context).refreshController1,
                     enablePullUp: true,
                     onLoading: () async {
                       AllPostCubit.get(context).getPost();
@@ -205,7 +207,11 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                           onPressed: () {
                             print('HERE');
                             print(post.postId);
-                            navigatorTo(context, DonateScreen(postID: post.postId,));
+                            navigatorTo(
+                                context,
+                                DonateScreen(
+                                  postID: post.postId,
+                                ));
                           },
                           child: Text(
                             'Donate',

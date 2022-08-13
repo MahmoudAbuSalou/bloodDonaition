@@ -2,6 +2,7 @@ import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
 import 'package:blood_donation_project/Modules/profile/profile.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
+import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -195,7 +196,7 @@ class _DonateScreenState extends State<DonateScreen> {
                                   acceptanceRate: acceptDonationRate(),
                                   postID: widget.postID,
                                 );
-                                // navigatorTo(context, Profile());
+                                // navigatorTo(context, HomePage(type: true));
                               },
                               child: Text(
                                 'التأكيد و العودة الى الرئيسية',

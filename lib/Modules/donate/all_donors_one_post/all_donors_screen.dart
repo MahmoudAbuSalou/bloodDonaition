@@ -68,8 +68,7 @@ class AllDonorsScreen extends StatelessWidget {
                         alignment: AlignmentDirectional.centerEnd,
                         children: [
                           Image(
-                            image: NetworkImage(
-                                'https://img.freepik.com/free-photo/portrait-happy-contented-satisfied-attractive-man-denim-trendy-shirt-showing-with-his-index-finger-top-right-cornerxt_295783-1217.jpg?w=996'),
+                            image:AssetImage('assets/images/img.png'),
                             fit: BoxFit.cover,
                             height: 200.0,
                             width: double.infinity,

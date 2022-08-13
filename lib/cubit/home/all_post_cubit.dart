@@ -19,8 +19,10 @@ class AllPostCubit extends Cubit<AllPostState> {
   AllPostCubit() : super(AllPostInitial());
 
   static AllPostCubit get(context) => BlocProvider.of(context);
-  RefreshController refreshController =
+  RefreshController refreshController1 =
       RefreshController(initialRefresh: false);
+  RefreshController refreshController2 =
+  RefreshController(initialRefresh: false);
 
   late Post post;
 
@@ -44,7 +46,8 @@ class AllPostCubit extends Cubit<AllPostState> {
           normal.add(element);
         }
       });
-      refreshController.loadComplete();
+      refreshController1.loadComplete();
+      refreshController2.loadComplete();
       print("Normal Length Is: ");
       print(normal.length);
       print("Emergency Length Is: ");
@@ -52,7 +55,8 @@ class AllPostCubit extends Cubit<AllPostState> {
 
       emit(GetPostSuccessfully(normal: normal, Emergency: Emergency));
     } catch (err) {
-      refreshController.loadFailed();
+      refreshController1.loadFailed();
+      refreshController2.loadFailed();
       print(err);
       showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);
       emit(GetPostError(Error: err.toString()));
