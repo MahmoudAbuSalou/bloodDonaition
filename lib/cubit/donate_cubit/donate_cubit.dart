@@ -40,6 +40,7 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
     });
   }
 
+  // Single Post
   late SinglePost singlePost;
 
   getSinglePost({required int id}) async {
@@ -85,7 +86,8 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
   // **************
   confirmDonor(donateId, context) async {
     emit(ConfirmDonorLoadingState());
-    if ((singlePost.data!.bloodBagsCollect!) + 1 == singlePost.data!.bloodBags!) {
+    if ((singlePost.data!.bloodBagsCollect!) + 1 ==
+        singlePost.data!.bloodBags!) {
       await DioHelper.postData(
         url: Urls.confirmDonor + donateId.toString(),
         data: null,
@@ -97,7 +99,9 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
         emit(ConfirmDonorErrorState(Error: error));
       });
       Navigator.pop(context);
-      showToast(msg: 'اكتمل هذا المنشور بنجاح, يمكنكم المسهاهمة بعملية آخرى', state: ToastState.SUCCESS);
+      showToast(
+          msg: 'اكتمل هذا المنشور بنجاح, يمكنكم المسهاهمة بعملية آخرى',
+          state: ToastState.SUCCESS);
       getMyPosts();
       return;
     }
@@ -110,6 +114,22 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
     }).catchError((error) {
       print(error.toString());
       emit(ConfirmDonorErrorState(Error: error));
+    });
+  }
+
+  // **************
+
+  deleteDonor({required int? donateId}) async {
+    emit(DeleteDonorLoadingState());
+    await DioHelper.postData(
+      url: Urls.deleteDonor + donateId.toString(),
+      data: null,
+      token: AppSharedPreferences.getToken,
+    ).then((value) async {
+      emit(DeleteDonorSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(DeleteDonorErrorState(Error: error));
     });
   }
 

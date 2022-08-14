@@ -74,7 +74,6 @@ class ConfirmDonorErrorState extends MyPostsStates {
 
 
 
-
 // Delete Donor
 
 class DeleteDonorLoadingState extends MyPostsStates {}

@@ -1,6 +1,7 @@
 import 'package:blood_donation_project/Modules/home/add_request_blood/user_info.dart';
 import 'package:blood_donation_project/Modules/my_posts/my_posts_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
+import 'package:blood_donation_project/shared/style/icon_broken.dart';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -51,69 +52,136 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
                   SizedBox(
                     height: 40,
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 500,
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Column(
-                        children: [
-                          ListTile(
-                            title: Text('الملف الشخصي',
-                                style: GoogleFonts.tajawal(
-                                  fontSize: 22,
-                                )),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) {
-                                  return Profile();
+                  SingleChildScrollView(
+                    child: Container(
+                      width: double.infinity,
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Column(
+                          children: [
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('الملف الشخصي',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                autofocus: true,
+                                focusColor: Colors.amber,
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Profile,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) {
+                                      return Profile();
+                                    },
+                                  ));
                                 },
-                              ));
-                            },
-                          ),
-                          ListTile(
-                            title: Text('منشوراتي',
-                                style: GoogleFonts.tajawal(
-                                  fontSize: 22,
-                                )),
-                            onTap: () {
-                              navigatorTo(context, MyPostsScreen());
-                            },
-                          ),
-                          ListTile(
-                            title: Text('بحاجة للدم ',
-                                style: GoogleFonts.tajawal(
-                                  fontSize: 22,
-                                )),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) {
-                                  return AddRequestBlood();
+                              ),
+                            ),
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('منشوراتي',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                autofocus: true,
+                                focusColor: Colors.amber,
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Document,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  navigatorTo(context, MyPostsScreen());
                                 },
-                              ));
-                            },
-                          ),
-                          ListTile(
-                            title: Text('الاعدادات',
-                                style: GoogleFonts.tajawal(
-                                  fontSize: 22,
-                                )),
-                            onTap: () {
-                              // Update the state of the app.
-                              // ...
-                            },
-                          ),
-                          ListTile(
-                            title: Text('من نحن ',
-                                style: GoogleFonts.tajawal(
-                                  fontSize: 22,
-                                )),
-                            onTap: () {
-                              // Update the state of the app.
-                              // ...
-                            },
-                          ),
-                        ],
+                              ),
+                            ),
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('بحاجة للدم ',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                autofocus: true,
+                                focusColor: Colors.amber,
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Paper_Plus,
+                                  size: 45.0,
+                                  color: Colors.red,
+
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) {
+                                      return AddRequestBlood();
+                                    },
+                                  ));
+                                },
+                              ),
+                            ),
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('الاعدادات',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                autofocus: true,
+                                focusColor: Colors.amber,
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Setting,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  // Update the state of the app.
+                                },
+                              ),
+                            ),
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('من نحن ',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                autofocus: true,
+                                focusColor: Colors.amber,
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Info_Circle,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  // Update the state of the app.
+                                  // ...
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

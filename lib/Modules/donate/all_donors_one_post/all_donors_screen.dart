@@ -27,6 +27,13 @@ class AllDonorsScreen extends StatelessWidget {
               state: ToastState.SUCCESS);
           MyPostsCubit.get(context).getDonors(postID!);
         }
+        if (state is DeleteDonorSuccessState) {
+          showToast(
+            msg: 'تم حذف هذا المتبرّع بنجاح',
+            state: ToastState.SUCCESS,
+          );
+          MyPostsCubit.get(context).getDonors(postID!);
+        }
       },
       builder: (context, state) {
         var cubit = MyPostsCubit.get(context);
@@ -215,7 +222,8 @@ class AllDonorsScreen extends StatelessWidget {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        MyPostsCubit.get(context).confirmDonor(donateId, context);
+                        MyPostsCubit.get(context)
+                            .confirmDonor(donateId, context);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -250,7 +258,10 @@ class AllDonorsScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        MyPostsCubit.get(context)
+                            .deleteDonor(donateId: donateId);
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                             color: Colors.red[400],
