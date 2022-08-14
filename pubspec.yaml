@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.0.3
   curved_navigation_bar: ^1.0.2
-  url_launcher: ^6.0.20
+  url_launcher: ^6.1.5
   animations:
   cached_network_image: ^3.2.0
   flutter_rating_bar: ^4.0.0
@@ -63,7 +63,7 @@ dependencies:
   geolocator: ^7.7.0
   geocoding: ^2.0.1
   google_geocoding: ^0.2.0
-
+  flutter_phone_direct_caller: ^2.1.1
   awesome_dialog: ^2.2.0
   pretty_dio_logger: ^1.1.1
   http:

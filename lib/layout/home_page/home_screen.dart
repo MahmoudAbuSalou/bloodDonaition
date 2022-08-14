@@ -66,8 +66,6 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
                                     style: GoogleFonts.tajawal(
                                       fontSize: 22,
                                     )),
-                                autofocus: true,
-                                focusColor: Colors.amber,
                                 trailing: Icon(
                                   IconBroken.Arrow___Right_2,
                                   size: 25.0,
@@ -92,8 +90,6 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
                                     style: GoogleFonts.tajawal(
                                       fontSize: 22,
                                     )),
-                                autofocus: true,
-                                focusColor: Colors.amber,
                                 trailing: Icon(
                                   IconBroken.Arrow___Right_2,
                                   size: 25.0,
@@ -142,8 +138,6 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
                                     style: GoogleFonts.tajawal(
                                       fontSize: 22,
                                     )),
-                                autofocus: true,
-                                focusColor: Colors.amber,
                                 trailing: Icon(
                                   IconBroken.Arrow___Right_2,
                                   size: 25.0,
@@ -164,8 +158,6 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
                                     style: GoogleFonts.tajawal(
                                       fontSize: 22,
                                     )),
-                                autofocus: true,
-                                focusColor: Colors.amber,
                                 trailing: Icon(
                                   IconBroken.Arrow___Right_2,
                                   size: 25.0,

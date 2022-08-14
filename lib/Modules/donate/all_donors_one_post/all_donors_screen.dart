@@ -7,8 +7,10 @@ import 'package:blood_donation_project/shared/style/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../my_posts/my_posts_screen.dart';
 
@@ -91,11 +93,12 @@ class AllDonorsScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'الأشخاص المتبرُّعين: ${cubit.dataModel.length}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  ?.copyWith(color: Colors.white),
+                              'الأشخاص المُتبرُّعين: ${cubit.dataModel.length}',
+                              style: GoogleFonts.tajawal(
+                                fontSize: 45.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ],
@@ -155,8 +158,11 @@ class AllDonorsScreen extends StatelessWidget {
                           children: [
                             Text(
                               '${model.user.name}',
-                              style: TextStyle(
+                              style: GoogleFonts.tajawal(
+                                fontSize: 50.sp,
                                 height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
                               ),
                             ),
                             SizedBox(
@@ -295,7 +301,14 @@ class AllDonorsScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final number = model.user.phone;
+                        // Url Launcher UnDirect Call.
+                        // await launchUrl(Uri.parse('tel:${model.user.phone}'));
+                        //Flutter Phone Direct Call.
+                        await FlutterPhoneDirectCaller.callNumber(
+                            number.toString());
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                             color: Colors.blue[300],

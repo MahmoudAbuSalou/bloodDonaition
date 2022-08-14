@@ -143,7 +143,8 @@ class MyPostsScreen extends StatelessWidget {
                           ]),
                       child: TextButton(
                           onPressed: () async {
-                            await MyPostsCubit.get(context).getDonors(post.postId);
+                            await MyPostsCubit.get(context)
+                                .getDonors(post.postId);
                             navigatorTo(
                               context,
                               AllDonorsScreen(postID: post.postId),
@@ -248,7 +249,7 @@ class MyPostsScreen extends StatelessWidget {
                         child: IconButton(
                           onPressed: () async {
                             await Share.share(
-                                'مريض بحاجة إلى زمرة دم ${post.bloodType} عدد الأكياس المطلوبة ${post.bloodBags}من يستطيع التبرع أو يعرف شخصا قادر على التبرع يتواصل معنا مباشرة على الرقم التالي :${post.phone} ',
+                                ' مريض بحاجة إلى زمرة دم ${post.bloodType} عدد الأكياس المطلوبة ${post.bloodBags} من يستطيع التبرع أو يعرف شخصا قادر على التبرع يتواصل معنا مباشرة على الرقم التالي : ${post.phone}',
                                 subject: 'need Help!');
                           },
                           icon: Icon(

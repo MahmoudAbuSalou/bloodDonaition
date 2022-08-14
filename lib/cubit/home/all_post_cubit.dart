@@ -61,12 +61,4 @@ class AllPostCubit extends Cubit<AllPostState> {
       emit(GetPostError(Error: err.toString()));
     }
   }
-  refreshPost(context){
-    normal=[];
-    Emergency=[];
-    emit(GetPostLoading());
-
-    getPost();
-    emit(RefreshPost(context));
-  }
 }
