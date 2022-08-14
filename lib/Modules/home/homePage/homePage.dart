@@ -28,9 +28,13 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AllPostCubit, AllPostState>(
       listener: (context, state) {
+        if(state is RefreshPost){
+          AllPostCubit.get(context).getPost();
+        }
         // TODO: implement listener
       },
       builder: (context, state) {
+
         return Scaffold(
             backgroundColor: Colors.white,
             appBar: PreferredSize(

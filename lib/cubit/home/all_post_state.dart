@@ -6,6 +6,12 @@ abstract class AllPostState {}
 class AllPostInitial extends AllPostState {}
 
 class GetPostLoading extends AllPostState {}
+class RefreshPost extends AllPostState {
+  final context;
+
+  RefreshPost(this.context);
+
+}
 
 class GetPostNormalEmpty extends AllPostState {}
 

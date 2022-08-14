@@ -40,11 +40,12 @@ class BloodCubit extends Cubit<BloodState> {
       );
 
       showToast(msg: 'تم اضافة طلبك بنجاح..', state: ToastState.SUCCESS);
-      AllPostCubit.get(context).getPost();
+
       Navigator.pop(context);
       Navigator.pop(context);
       Navigator.pop(context);
       emit(AddPostSuccess());
+      AllPostCubit.get(context).refreshPost(context);
     } catch (err) {
       showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);
       emit(AddPostError(error: err.toString()));
