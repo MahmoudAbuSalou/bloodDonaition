@@ -1,30 +1,38 @@
+import 'package:blood_donation_project/Models/SinglePost/SinglePost.dart';
 import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
+import 'package:blood_donation_project/cubit/SinglePost/single_post_cubit.dart';
+import 'package:blood_donation_project/cubit/SinglePost/single_post_state.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
+import 'package:blood_donation_project/shared/components/constants.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../cubit/SinglePost/single_post_cubit.dart';
+import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class DetailsScreen extends StatelessWidget {
-  int id;
+  int postId;
+  String? name;
   String _val = '1';
   double value = 10;
 
-  DetailsScreen({Key? key, required this.id}) : super(key: key);
+  DetailsScreen({required this.postId, required this.name});
 
   @override
   Widget build(BuildContext context) {
+    SinglePostData singlePostData = new SinglePostData();
     return BlocProvider(
-      create: (context) => SinglePostCubit()..getSinglePost(id: id),
+      create: (context) => SinglePostCubit()..getSinglePost(id: postId),
       child: BlocConsumer<SinglePostCubit, SinglePostState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+        listener: (context, state) {},
         builder: (context, state) {
+          if (state is GetSinglePostSuccessfully) {
+            singlePostData = state.singlePost.data!;
+          }
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -40,7 +48,15 @@ class DetailsScreen extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await Share.share(
+                      ' مريض بحاجة إلى زمرة دم: ${singlePostData.bloodType}\n'
+                      ' عدد الأكياس المطلوبة: ${singlePostData.bloodBags}\n'
+                      'من يستطيع التبرع أو يعرف شخصا قادر على التبرع يتواصل معنا مباشرة على الرقم التالي:\n'
+                      '${singlePostData.phone} \n',
+                      subject: 'أحتاج مساعدة!',
+                    );
+                  },
                   icon: Icon(Icons.share, color: Color(0xff192747)),
                 ),
               ],
@@ -83,12 +99,13 @@ class DetailsScreen extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: Padding(
-                                padding: EdgeInsetsDirectional.only(end: 30.w),
-                                child: SvgPicture.asset(
-                                  'assets/images/blood_bags.svg',
-                                  width: 150.w,
-                                  height: 180.h,
-                                )),
+                              padding: EdgeInsetsDirectional.only(end: 30.w),
+                              child: SvgPicture.asset(
+                                'assets/images/blood_bags.svg',
+                                width: 150.w,
+                                height: 180.h,
+                              ),
+                            ),
                           ),
                           Expanded(
                             flex: 4,
@@ -101,16 +118,17 @@ class DetailsScreen extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Expanded(
-                                            child: Text(
-                                          'عدد الوحدات المطلوبة',
-                                          style: GoogleFonts.tajawal(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 35.sp),
-                                        )),
+                                          child: Text(
+                                            'عدد الوحدات المطلوبة',
+                                            style: GoogleFonts.tajawal(
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 35.sp),
+                                          ),
+                                        ),
                                         Expanded(
                                             child: Text(
-                                          'عدد الوحدات المتبقي ',
+                                          'عدد الوحدات المجموعة ',
                                           style: GoogleFonts.tajawal(
                                               color: Color(0xff384e7b),
                                               fontWeight: FontWeight.bold,
@@ -125,27 +143,29 @@ class DetailsScreen extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Expanded(
-                                            child: Container(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  '15',
-                                                  style: GoogleFonts.tajawal(
-                                                      color: Color(0xff384e7b),
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 60.sp),
-                                                ))),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              '${singlePostData.bloodBags}',
+                                              style: GoogleFonts.tajawal(
+                                                  color: Color(0xff384e7b),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 60.sp),
+                                            ),
+                                          ),
+                                        ),
                                         Expanded(
-                                            child: Container(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  '5',
-                                                  style: GoogleFonts.tajawal(
-                                                      color: Colors.grey,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 60.sp),
-                                                ))),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              '${(singlePostData.bloodBagsCollect)}',
+                                              style: GoogleFonts.tajawal(
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 60.sp),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -197,10 +217,11 @@ class DetailsScreen extends StatelessWidget {
                                           )),
                                       child: Center(
                                           child: Text(
-                                        'AB+',
+                                        '${singlePostData.bloodType}',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
+                                          fontSize: 25.0,
                                         ),
                                       )),
                                     ),
@@ -210,23 +231,26 @@ class DetailsScreen extends StatelessWidget {
                                     flex: 2,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         SizedBox(height: 7),
                                         Text(
-                                          'Request Blood',
-                                          style: TextStyle(
-                                            color: Color(0xff041b2d),
+                                          'طلب تبرُّع بالدم',
+                                          style: GoogleFonts.tajawal(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 40.sp,
+                                            fontStyle: FontStyle.italic,
+                                            color: Color(0xff384e7b),
                                           ),
                                         ),
                                         SizedBox(
                                           height: 5,
                                         ),
                                         Text(
-                                          'in progress',
-                                          style: TextStyle(
-                                            color: Color(0xffddddda),
+                                          'قيد التقدُّم',
+                                          style: GoogleFonts.tajawal(
+                                            fontSize: 30.sp,
+                                            color: Colors.grey,
                                           ),
                                         ),
                                       ],
@@ -246,8 +270,6 @@ class DetailsScreen extends StatelessWidget {
                                     padding:
                                         EdgeInsets.only(right: 30.w, left: 2.w),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       textDirection: TextDirection.rtl,
                                       children: [
                                         Text(
@@ -258,7 +280,7 @@ class DetailsScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '  غصن خالد محسن',
+                                          '${singlePostData.firstName} ${singlePostData.lastName}',
                                           style: TextStyle(
                                               color: Colors.grey[700]),
                                         ),
@@ -272,8 +294,6 @@ class DetailsScreen extends StatelessWidget {
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 10),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       textDirection: TextDirection.rtl,
                                       children: [
                                         Text(
@@ -284,7 +304,7 @@ class DetailsScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          'مشفى المجتهد',
+                                          '${singlePostData.hospitalName}',
                                           style: TextStyle(
                                               color: Colors.grey[700]),
                                         ),
@@ -297,8 +317,6 @@ class DetailsScreen extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.only(left: 35.w),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       textDirection: TextDirection.rtl,
                                       children: [
                                         Text(
@@ -309,7 +327,7 @@ class DetailsScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '2022/11/02',
+                                          '${singlePostData.expiryDate}',
                                           style: TextStyle(
                                               color: Colors.grey[700]),
                                         ),
@@ -328,7 +346,7 @@ class DetailsScreen extends StatelessWidget {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Text(
-                                          'غصن خالد محسن',
+                                          '${name}',
                                           style: GoogleFonts.tajawal(
                                             color: Colors.grey[600],
                                           ),
@@ -344,25 +362,31 @@ class DetailsScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                      margin: EdgeInsets.only(
-                                          right: 9.w, bottom: 3.h),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black26,
-                                                blurRadius: 10),
-                                          ]),
-                                      child: IconButton(
-                                        highlightColor: Colors.white,
-                                        splashColor: Colors.white,
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.phone,
-                                          color: Colors.green,
-                                        ),
-                                      ))
+                                    margin: EdgeInsets.only(
+                                        right: 9.w, bottom: 3.h),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.black26,
+                                              blurRadius: 10),
+                                        ]),
+                                    child: IconButton(
+                                      highlightColor: Colors.white,
+                                      splashColor: Colors.white,
+                                      onPressed: () {
+                                        String number =
+                                            '+963' + '${singlePostData.phone}';
+                                        FlutterPhoneDirectCaller.callNumber(
+                                            number);
+                                      },
+                                      icon: Icon(
+                                        Icons.phone,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  )
                                 ],
                               )),
                         ],
@@ -376,7 +400,7 @@ class DetailsScreen extends StatelessWidget {
                       height: 150.h,
                       alignment: Alignment.centerRight,
                       child: Text(
-                        'زمر الدم المطلوبة',
+                        'زمر الدم التي تستطيع التبرُّع',
                         style: GoogleFonts.tajawal(
                           fontWeight: FontWeight.bold,
                           fontSize: 50.sp,
@@ -388,34 +412,35 @@ class DetailsScreen extends StatelessWidget {
                       height: 20.h,
                     ),
                     Container(
-                        height: 200.h,
-                        child: ListView.builder(
-                            physics: BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 8,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                  alignment: Alignment.center,
-                                  width: 160.w,
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 15.w),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      // borderRadius: BorderRadius.circular(60),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.black26,
-                                            blurRadius: 8,
-                                            offset: Offset(0, 2)),
-                                      ]),
-                                  child: Text(
-                                    'AB+',
-                                    style: TextStyle(
-                                        fontSize: 60.sp,
-                                        color: Colors.redAccent),
-                                  ));
-                            })),
+                      height: 200.h,
+                      child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: canDonate(bloodType: singlePostData.bloodType)?.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                              alignment: Alignment.center,
+                              width: 160.w,
+                              margin: EdgeInsets.symmetric(horizontal: 15.w),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                                // borderRadius: BorderRadius.circular(60),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 8,
+                                      offset: Offset(0, 2)),
+                                ],
+                              ),
+                              child: Text(
+                                '${canDonate(bloodType: singlePostData.bloodType)![index]}',
+                                style: TextStyle(
+                                    fontSize: 60.sp, color: Colors.redAccent),
+                              ));
+                        },
+                      ),
+                    ),
                     SizedBox(
                       height: 250.h,
                     ),
@@ -428,7 +453,12 @@ class DetailsScreen extends StatelessWidget {
             floatingActionButton: FloatingActionButton.extended(
               backgroundColor: Color(0xFF192747),
               onPressed: () {
-                // navigatorTo(context, DonateScreen());
+                navigatorTo(
+                  context,
+                  DonateScreen(
+                    postID: postId,
+                  ),
+                );
               },
               label: Text(
                 '    تبرّع الان    ',
@@ -442,5 +472,55 @@ class DetailsScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  // Widget bloodTypeItem() => ;
+
+  List<String>? canDonate({required String? bloodType}) {
+    List<String> donors = [];
+    switch (bloodType) {
+      case 'A+':
+        {
+          donors = ['A+', 'A-', 'O+', 'O-'];
+          break;
+        }
+      case 'A-':
+        {
+          donors = ['A-', 'O-'];
+          break;
+        }
+      case 'B+':
+        {
+          donors = ['B+', 'B-', 'O+', 'O-'];
+          break;
+        }
+      case 'B-':
+        {
+          donors = ['B-', 'O-'];
+          break;
+        }
+      case 'AB+':
+        {
+          donors = ['AB+', 'AB-', 'A+', 'A-', 'O+', 'O-'];
+          break;
+        }
+      case 'AB-':
+        {
+          donors = ['AB-', 'A-', 'B-', 'O-'];
+          break;
+        }
+      case 'O+':
+        {
+          donors = ['O+', 'O-'];
+          break;
+        }
+      case 'O-':
+        {
+          donors = ['O-'];
+          break;
+        }
+    }
+
+    return donors;
   }
 }

@@ -17,43 +17,57 @@ class MyPostsScreen extends StatelessWidget {
     return BlocConsumer<MyPostsCubit, MyPostsStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: PreferredSize(
-              child: ClipPath(
-                clipper: WaveClip(),
-                child: Container(
-                  color: Colors.redAccent,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.only(start: 20.w),
-                            child: Text(
-                              'منشوراتي',
-                              style: GoogleFonts.tajawal(
+        return Directionality(
+          textDirection: TextDirection.ltr,//it's Need More design
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: PreferredSize(
+                child: ClipPath(
+                  clipper: WaveClip(),
+                  child: Container(
+                    color: Colors.redAccent,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                IconBroken.Arrow___Left_2,
+                                size: 30.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(start: 20.w),
+                              child: Text(
+                                'منشوراتي',
+                                style: GoogleFonts.tajawal(
                                   fontSize: 60.sp,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
-          body: ListView.separated(
-              itemBuilder: (context, index) {
-                return postItem(
-                    context, MyPostsCubit.get(context).myPosts[index]);
-              },
-              separatorBuilder: (context, index) => myDivider(),
-              itemCount: MyPostsCubit.get(context).myPosts.length),
+                preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
+            body: ListView.separated(
+                itemBuilder: (context, index) {
+                  return postItem(
+                      context, MyPostsCubit.get(context).myPosts[index]);
+                },
+                separatorBuilder: (context, index) => myDivider(),
+                itemCount: MyPostsCubit.get(context).myPosts.length),
+          ),
         );
       },
     );
@@ -67,7 +81,8 @@ class MyPostsScreen extends StatelessWidget {
           navigatorTo(
               context,
               DetailsScreen(
-                id: 0,
+                postId: post.postId,
+                name: post.user.name,
               ));
         },
         child: Container(

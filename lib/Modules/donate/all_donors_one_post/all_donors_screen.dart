@@ -302,12 +302,12 @@ class AllDonorsScreen extends StatelessWidget {
                   Expanded(
                     child: TextButton(
                       onPressed: () async {
-                        final number = model.user.phone;
+                        final number = model.user!.phone;
                         // Url Launcher UnDirect Call.
                         // await launchUrl(Uri.parse('tel:${model.user.phone}'));
                         //Flutter Phone Direct Call.
                         await FlutterPhoneDirectCaller.callNumber(
-                            number.toString());
+                            '0'+number.toString());
                       },
                       child: Container(
                         decoration: BoxDecoration(

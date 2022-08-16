@@ -73,7 +73,6 @@ class _UserAddressState extends State<UserAddress> {
                             widget.bloodRequest.position_Lat = latLng.latitude;
                             widget.bloodRequest.position_Lang =
                                 latLng.longitude;
-
                             print(widget.bloodRequest.position_Lat);
                             print(widget.bloodRequest.position_Lang);
 
