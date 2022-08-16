@@ -29,29 +29,10 @@ class SinglePostCubit extends Cubit<SinglePostState> {
     }
   }
 
-  deleteSinglePost({required int id}) async {
-    try {
-      emit(DeleteSinglePostLoading());
-      final response = await DioHelper.postData(
-        url: Urls.deleteSinglePOST + id.toString(),
-        data: null,
-        token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU3MTg0OTcwfQ.BOdbtbomzcq-7DV2vfav4hn2HVUbF_luaLptlFw7yLg",
-      );
-      status = response.data['status'];
-      if (status == 'true') {
-        showToast(msg: 'تم حذف الطلب بنجاح..', state: ToastState.SUCCESS);
-      }
-
-      emit(DeleteSinglePostSuccessfully());
-    } catch (err) {
-      showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);
-      emit(DeleteSinglePostError(Error: err.toString()));
-    }
-  }
-
-  updateSinglePost(
-      {required UpdateSinglePost updateSinglePost, required int id}) async {
+  updateSinglePost({
+    required UpdateSinglePost updateSinglePost,
+    required int id,
+  }) async {
     try {
       emit(UpDateSinglePostLoading());
       final response = await DioHelper.postData(
