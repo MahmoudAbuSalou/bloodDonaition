@@ -1,3 +1,5 @@
+import 'package:blood_donation_project/Models/SinglePost/SinglePost.dart';
+import 'package:blood_donation_project/Models/donation/acceptance_rate_model.dart';
 import 'package:blood_donation_project/Models/donation/donors_model.dart';
 import 'package:blood_donation_project/Models/post/Post.dart';
 
@@ -28,7 +30,7 @@ class GetDonorsLoadingState extends MyPostsStates {}
 
 // ignore: must_be_immutable
 class GetDonorsSuccessState extends MyPostsStates {
-  List<DataMode> donors;
+  List<DataModel> donors;
 
   GetDonorsSuccessState({required this.donors});
 }
@@ -39,3 +41,94 @@ class GetDonorsErrorState extends MyPostsStates {
 
   GetDonorsErrorState({required this.Error});
 }
+
+
+// Delete Post
+
+class DeletePostLoadingState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class DeletePostSuccessState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class DeletePostErrorState extends MyPostsStates {
+  String Error;
+
+  DeletePostErrorState({required this.Error});
+}
+
+
+
+
+// Acceptance Rate After Press Donate Now
+
+class AcceptanceRateLoadingState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class AcceptanceRateSuccessState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class AcceptanceRateErrorState extends MyPostsStates {
+  String Error;
+  AcceptanceRateErrorState({required this.Error});
+}
+
+
+// Confirm Donor
+
+class ConfirmDonorLoadingState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class ConfirmDonorSuccessState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class ConfirmDonorErrorState extends MyPostsStates {
+  String Error;
+
+  ConfirmDonorErrorState({required this.Error});
+}
+
+
+
+
+// Delete Donor
+
+class DeleteDonorLoadingState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class DeleteDonorSuccessState extends MyPostsStates {}
+
+// ignore: must_be_immutable
+class DeleteDonorErrorState extends MyPostsStates {
+  String Error;
+
+  DeleteDonorErrorState({required this.Error});
+}
+
+
+// Get Single Post
+
+class GetSinglePostForDonorsLoading extends MyPostsStates{}
+
+class GetSinglePostForDonorsSuccessfully extends MyPostsStates{
+  late SinglePost singlePost;
+  GetSinglePostForDonorsSuccessfully({required this.singlePost});
+}
+class GetSinglePostForDonorsError extends MyPostsStates{
+  String Error;
+  GetSinglePostForDonorsError({required this.Error});
+}
+
+
+
+// Update Single Post's Data
+
+class UpdateSinglePostForDonorsLoadingState extends MyPostsStates {}
+
+class UpdateSinglePostForDonorsSuccessfullyState extends MyPostsStates {}
+class UpdateSinglePostForDonorsErrorState extends MyPostsStates{
+  String Error;
+  UpdateSinglePostForDonorsErrorState({required this.Error});
+}
+
+

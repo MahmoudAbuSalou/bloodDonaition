@@ -1,6 +1,4 @@
-import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
-import 'package:blood_donation_project/cubit/notification/notification_states.dart';
-import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
+import 'package:blood_donation_project/cubit/home/all_post_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +18,8 @@ class BloodType extends StatelessWidget {
     return BlocProvider(
       create: (context) => BloodCubit(),
       child: BlocConsumer<BloodCubit, BloodState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+        },
         builder: (context, state) {
           BloodCubit cubit = BloodCubit().get(context);
           return SafeArea(
@@ -152,32 +151,24 @@ class BloodType extends StatelessWidget {
                           ],
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: BlocProvider(
-                         create: (context)=>NotificationCubit(),
-                          child: BlocConsumer<NotificationCubit,NotificationStates>(
-                            listener: (context,state){},
-                            builder: (context,state)=>TextButton(
-                                onPressed: () async {
-                                  if (cubit.currentIndex1 != 0 || cubit.currentIndex2 != 0) {
-                                    bloodRequest.bloodType = getUserBloodTypeFinal(cubit: cubit);
-                                    await cubit.addBloodPost(
-                                        bloodRequest: bloodRequest,
-                                        context: context);
-                                    NotificationCubit.get(context).sendNotification(
-                                        tokenPh: '/topics/'+bloodRequest.bloodType!.substring(0, bloodRequest.bloodType!.length - 1),
-                                        title: 'Blood Donation',
-                                        body: '${AppSharedPreferences.getName}بحاجة للتبرع بالدم ');
-                                  }
-                                },
-                                child: Text("التالي ",
-                                  style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 80.sp,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                            ),
-                          ),
-                        ),
+                        child: TextButton(
+                            onPressed: () async {
+                              if (cubit.currentIndex1 != 0 ||
+                                  cubit.currentIndex2 != 0) {
+                                bloodRequest.bloodType =
+                                    getUserBloodTypeFinal(cubit: cubit);
+                                await cubit.addBloodPost(
+                                    bloodRequest: bloodRequest,
+                                    context: context);
+                              }
+                            },
+                            child: Text(
+                              "التالي ",
+                              style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 80.sp,
+                                  fontWeight: FontWeight.bold),
+                            )),
                       ),
                     ],
                   ),
@@ -321,7 +312,6 @@ String getUserBloodTypeFinal({required BloodCubit cubit}) {
   }
   return result;
 }
-
 
 // print(bloodRequest.firstName.toString());
 // print(bloodRequest.lastName.toString());

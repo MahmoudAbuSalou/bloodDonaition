@@ -1,21 +1,21 @@
 class DonorsModel {
   String? status;
   String? message;
-  List<DataMode>? data;
+  List<DataModel>? data;
 
   DonorsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      data = <DataMode>[];
+      data = <DataModel>[];
       json['data'].forEach((element) {
-        data!.add(new DataMode.fromJson(element));
+        data!.add(new DataModel.fromJson(element));
       });
     }
   }
 }
 
-class DataMode {
+class DataModel {
   int? donateId;
   int? postId;
   int? userId;
@@ -25,7 +25,7 @@ class DataMode {
   String? updatedAt;
   User? user;
 
-  DataMode.fromJson(Map<String, dynamic> json) {
+  DataModel.fromJson(Map<String, dynamic> json) {
     donateId = json['donate_id'];
     postId = json['post_id'];
     userId = json['user_id'];
