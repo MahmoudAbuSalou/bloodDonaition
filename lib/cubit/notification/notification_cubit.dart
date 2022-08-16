@@ -11,6 +11,10 @@ class NotificationCubit extends Cubit<NotificationStates> {
 
   static NotificationCubit get(context) => BlocProvider.of(context);
 
+<<<<<<< HEAD
+=======
+  //late NotificationModel notificationModel;
+>>>>>>> notification
 
   TokenPhone? tokenPhone;
 
@@ -22,6 +26,7 @@ class NotificationCubit extends Cubit<NotificationStates> {
     emit(SendNotificationLoadingState());
 
     DioHelper.postData(
+<<<<<<< HEAD
       url: Urls.notification,
       token:
           'key=AAAApcu0bnM:APA91bFlWsydukk1_g9ZdRIzn2Msu8MyUpV1wwKKczmbec8zJXtDZluKk0auHty44sFRYUhq9r6xBW-GPTMftkoGBVCOj8HLtVaQZwkIZwAs4MDqHEpBuzOVtArnhmdNuRHgNm0LhU9y',
@@ -30,6 +35,20 @@ class NotificationCubit extends Cubit<NotificationStates> {
         'notification': {'title': title, 'body': body},
       },
     ).then((value) async {
+=======
+        url: Urls.notification,
+        token:
+            'AAAApcu0bnM:APA91bFlWsydukk1_g9ZdRIzn2Msu8MyUpV1wwKKczmbec8zJXtDZluKk0auHty44sFRYUhq9r6xBW-GPTMftkoGBVCOj8HLtVaQZwkIZwAs4MDqHEpBuzOVtArnhmdNuRHgNm0LhU9y',
+        key: 'key=',
+        data: {
+          'to': tokenPh,
+          'notification': {'title': title, 'body': body},
+        }).then((value) async {
+          print("hhhhhhhhhhh");
+          print(value);
+     // notificationModel = await NotificationModel.fromJson(value.data);
+
+>>>>>>> notification
       print('Data Here>>>>>>>>>>>>>>:');
       print(value.data);
       emit(SendNotificationSuccessState());
@@ -46,6 +65,7 @@ class NotificationCubit extends Cubit<NotificationStates> {
       url: Urls.tokenPh + '$id',
     ).then((value) {
       tokenPhone = TokenPhone.fromJson(value.data);
+      print('<<<<<<<<<<<<<<<<<<<<<<tokenPH>>>>>>>>>>>>>>>>>>>>>>>>');
       print(value.data);
       emit(GetTokenPhoneSuccessState());
     }).catchError((error) {

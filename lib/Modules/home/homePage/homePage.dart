@@ -179,6 +179,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                         )),
                       ),
                     ),
+<<<<<<< HEAD
                     SizedBox(width: 7),
                     Expanded(
                       flex: 2,
@@ -192,6 +193,27 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               color: Color(0xff041b2d),
                               fontWeight: FontWeight.bold,
                             ),
+=======
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: 100,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Color(0xfffe676e),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(color: Colors.grey, blurRadius: 4)
+                          ]),
+                      child: TextButton(
+                          onPressed: () async {
+                            navigatorToNew(context,DonateScreen());
+                            },
+                          child: Text(
+                            'Donate',
+                            style: TextStyle(color: Colors.white),
+>>>>>>> notification
                           ),
                           SizedBox(
                             height: 5,

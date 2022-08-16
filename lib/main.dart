@@ -113,9 +113,13 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
               textTheme: TextTheme(bodyText2: TextStyle(fontSize: 30.sp)),
             ),
+<<<<<<< HEAD
             home: (AppSharedPreferences.hasToken)
                 ? HomeLayout()
                 : OnBoardingScreen(),
+=======
+            home:HomeLayout(),// (AppSharedPreferences.hasToken)?HomeLayout():OnBoardingScreen(),
+>>>>>>> notification
           ),
         );
       },

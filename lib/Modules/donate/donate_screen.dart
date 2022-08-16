@@ -306,6 +306,37 @@ class _DonateScreenState extends State<DonateScreen> {
                     ),
                   ),
                 ),
+<<<<<<< HEAD
+=======
+              if (endOfQuiz)
+                SizedBox(
+                  height: 5.0,
+                ),
+              if (true)
+                BlocProvider(
+                  create: (BuildContext context)=> NotificationCubit()..getTokenPh(7),
+                  child: BlocConsumer<NotificationCubit,NotificationStates>(
+                    listener: (context, state) {},
+                    builder: (context,state){
+                      return OutlinedButton(
+                        onPressed: ()  {
+                           var to=NotificationCubit.get(context).tokenPhone?.tokenPh;
+                           NotificationCubit.get(context).sendNotification(
+                               tokenPh: to.toString(),
+                               title: 'Blood Donation',
+                               body: '${AppSharedPreferences.getName} يريد التبرع لك');
+                          // navigatorToNew(context, HomePage());
+
+                    },
+                        child: Text('التأكيد و العودة الى الرئيسية'),
+                      );
+                    },
+                  )
+                ),
+              SizedBox(
+                height: 30.0,
+              ),
+>>>>>>> notification
             ],
           ),
         ),
