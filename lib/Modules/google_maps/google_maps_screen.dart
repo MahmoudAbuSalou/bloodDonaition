@@ -72,14 +72,14 @@ class GoogleMapsScreen extends StatelessWidget {
                   ],
                 ),
                 Expanded(
-                  child: GoogleMap(
-                    mapType: MapType.normal,
-                    initialCameraPosition: CameraPosition(
-                        target: initialCameraPosition, zoom: 15.0),
-                    onMapCreated: cubit.onMapCreated,
-                    myLocationEnabled: true,
-                    markers: cubit.myMarker,
-                  ),
+                      child: GoogleMap(
+                        mapType: MapType.normal,
+                        initialCameraPosition: CameraPosition(
+                            target: initialCameraPosition, zoom: 15.0),
+                        onMapCreated: cubit.onMapCreated,
+                        myLocationEnabled: true,
+                        markers: cubit.myMarker,
+                      ),
                 ),
               ],
             ),

@@ -27,13 +27,18 @@ class LoginCubit extends Cubit<LoginState> {
     UserResponse userModel;
     emit(LoadingState());
     try {
+
+
+
      final response= await DioHelper.postData(url: Urls.loginUrl, data: {
         'email': email,
         'password': password,
-        'tokenPh': token
+     'tokenPh': token
       });
-     userModel=UserResponse.fromJson(response.data);
 
+     print("-------------------Before------------------------------------");
+     userModel=UserResponse.fromJson(response.data);
+     print("-------------------After------------------------------------");
      if(userModel.status=='true'){
      emit(LoginSuccessState());
      AppSharedPreferences.saveToken(userModel.token!);

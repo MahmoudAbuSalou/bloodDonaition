@@ -269,7 +269,7 @@ class _DonateScreenState extends State<DonateScreen> {
                 ),
               if (true)
                 BlocProvider(
-                  create: (BuildContext context)=> NotificationCubit()..getTokenPh(1),
+                  create: (BuildContext context)=> NotificationCubit()..getTokenPh(7),
                   child: BlocConsumer<NotificationCubit,NotificationStates>(
                     listener: (context, state) {},
                     builder: (context,state){

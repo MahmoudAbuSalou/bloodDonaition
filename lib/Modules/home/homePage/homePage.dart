@@ -205,17 +205,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                       child: TextButton(
                           onPressed: () async {
                             navigatorToNew(context,DonateScreen());
-
-                            print("______________________****");
-                            print(post.userId);
-                           // var x= await NotificationCubit.get(context).getTokenPh(post.userId);
-                            //print(x);
-                            print("*****______________________");
-
-                                //token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU1MTM3NDA0fQ.tM7A-DNAouIYF8R4CDuAusi6OuH5qRMJkAp0VHCqkac');
-
-                            //AllPostCubit.get(context).postId = post.postId!;
-                          },
+                            },
                           child: Text(
                             'Donate',
                             style: TextStyle(color: Colors.white),

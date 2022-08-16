@@ -169,8 +169,8 @@ class LogInScreen extends StatelessWidget {
                                   child: TextButton(
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
-
-                                          LoginCubit.get(context).userLogin(email: email.text, password: password.text,token:AppSharedPreferences.getTokenPh,context: context);
+                                          var tokenPh=AppSharedPreferences.getTokenPh;
+                                          LoginCubit.get(context).userLogin(email: email.text, password: password.text,token:tokenPh,context: context);
 
                                         }
                                       },
