@@ -1,6 +1,6 @@
 class Urls {
   // static const String baseUrl = "http://10.0.2.2:3000/api/";
-  static const String baseUrl = "http://192.168.65.232:3000/api/";
+  static const String baseUrl = "http://192.168.29.232:3000/api/";
   static const String singupUrl = baseUrl + "users/signUp";
   static const String genPinUrl = baseUrl + "genPin/";
   static const String deleteUserUrl = baseUrl + "users/deleteUser";
@@ -21,7 +21,10 @@ class Urls {
   static const String deleteDonor = baseUrl + "Donation/delete/";
   static const String confirmDonor = baseUrl + "Donation/confirm/";
   static const String search = baseUrl + "search";
-
+  static const String updatePost = baseUrl + "home/updatePost/";
 // ==*=*=====*======*
+
+  static const String tokenPh = baseUrl + "users/getTokenPhone/";
+  static const String notification = "https://fcm.googleapis.com/fcm/send";
 
 }

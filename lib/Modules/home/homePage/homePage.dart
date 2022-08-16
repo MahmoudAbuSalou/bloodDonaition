@@ -221,6 +221,7 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                                   context,
                                   DonateScreen(
                                     postID: post.postId,
+                                    userId: post.userId,
                                   ));
                             },
                             child: Text(

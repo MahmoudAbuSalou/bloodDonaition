@@ -98,7 +98,7 @@ Widget defaultTextFormField({
     TextFormField(
       enabled: enable,
       validator: (s) {
-        valid();
+        valid;
         return null;
       },
       // onTap: (){
@@ -127,17 +127,17 @@ Widget defaultTextFormField({
             : null,
       ),
       onChanged: (s) {
-        onChanged!();
+        onChanged;
       },
       onFieldSubmitted: (s) {
-        onSubmitted!();
+        onSubmitted;
       },
     );
 
 Widget defaultTextButton(
     {required String text,
     required Function function,
-    Color color = Colors.white}) {
+    Color color = Colors.amber}) {
   return TextButton(
       onPressed: () {
         function();
@@ -145,7 +145,12 @@ Widget defaultTextButton(
       child: Text(
         text.toUpperCase(),
         style: GoogleFonts.tajawal(
-            textStyle: TextStyle(color: color, fontSize: 50.sp)),
+          textStyle: TextStyle(
+            color: color,
+            fontSize: 65.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ));
 }
 

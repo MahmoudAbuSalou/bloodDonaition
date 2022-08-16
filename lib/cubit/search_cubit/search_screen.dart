@@ -187,6 +187,7 @@ class SearchScreen extends StatelessWidget {
                                   context,
                                   DonateScreen(
                                     postID: post.postId,
+                                    userId: post.userId,
                                   ));
                             },
                             child: Text(

@@ -47,7 +47,6 @@ class SinglePostCubit extends Cubit<SinglePostState> {
         showToast(msg: 'تم تعديل الطلب بنجاح..', state: ToastState.SUCCESS);
         await getSinglePost(id: id);
       }
-
       emit(UpDateSinglePostSuccessfully(singlePost: singlePost));
     } catch (err) {
       showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);

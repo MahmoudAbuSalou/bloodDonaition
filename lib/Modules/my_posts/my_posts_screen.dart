@@ -1,5 +1,6 @@
 import 'package:blood_donation_project/Modules/donate/all_donors_one_post/all_donors_screen.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
+import 'package:blood_donation_project/Modules/my_posts/update_post_screen.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_state.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
@@ -356,7 +357,9 @@ class MyPostsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: IconButton(
-                          onPressed: () async {},
+                          onPressed: () async {
+                            navigatorTo(context, UpdatePostScreen(singlePostData: post,));
+                          },
                           icon: Icon(IconBroken.Edit_Square,
                               color: Color(0xff384e7b), size: 24.0),
                         )),

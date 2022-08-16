@@ -457,6 +457,7 @@ class DetailsScreen extends StatelessWidget {
                   context,
                   DonateScreen(
                     postID: postId,
+                    userId: singlePostData.userId,
                   ),
                 );
               },

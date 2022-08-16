@@ -2,18 +2,26 @@ import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
 import 'package:blood_donation_project/Modules/profile/profile.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_states.dart';
 import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class DonateScreen extends StatefulWidget {
   final int? postID;
+  final int? userId;
 
-  DonateScreen({required this.postID});
+  DonateScreen({
+    required this.postID,
+    required this.userId
+  });
 
   @override
   State<DonateScreen> createState() => _DonateScreenState();
@@ -188,36 +196,79 @@ class _DonateScreenState extends State<DonateScreen> {
                     child: Padding(
                       padding: const EdgeInsetsDirectional.only(end: 25.0),
                       child: endOfQuiz
-                          ? OutlinedButton(
-                              onPressed: () {
-                                print("PostID is: ${widget.postID}");
-                                // Here we use logic to send rate To DB
-                                MyPostsCubit.get(context).acceptanceRate(
-                                  acceptanceRate: acceptDonationRate(),
-                                  postID: widget.postID,
-                                );
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                'التأكيد و العودة الى الرئيسية',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.amber,
-                                ),
+                          ? BlocProvider(
+                              create: (BuildContext context) =>
+                                  NotificationCubit()..getTokenPh(widget.userId),
+                              child: BlocConsumer<NotificationCubit,
+                                  NotificationStates>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return OutlinedButton(
+                                    onPressed: () {
+                                      print('USER ID:');
+                                      print(widget.userId);
+                                      print('=============================');
+                                      var to = NotificationCubit.get(context).tokenPhone?.tokenPh;
+                                      print(to);
+                                      print('=============================');
+
+                                      NotificationCubit.get(context)
+                                          .sendNotification(
+                                              tokenPh: to.toString(),
+                                              title: 'Blood Donation',
+                                              body:
+                                                  '${AppSharedPreferences.getName} يريد التبرع لك');
+                                      MyPostsCubit.get(context).acceptanceRate(
+                                        acceptanceRate: acceptDonationRate(),
+                                        postID: widget.postID,
+                                      );
+                                      Navigator.pop(context);
+                                    },
+                                    child:
+                                        Text('التأكيد و العودة الى الرئيسية'),
+                                  );
+                                },
                               ),
                             )
+                          // OutlinedButton(
+                          //         onPressed: () {
+                          //           print("PostID is: ${widget.postID}");
+                          //           // Here we use logic to send rate To DB
+                          //           MyPostsCubit.get(context).acceptanceRate(
+                          //             acceptanceRate: acceptDonationRate(),
+                          //             postID: widget.postID,
+                          //           );
+                          //           //=======================
+                          //           var to=NotificationCubit.get(context).tokenPhone?.tokenPh;
+                          //           NotificationCubit.get(context).sendNotification(
+                          //               tokenPh: to.toString(),
+                          //               title: 'Blood Donation',
+                          //               body: '${AppSharedPreferences.getName} يريد التبرع لك');
+                          //           //=======================
+                          //
+                          //           Navigator.pop(context);
+                          //         },
+                          //         child: Text(
+                          //           'التأكيد و العودة الى الرئيسية',
+                          //           style: TextStyle(
+                          //             fontSize: 18.0,
+                          //             fontWeight: FontWeight.bold,
+                          //             color: Colors.amber,
+                          //           ),
+                          //         ),
+                          //       )
                           : ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(double.infinity, 40.0),
                               ),
                               onPressed: () {
                                 if (!answerWasSelected) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text(
-                                        'الرجاء الإجابة على هذاا السؤال أولا'),
-                                  ));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          'الرجاء الإجابة على هذاا السؤال أولا'),
+                                    ),
+                                  );
                                   return;
                                 }
                                 _nextQuestion();

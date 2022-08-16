@@ -77,7 +77,53 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
     });
   }
 
+  // Update Single Post's Data
+  updatePost({
+    required int postId,
+    required String firstName,
+    required int userId,
+    required String lastName,
+    required String bloodBags,
+    required String cityName,
+    required String hospitalName,
+    required String gender,
+    required String postType,
+    required String phone,
+    required String expiredDate,
+  }) async {
+    emit(UpdateSinglePostForDonorsLoadingState());
+    await DioHelper.postData(
+            url: Urls.updatePost + postId.toString(),
+            data: {
+              'firstName': firstName,
+              'user_id': userId,
+              'lastName': lastName,
+              'bloodBags': bloodBags,
+              'cityName': cityName,
+              'hospitalName': hospitalName,
+              'gender': gender,
+              'postType': postType,
+              'phone': phone,
+              'expiryDate': expiredDate,
+            },
+            token: AppSharedPreferences.getToken)
+        .then((value) {
+      if (value.data['status'] == "true") {
+        showToast(
+          msg: 'تم تعديل معلومات الطلب بنجاح, شكراً لك❤️',
+          state: ToastState.SUCCESS,
+        );
+        // getMyPosts();
+        emit(UpdateSinglePostForDonorsSuccessfullyState());
+      }
+    }).catchError((error) {
+      print(error.toString());
+      emit(UpdateSinglePostForDonorsErrorState(Error: error));
+    });
+  }
+
   // ========================================
+
   // All Donors on One Post
   late DonorsModel donorsModel;
   List<DataModel> dataModel = [];

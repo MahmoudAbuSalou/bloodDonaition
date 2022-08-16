@@ -70,7 +70,6 @@ class AcceptanceRateSuccessState extends MyPostsStates {}
 // ignore: must_be_immutable
 class AcceptanceRateErrorState extends MyPostsStates {
   String Error;
-
   AcceptanceRateErrorState({required this.Error});
 }
 
@@ -107,18 +106,29 @@ class DeleteDonorErrorState extends MyPostsStates {
 }
 
 
+// Get Single Post
 
-/// Get Single Post
 class GetSinglePostForDonorsLoading extends MyPostsStates{}
-// ignore: must_be_immutable
+
 class GetSinglePostForDonorsSuccessfully extends MyPostsStates{
   late SinglePost singlePost;
   GetSinglePostForDonorsSuccessfully({required this.singlePost});
 }
-// ignore: must_be_immutable
 class GetSinglePostForDonorsError extends MyPostsStates{
   String Error;
   GetSinglePostForDonorsError({required this.Error});
+}
+
+
+
+// Update Single Post's Data
+
+class UpdateSinglePostForDonorsLoadingState extends MyPostsStates {}
+
+class UpdateSinglePostForDonorsSuccessfullyState extends MyPostsStates {}
+class UpdateSinglePostForDonorsErrorState extends MyPostsStates{
+  String Error;
+  UpdateSinglePostForDonorsErrorState({required this.Error});
 }
 
 
