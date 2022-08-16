@@ -281,31 +281,31 @@ class _DonateScreenState extends State<DonateScreen> {
                     ),
                   ),
                 ),
-              if (endOfQuiz)
-                Container(
-                  width: double.infinity,
-                  height: 70.0,
-                  margin: EdgeInsets.only(
-                      top: 5.0, bottom: 10.0, left: 20.0, right: 20.0),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Center(
-                    child: Text(
-                      _totalScore > 4
-                          ? ' ${acceptDonationRate()} :تهانينا, نيجة الاختبار هي '
-                          : ' ${acceptDonationRate()} : نتيجة الاختبار هي (^///^) ',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: _totalScore > 4 ? Colors.green : Colors.red,
-                      ),
-                    ),
-                  ),
-                ),
+              // if (endOfQuiz)
+              //   Container(
+              //     width: double.infinity,
+              //     height: 70.0,
+              //     margin: EdgeInsets.only(
+              //         top: 5.0, bottom: 10.0, left: 20.0, right: 20.0),
+              //     padding:
+              //         EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+              //     decoration: BoxDecoration(
+              //       color: Colors.black,
+              //       borderRadius: BorderRadius.circular(10.0),
+              //     ),
+              //     child: Center(
+              //       child: Text(
+              //         _totalScore > 4
+              //             ? ' ${acceptDonationRate()} :نيجة الاختبار هي '
+              //             : ' ${acceptDonationRate()} : نتيجة الاختبار هي (^///^) ',
+              //         style: TextStyle(
+              //           fontSize: 20.0,
+              //           fontWeight: FontWeight.bold,
+              //           color: _totalScore > 4 ? Colors.green : Colors.red,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
             ],
           ),
         ),

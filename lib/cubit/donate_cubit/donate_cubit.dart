@@ -222,7 +222,7 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
       print('acceptance Rate Message Is: ');
       print(acceptanceRateModel.message);
       showToast(
-          msg: 'تم إرسال طلب التبرُّع بنجاح, شكراً لك❤️',
+          msg: 'تم إرسال طلب التبرُّع بنجاح,❤️',
           state: ToastState.SUCCESS);
       emit(AcceptanceRateSuccessState());
     }).catchError((error) {

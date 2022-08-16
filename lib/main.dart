@@ -7,6 +7,7 @@ import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 
 import 'package:blood_donation_project/cubit/UsenManagmentCubits/Register/GlobalSettingCubit/global_setting_register_cubit.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
 import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
@@ -29,23 +30,20 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   showToast(msg: "on background massage", state: ToastState.SUCCESS);
 }
 
+
 main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 
   // START  Notifications
-
+  await CacheHelper.init();
   await Firebase.initializeApp();
   var token = await FirebaseMessaging.instance.getToken();
   print("*************************");
   print(token);
   print("*************************");
-  FirebaseMessaging.onMessage.listen((event) {
-    print("on onMessage");
-    print(event.data.toString());
-    showToast(msg: "on massage", state: ToastState.SUCCESS);
-  });
+
   FirebaseMessaging.onMessageOpenedApp.listen((event) {
     print("on onMessage Opened App");
     print(event.data.toString());
@@ -54,9 +52,16 @@ main() async {
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
+  FirebaseMessaging.onMessage.listen((event) {
+    print("on onMessage");
+    print(event.data.toString());
+    showToast(msg:"Notification Receive Successfully", state: ToastState.SUCCESS);
+  });
+
+
   //END  Notifications
 
-  await CacheHelper.init();
+
   AppSharedPreferences.saveTokenPh(token.toString());
   DioHelper.init();
   //bool onBoarding = CacheHelper.getData(key: 'onBoarding');

@@ -67,12 +67,19 @@ class AppSharedPreferences {
  static bool get hasAddress => CacheHelper.contains(Address);
  static dynamic get removeAddress => CacheHelper.removeData(key: Address);
 
+ // //PostId
+ // static String post_id='post_id';
+ // static String get getPostId => CacheHelper.getData(key: post_id) ?? '';
+ // static savePostId(String value) => CacheHelper.saveData(key: post_id, value: value);
+ // static bool get hasPostId => CacheHelper.contains(post_id);
+ // static dynamic get removePostId => CacheHelper.removeData(key: post_id);
+
  //UserId
- static String post_id='post_id';
- static String get getPostId => CacheHelper.getData(key: post_id) ?? '';
- static saveUserId(String value) => CacheHelper.saveData(key: post_id, value: value);
- static bool get hasUserId => CacheHelper.contains(post_id);
- static dynamic get removeUserId => CacheHelper.removeData(key: post_id);
+ static String user_id='user_id';
+ static  get getUserId => CacheHelper.getData(key: user_id);
+ static saveUserId( value) => CacheHelper.saveData(key: user_id, value: value);
+ static bool get hasUserId => CacheHelper.contains(user_id);
+ static dynamic get removeUserId => CacheHelper.removeData(key: user_id);
 
 
 }

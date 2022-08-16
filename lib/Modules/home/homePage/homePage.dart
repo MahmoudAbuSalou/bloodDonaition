@@ -1,11 +1,14 @@
+import 'package:blood_donation_project/Modules/donate/all_donors_one_post/all_donors_screen.dart';
 import 'package:blood_donation_project/Modules/donate/donate_screen.dart';
 import 'package:blood_donation_project/Modules/google_maps/google_maps_screen.dart';
 import 'package:blood_donation_project/Modules/home/home_details/details.dart';
+import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
 import 'package:blood_donation_project/cubit/layoutCubit/home_cubit.dart';
 import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
 import 'package:blood_donation_project/cubit/search_cubit/search_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:blood_donation_project/shared/style/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +27,6 @@ import '../../../cubit/home/all_post_cubit.dart';
 class HomePage extends StatelessWidget implements PreferredSizeWidget {
   final double barHeight = 50.0;
   bool type;
-
   HomePage({required this.type});
 
   @override
@@ -51,7 +53,8 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                         Row(
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.only(start: 20.w),
+                              padding:
+                              EdgeInsetsDirectional.only(start: 20.w),
                               child: Text(
                                 'قائمة الطلبات',
                                 style: GoogleFonts.tajawal(
@@ -63,8 +66,8 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                             ),
                             Spacer(),
                             Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(end: 8.0),
+                              padding: const EdgeInsetsDirectional.only(
+                                  end: 8.0),
                               child: IconButton(
                                 icon: Icon(
                                   IconBroken.Location,
@@ -77,8 +80,8 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(end: 15.0),
+                              padding: const EdgeInsetsDirectional.only(
+                                  end: 15.0),
                               child: IconButton(
                                 icon: Icon(
                                   IconBroken.Search,
@@ -99,33 +102,35 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                 preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
             body: state is GetPostSuccessfully
                 ? SmartRefresher(
-                    controller: type == false
-                        ? AllPostCubit.get(context).refreshController2
-                        : AllPostCubit.get(context).refreshController1,
-                    enablePullUp: true,
-                    onLoading: () async {
-                      AllPostCubit.get(context).getPost();
-                    },
-                    child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        itemCount: type == false
-                            ? state.Emergency.length
-                            : state.normal.length,
-                        itemBuilder: (context, index) {
-                          return listItem(
-                              context,
-                              type == false
-                                  ? state.Emergency[index]
-                                  : state.normal[index]);
-                        }),
-                  )
+              controller: AllPostCubit.get(context).refreshController1,
+              enablePullUp: true,
+              enablePullDown: true,
+              onRefresh: ()async{
+                AllPostCubit.get(context).getPost();
+              },
+              onLoading: () async {
+                AllPostCubit.get(context).getPost();
+              },
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: type == false
+                      ? state.Emergency.length
+                      : state.normal.length,
+                  itemBuilder: (context, index) {
+                    return listItem(
+                        context,
+                        type == false
+                            ? state.Emergency[index]
+                            : state.normal[index]);
+                  }),
+            )
                 : state is GetPostLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Center(
-                        child: Text("Empty"),
-                      ));
+                ? Center(
+              child: CircularProgressIndicator(),
+            )
+                : Center(
+              child: Text("Empty"),
+            ));
       },
     );
   }
@@ -205,18 +210,19 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: 100,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Color(0xfffe676e),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(color: Colors.grey, blurRadius: 4)
-                            ]),
-                        child: TextButton(
+                    if (AppSharedPreferences.getUserId != post.userId)
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          width: 100,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Color(0xfffe676e),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(color: Colors.grey, blurRadius: 4)
+                              ]),
+                          child: TextButton(
                             onPressed: () {
                               navigatorTo(
                                   context,
@@ -232,9 +238,44 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
+                      )
+                    else
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          width: 100,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(color: Colors.grey, blurRadius: 4)
+                              ]),
+                          child: TextButton(
+                            onPressed: () async {
+                              await MyPostsCubit.get(context)
+                                  .getDonors(post.postId!);
+                              navigatorTo(
+                                context,
+                                AllDonorsScreen(
+                                  postID: post.postId,
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'المتبرّعين',
+                              style: GoogleFonts.tajawal(
+                                fontSize: 40.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
                     SizedBox(width: 7),
                   ],
                 ),
@@ -427,9 +468,6 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
     var url = "whatsapp://send?phone=" + number + "&text=" + message;
     launchUrl(Uri.parse(url));
   }
-
-
-
 }
 
 class WaveClip extends CustomClipper<Path> {

@@ -52,7 +52,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         AppSharedPreferences.savePhone(userModel.user!.phone.toString());
         AppSharedPreferences.saveWeight(userModel.userprofile!.weight);
         AppSharedPreferences.saveName(userModel.user!.name);
-        AppSharedPreferences.saveUserId(userModel.user!.userId);
+        print(userModel.user!.userId!);
+        AppSharedPreferences.saveUserId(userModel.user!.userId!);
 
       }
       else

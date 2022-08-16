@@ -14,11 +14,10 @@ class GetPostEmergencyEmpty extends AllPostState {}
 // ignore: must_be_immutable
 class GetPostSuccessfully extends AllPostState {
   List<Data> normal;
-
   List<Data> Emergency;
-
   GetPostSuccessfully({required this.normal, required this.Emergency});
 }
+
 
 // ignore: must_be_immutable
 class GetPostError extends AllPostState {
@@ -26,6 +25,7 @@ class GetPostError extends AllPostState {
 
   GetPostError({required this.Error});
 }
+// ignore: must_be_immutable
 
 
 

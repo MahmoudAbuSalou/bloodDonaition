@@ -520,6 +520,11 @@ class DetailsScreen extends StatelessWidget {
           donors = ['O-'];
           break;
         }
+      case 'بلازما':
+        {
+          donors = ['AB+', 'AB-', 'A+', 'A-', 'O+', 'O-'];
+          break;
+        }
     }
 
     return donors;

@@ -1,8 +1,11 @@
 import 'package:blood_donation_project/Models/donation/donors_model.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_state.dart';
+import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_states.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:blood_donation_project/shared/style/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -211,6 +214,14 @@ class AllDonorsScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.subtitle1,
               ),
               Text(
+                'لقد أجاب هذا المتبرّع على ${((model.acceptanceRate) * 8 ~/ 100)} من أسئلة الأمان ال 8 بشكل صحيح ',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[500],
+                ),
+              ),
+              Text(
                 '${model.user.email}',
                 style: TextStyle(color: Colors.blue, fontSize: 16.0),
               ),
@@ -222,125 +233,141 @@ class AllDonorsScreen extends StatelessWidget {
                   color: Colors.grey[300],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        MyPostsCubit.get(context)
-                            .confirmDonor(donateId, context);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.green[400],
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(color: Colors.grey, blurRadius: 4)
-                            ]),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                IconBroken.Document,
-                                size: 25.0,
-                                color: Colors.white,
+              BlocProvider(create: (context) =>NotificationCubit()..getTokenPh(model.user!.userId!),
+                child: BlocConsumer<NotificationCubit, NotificationStates>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () async {
+                              print('Your Id Is: ');
+                              print(model.user!.userId!);
+                              var to = NotificationCubit.get(context).tokenPhone?.tokenPh;
+                              NotificationCubit.get(context)
+                                  .sendNotification(
+                                  tokenPh: to.toString(),
+                                  title: 'Blood Donation',
+                                  body:
+                                  '${AppSharedPreferences.getName}  وافق على التبرُّع  ');
+                              await MyPostsCubit.get(context)
+                                  .confirmDonor(donateId, context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.green[400],
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.grey, blurRadius: 4)
+                                  ]),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      IconBroken.Document,
+                                      size: 25.0,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 8.0,
+                                    ),
+                                    Text(
+                                      'قبول',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20.0),
+                                    )
+                                  ],
+                                ),
                               ),
-                              SizedBox(
-                                width: 8.0,
-                              ),
-                              Text(
-                                'قبول',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20.0),
-                              )
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        MyPostsCubit.get(context)
-                            .deleteDonor(donateId: donateId);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.red[400],
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(color: Colors.grey, blurRadius: 4)
-                            ]),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                IconBroken.Delete,
-                                size: 25.0,
-                                color: Colors.white,
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              MyPostsCubit.get(context)
+                                  .deleteDonor(donateId: donateId);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.red[400],
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.grey, blurRadius: 4)
+                                  ]),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      IconBroken.Delete,
+                                      size: 25.0,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 8.0,
+                                    ),
+                                    Text(
+                                      'حذف',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20.0),
+                                    )
+                                  ],
+                                ),
                               ),
-                              SizedBox(
-                                width: 8.0,
-                              ),
-                              Text(
-                                'حذف',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20.0),
-                              )
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () async {
-                        final number = model.user!.phone;
-                        // Url Launcher UnDirect Call.
-                        // await launchUrl(Uri.parse('tel:${model.user.phone}'));
-                        //Flutter Phone Direct Call.
-                        await FlutterPhoneDirectCaller.callNumber(
-                            '0'+number.toString());
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.blue[300],
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(color: Colors.grey, blurRadius: 4)
-                            ]),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                IconBroken.Calling,
-                                size: 25.0,
-                                color: Colors.white,
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () async {
+                              final number = model.user!.phone;
+                              // Url Launcher UnDirect Call.
+                              // await launchUrl(Uri.parse('tel:${model.user.phone}'));
+                              //Flutter Phone Direct Call.
+                              await FlutterPhoneDirectCaller.callNumber(
+                                  '0' + number.toString());
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.blue[300],
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.grey, blurRadius: 4)
+                                  ]),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      IconBroken.Calling,
+                                      size: 25.0,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 8.0,
+                                    ),
+                                    Text(
+                                      'اتصال',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20.0),
+                                    )
+                                  ],
+                                ),
                               ),
-                              SizedBox(
-                                width: 8.0,
-                              ),
-                              Text(
-                                'اتصال',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20.0),
-                              )
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
+                      ],
+                    );
+                  },
+                ),
               ),
             ],
           ),
