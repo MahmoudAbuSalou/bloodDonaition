@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:bloc/bloc.dart';
+import 'package:blood_donation_project/Models/token_phone/token_model.dart';
 import 'package:blood_donation_project/cubit/donate_cubit/donate_state.dart';
 import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,10 @@ class AllPostCubit extends Cubit<AllPostState> {
   late List<Data> normal = [];
   List<Data> Emergency = [];
   int pageCount = 0;
+  int postId = 0;
+
+
+
 
   getPost() async {
     try {
@@ -35,7 +40,7 @@ class AllPostCubit extends Cubit<AllPostState> {
       final response = await DioHelper.getData(
         url: Urls.getPOST + pageCount.toString(),
         token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU3MTg0OTcwfQ.BOdbtbomzcq-7DV2vfav4hn2HVUbF_luaLptlFw7yLg",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU3MTg0OTcwfQ.BOdbtbomzcq-7DV2vfav4hn2HVUbF_luaLptlFw7yLg",
       );
 
       post = Post.fromJson(response.data);
@@ -46,13 +51,8 @@ class AllPostCubit extends Cubit<AllPostState> {
           normal.add(element);
         }
       });
-      refreshController.loadComplete();
-      print("Normal Length Is: ");
-      print(normal.length);
-      print("Emergency Length Is: ");
-      print(Emergency.length);
-
-      emit(GetPostSuccessfully(normal: normal, Emergency: Emergency));
+refreshController.loadComplete();
+      emit(GetPostSuccessfully(normal: normal,Emergency: Emergency));
     } catch (err) {
       refreshController.loadFailed();
       print(err);
@@ -60,4 +60,6 @@ class AllPostCubit extends Cubit<AllPostState> {
       emit(GetPostError(Error: err.toString()));
     }
   }
+
+
 }

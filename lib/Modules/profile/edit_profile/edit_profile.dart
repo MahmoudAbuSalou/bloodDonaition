@@ -1,6 +1,8 @@
 import 'package:blood_donation_project/cubit/profile_cubit/profile_cubit.dart';
 import 'package:blood_donation_project/cubit/profile_cubit/profile_state.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -308,15 +310,23 @@ class EditPorfile extends StatelessWidget {
                               MaterialButton(
 
                                 onPressed: () {
+
                                   if (formKey.currentState!.validate()) {
+
+                                    String bloodTypeSelected=GlobalSettingRegisterCubit.get(context)
+                                        .list[GlobalSettingRegisterCubit.get(context).indexG]
+                                        .Content;
+                                    // *unSubscribe* with old topic
+                                    FirebaseMessaging.instance.unsubscribeFromTopic("${AppSharedPreferences.getBlood_type.substring(0,AppSharedPreferences.getBlood_type.length - 1)}");
+                                    // *subscribe* with old topic
+                                    FirebaseMessaging.instance.subscribeToTopic("${bloodTypeSelected.substring(0, bloodTypeSelected.length - 1)}");
+
 
                                     ProfileCubit.get(context).updateUserData(
                                         name: name.text,
                                         phone: int.parse(phone.text),
                                         email: email.text,
-                                        bloodType: GlobalSettingRegisterCubit.get(context)
-                                            .list[GlobalSettingRegisterCubit.get(context).indexG]
-                                            .Content,
+                                        bloodType:bloodTypeSelected,
                                         weight: ProfileCubit.get(context).value_slider.round(),
                                     );
 
@@ -336,7 +346,8 @@ class EditPorfile extends StatelessWidget {
                                         gravity: ToastGravity.BOTTOM,
                                         toastLength: Toast.LENGTH_LONG);
                                 },
-                                child: Text('تعديل الملف الشخصي'),
+                                child: Text('تعديل الملف الشخصي',
+                                style: TextStyle(color: Colors.white),),
                                 color: Colors.red,
                                 minWidth: double.infinity,
                               )

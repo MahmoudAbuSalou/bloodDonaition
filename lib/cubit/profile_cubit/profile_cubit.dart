@@ -49,27 +49,15 @@ class ProfileCubit extends Cubit<ProfileState> {
       userResponse =  UserResponse.fromJson(value.data);
 
       if (userResponse.status == "true") {
-
-
-
-
         AppSharedPreferences.saveEmail(userResponse.user!.email);
-
         AppSharedPreferences.saveBlood_type(userResponse.userprofile!.bloodType);
-
-
         AppSharedPreferences.savePhone(userResponse.user!.phone.toString());
         AppSharedPreferences.saveWeight(userResponse.userprofile!.weight);
         AppSharedPreferences.saveName(userResponse.user!.name);
-
-
-
         emit(UpdateUserProfileSuccessState());
-
       }
       else
         emit(UpdateUserProfileErrorState( userResponse.message));
-
     }).catchError((error) {
       print(error.toString());
       emit(UpdateUserProfileErrorState(error.toString()));

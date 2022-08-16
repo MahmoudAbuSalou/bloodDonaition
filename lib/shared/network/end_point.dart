@@ -23,4 +23,12 @@ class Urls {
 
 // ==*=*=====*======*
 
+
+  // ==*=*=====*======*
+
+  //static const String updateProfile =  baseUrl+"users/updateProfile";
+  static const String notification = "https://fcm.googleapis.com/fcm/send";
+
+  //static const String updateProfile = "http://10.0.2.2:3000/api/users/updateProfile";
+  static const String tokenPh = baseUrl + "users/getTokenPhone/";
 }

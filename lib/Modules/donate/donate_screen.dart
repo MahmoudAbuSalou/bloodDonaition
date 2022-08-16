@@ -1,13 +1,21 @@
 import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
 import 'package:blood_donation_project/cubit/search_cubit/search_screen.dart';
+import 'package:blood_donation_project/cubit/home/all_post_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
+import 'package:blood_donation_project/cubit/notification/notification_states.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
+import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class DonateScreen extends StatefulWidget {
+
+
   // DonateScreen({required int postID});
   @override
   State<DonateScreen> createState() => _DonateScreenState();
@@ -22,6 +30,7 @@ class _DonateScreenState extends State<DonateScreen> {
   bool correctAnswerSelected = false;
 
   int acceptanceRate = 0;
+
 
   int acceptDonationRate() {
     return acceptanceRate = _totalScore * 100 ~/ questions.length;

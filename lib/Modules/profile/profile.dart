@@ -163,14 +163,14 @@ Widget buildImage() {
 Widget buildNameEmail() => Column(
       children: [
         Text(
-          "Mohammad Kh",
+          "${AppSharedPreferences.getName}",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
         ),
         const SizedBox(
           height: 4,
         ),
         Text(
-          "Mohammad alkhateb880@gmail.com",
+          "${AppSharedPreferences.getEmail}",
           style: TextStyle(color: Colors.grey[600]),
         ),
       ],
@@ -219,7 +219,7 @@ Widget buildContainer() => Padding(
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "هل تبرعت بالدم من قبل ؟",
+                    "عدد الأيام المتبقة للتبرع",
                     style: TextStyle(fontSize: 14, color: Colors.red),
                   ),
                 ),
