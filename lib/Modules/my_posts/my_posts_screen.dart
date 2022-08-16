@@ -15,10 +15,14 @@ class MyPostsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MyPostsCubit, MyPostsStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is DeletePostSuccessState) {
+          MyPostsCubit.get(context).getMyPosts();
+        }
+      },
       builder: (context, state) {
         return Directionality(
-          textDirection: TextDirection.ltr,//it's Need More design
+          textDirection: TextDirection.ltr, //it's Need More design
           child: Scaffold(
             backgroundColor: Colors.white,
             appBar: PreferredSize(
@@ -280,7 +284,68 @@ class MyPostsScreen extends StatelessWidget {
                           color: Colors.redAccent[100],
                         ),
                         child: IconButton(
-                          onPressed: () async {},
+                          onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  new AlertDialog(
+                                title: Center(
+                                  child: new Text(
+                                    'تأكيد الحذف؟',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 80.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                ),
+                                content: Text(
+                                  'إذا كنت متأكد من الحذف, قم بالضغط على زر الحذف,وإلا ألغ العمليّة',
+                                  style: GoogleFonts.tajawal(
+                                    fontSize: 40.sp,
+                                    color: Colors.grey,
+
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.only(bottom: 30.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: new IconButton(
+                                            icon: new Icon(
+                                              IconBroken.Close_Square,
+                                              size: 50.0,
+                                              color: Colors.blue,
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: new IconButton(
+                                              icon: new Icon(
+                                                IconBroken.Delete,
+                                                size: 50.0,
+                                                color: Colors.red,
+                                              ),
+                                              onPressed: () {
+                                                MyPostsCubit.get(context)
+                                                    .deletePost(
+                                                        postId: post.postId);
+                                                Navigator.pop(context);
+                                              }),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                           icon: Icon(IconBroken.Delete,
                               color: Colors.yellow, size: 24.0),
                         )),

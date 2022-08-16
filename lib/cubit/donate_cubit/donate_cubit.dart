@@ -57,6 +57,26 @@ class MyPostsCubit extends Cubit<MyPostsStates> {
     }
   }
 
+  // Delete Post [ Just From My Posts! ]
+  deletePost({required int postId}) async {
+    emit(DeletePostLoadingState());
+    await DioHelper.postData(
+            url: Urls.deleteSinglePOST + postId.toString(),
+            data: null,
+            token: AppSharedPreferences.getToken)
+        .then((value) {
+      String status = value.data['status'];
+      if (status == "true") {
+        showToast(msg: 'تم حذف الطلب بنجاح', state: ToastState.SUCCESS);
+      }
+      emit(DeletePostSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.WARING);
+      emit(DeletePostErrorState(Error: error));
+    });
+  }
+
   // ========================================
   // All Donors on One Post
   late DonorsModel donorsModel;
