@@ -137,13 +137,12 @@ class DioHelper {
     required String url,
     String lang = 'en',
     String? token,
-    String? key,
     Map<String, dynamic>? query,
     required var data,
   }) async {
     dio.options.headers = {
       'lang': lang,
-      'Authorization': key!+token!,
+      'Authorization': token,
       'Content-Type': 'application/json'
     };
     return await dio.post(url, data: data);
