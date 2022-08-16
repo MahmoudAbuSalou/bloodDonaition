@@ -1,5 +1,7 @@
-
 import 'package:blood_donation_project/Modules/home/add_request_blood/user_info.dart';
+import 'package:blood_donation_project/Modules/my_posts/my_posts_screen.dart';
+import 'package:blood_donation_project/shared/components/components.dart';
+import 'package:blood_donation_project/shared/style/icon_broken.dart';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../Modules/profile/profile.dart';
 import '../../cubit/layoutCubit/home_cubit.dart';
-
 
 class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
   final double barHeight = 50.0;
@@ -28,91 +29,158 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
-          HomeCubit  cubit = HomeCubit().get(context);
-          return  Scaffold(
-              backgroundColor: Colors.white,
-              drawer: Drawer(
-
-                child: ListView(
-
-                  padding: EdgeInsets.zero,
-                  children: [
-                     DrawerHeader(
-
-                      decoration: BoxDecoration(
-
-                        color: Colors.red,
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text('Blood Donation App',style: GoogleFonts.tajawal(
-                          fontSize: 22,
-                          color: Colors.white
-                        ),),
+          HomeCubit cubit = HomeCubit().get(context);
+          return Scaffold(
+            backgroundColor: Colors.white,
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Blood Donation App',
+                        style: GoogleFonts.tajawal(
+                            fontSize: 22, color: Colors.white),
                       ),
                     ),
-                    SizedBox(height: 40,),
-                    Container(
-                      width:double.infinity,
-                      height: 500,
-
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  SingleChildScrollView(
+                    child: Container(
+                      width: double.infinity,
                       child: Directionality(
                         textDirection: TextDirection.rtl,
                         child: Column(
-
                           children: [
-                            ListTile(
-                              title:  Text('الملف الشخصي',style: GoogleFonts.tajawal(
-                                fontSize: 22,
-
-                              )),
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                                  return   Profile();
-                                },));
-                              },
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('الملف الشخصي',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Profile,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) {
+                                      return Profile();
+                                    },
+                                  ));
+                                },
+                              ),
                             ),
-                            ListTile(
-                              title:  Text('بحاجة للدم ',style: GoogleFonts.tajawal(
-                                fontSize: 22,
-
-                              )),
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                                  return   AddRequestBlood();
-                                },));
-                              },
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('منشوراتي',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Document,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  navigatorTo(context, MyPostsScreen());
+                                },
+                              ),
                             ),
-                            ListTile(
-                              title:  Text('الاعدادات',style: GoogleFonts.tajawal(
-                                fontSize: 22,
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('بحاجة للدم ',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                autofocus: true,
+                                focusColor: Colors.amber,
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Paper_Plus,
+                                  size: 45.0,
+                                  color: Colors.red,
 
-                              )),
-                              onTap: () {
-                                // Update the state of the app.
-                                // ...
-                              },
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) {
+                                      return AddRequestBlood();
+                                    },
+                                  ));
+                                },
+                              ),
                             ),
-                            ListTile(
-                              title:  Text('من نحن ',style: GoogleFonts.tajawal(
-                                fontSize: 22,
-
-                              )),
-                              onTap: () {
-                                // Update the state of the app.
-                                // ...
-                              },
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('الاعدادات',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Setting,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  // Update the state of the app.
+                                },
+                              ),
+                            ),
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('من نحن ',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Info_Circle,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  // Update the state of the app.
+                                  // ...
+                                },
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ),
-
-
-                  ],
-                ),
+                  ),
+                ],
               ),
-              body: cubit.screen[cubit.indexScreen],
+            ),
+            body: cubit.screen[cubit.indexScreen],
             bottomNavigationBar: CurvedNavigationBar(
               key: _bottomNavigationKey,
               index: cubit.indexScreen,
@@ -121,46 +189,57 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.redAccent,
               height: 175.h,
               animationCurve: Curves.easeOutExpo,
-              items:  <Widget>[
+              items: <Widget>[
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 15.w),
-                    child: iconNavBar('assets/images/blood_nav.svg','حالة أسعافية',)),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
+                    child: iconNavBar(
+                      'assets/images/blood_nav.svg',
+                      'حالة أسعافية',
+                    )),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 15.w),
-                    child: iconNavBar('assets/images/blood_nav.svg','الرئيسية',)),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
+                    child: iconNavBar(
+                      'assets/images/blood_nav.svg',
+                      'الرئيسية',
+                    )),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 15.w),
-                    child: iconNavBar('assets/images/blood_nav.svg','الملف الشخصي',)),
-
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
+                    child: iconNavBar(
+                      'assets/images/blood_nav.svg',
+                      'الملف الشخصي',
+                    )),
               ],
               onTap: (index) {
                 // layoutCubit.getHomeData();
                 cubit.changeScreen(index);
-
               },
             ),
-
           );
         },
       ),
     );
   }
-  Widget  iconNavBar(String image,String name)
-  {
+
+  Widget iconNavBar(String image, String name) {
     return Column(
       children: [
-        SvgPicture.asset(image,width: 30,height: 30,),
+        SvgPicture.asset(
+          image,
+          width: 30,
+          height: 30,
+        ),
         Text(
           name,
           style: GoogleFonts.tajawal(
-            fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold,
               fontSize: 35.sp,
-            color: Colors.black
-          ),
+              color: Colors.black),
         )
       ],
     );
-
   }
 }
 

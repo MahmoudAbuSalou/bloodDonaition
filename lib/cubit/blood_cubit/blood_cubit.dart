@@ -1,6 +1,7 @@
-
 import 'package:blood_donation_project/Models/blood_post/blood_request.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
+import 'package:blood_donation_project/cubit/home/all_post_cubit.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -14,34 +15,36 @@ part 'blood_state.dart';
 
 class BloodCubit extends Cubit<BloodState> {
   BloodCubit() : super(BloodInitial());
-  BloodCubit get(context)=> BlocProvider.of(context);
+
+  BloodCubit get(context) => BlocProvider.of(context);
 
   int currentIndex1 = 0;
   int currentIndex2 = 0;
-  void changeTypeBlood(int index){
-    if(index!=5 && index != 6){
+
+  void changeTypeBlood(int index) {
+    if (index != 5 && index != 6) {
       currentIndex1 = index;
-    }
-    else{
+    } else {
       currentIndex2 = index;
     }
     emit(ChangeTypeBlood());
-
   }
 
-  addBloodPost({required BloodRequest bloodRequest,required context}) async {
-
+  addBloodPost({required BloodRequest bloodRequest, required context}) async {
     try {
       emit(AddPostLoading());
       final response = await DioHelper.postData(
-        url: Urls.AddRequestBlood, token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjU3MDExMzQ2fQ.9vd3RO_PHIKe4swFaycqoizaXwYsDHR5iMUGj__6Whc",
-        data:bloodRequest.toJson(),
+        url: Urls.AddRequestBlood,
+        token: AppSharedPreferences.getToken,
+        data: bloodRequest.toJson(),
       );
 
       showToast(msg: 'تم اضافة طلبك بنجاح..', state: ToastState.SUCCESS);
-      navigatorToNew(context,HomePage(type: true,));
-      emit(AddPostSuccess());
 
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.pop(context);
+      emit(AddPostSuccess());
     } catch (err) {
       showToast(msg: 'تأكد من كونك متصلاً بالإنترنت', state: ToastState.ERROR);
       emit(AddPostError(error: err.toString()));

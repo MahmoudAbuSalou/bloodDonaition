@@ -1,14 +1,6 @@
-
-
 import 'cachehelper.dart';
 
 class AppSharedPreferences {
-
-
-
-
-
-
   //token
  static String Token='token';
   static String get getToken => CacheHelper.getData(key: Token) ?? '';

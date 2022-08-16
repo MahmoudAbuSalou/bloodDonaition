@@ -1,8 +1,10 @@
 import 'package:blood_donation_project/Modules/donate/answer.dart';
 import 'package:blood_donation_project/Modules/home/homePage/homePage.dart';
-import 'package:blood_donation_project/cubit/home/all_post_cubit.dart';
+import 'package:blood_donation_project/Modules/profile/profile.dart';
+import 'package:blood_donation_project/cubit/donate_cubit/donate_cubit.dart';
 import 'package:blood_donation_project/cubit/notification/notification_cubit.dart';
 import 'package:blood_donation_project/cubit/notification/notification_states.dart';
+import 'package:blood_donation_project/layout/home_page/home_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
@@ -13,9 +15,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class DonateScreen extends StatefulWidget {
+  final int? postID;
+  final int? userId;
 
+  DonateScreen({
+    required this.postID,
+    required this.userId
+  });
 
-  // DonateScreen({required int postID});
   @override
   State<DonateScreen> createState() => _DonateScreenState();
 }
@@ -30,11 +37,8 @@ class _DonateScreenState extends State<DonateScreen> {
 
   int acceptanceRate = 0;
 
-
   int acceptDonationRate() {
-    acceptanceRate = _totalScore * 100 ~/ questions.length;
-    return acceptanceRate;
-
+    return acceptanceRate = _totalScore * 100 ~/ questions.length;
   }
 
   void _questionAnswered(bool answerScore) {
@@ -73,16 +77,16 @@ class _DonateScreenState extends State<DonateScreen> {
     });
     // what happens at the end of the quiz
     if (_questionIndex >= questions.length) {
-      _resetQuiz();
+      _sendRate();
     }
   }
 
-  void _resetQuiz() {
+  void _sendRate() {
     setState(() {
-      _questionIndex = 0;
-      _totalScore = 0;
-      _scoreTracker = [];
-      endOfQuiz = false;
+      // _questionIndex = 0;
+      // _totalScore = 0;
+      // _scoreTracker = [];
+      endOfQuiz = true;
     });
   }
 
@@ -133,10 +137,10 @@ class _DonateScreenState extends State<DonateScreen> {
               ),
               Container(
                 width: double.infinity,
-                height: 140.0,
+                height: 150.0,
                 margin: EdgeInsets.only(
                     top: 5.0, bottom: 10.0, left: 30.0, right: 30.0),
-                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.deepOrange,
                   borderRadius: BorderRadius.circular(10.0),
@@ -183,34 +187,73 @@ class _DonateScreenState extends State<DonateScreen> {
                       padding: EdgeInsets.all(5.0),
                       child: Text(
                         '${_totalScore.toString()}/${questions.length}',
-                        style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 40.0, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsetsDirectional.only(end: 25.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 40.0),
-                        ),
-                        onPressed: () {
-                          if (!answerWasSelected) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('الرجاء الإجابة على هذاا السؤال أولا'),
-                            ));
-                            return;
-                          }
-                          _nextQuestion();
-                        },
-                        child: Text(
-                          endOfQuiz ? 'إعادة الاختبار' : 'السؤال التالي',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                      ),
+                      child: endOfQuiz
+                          ? BlocProvider(
+                              create: (BuildContext context) =>
+                                  NotificationCubit()..getTokenPh(widget.userId),
+                              child: BlocConsumer<NotificationCubit,
+                                  NotificationStates>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return OutlinedButton(
+                                    onPressed: () {
+                                      print('USER ID:');
+                                      print(widget.userId);
+                                      print('=============================');
+                                      var to = NotificationCubit.get(context).tokenPhone?.tokenPh;
+                                      print(to);
+                                      print('=============================');
+
+                                      NotificationCubit.get(context)
+                                          .sendNotification(
+                                              tokenPh: to.toString(),
+                                              title: 'Blood Donation',
+                                              body:
+                                                  '${AppSharedPreferences.getName} يريد التبرع لك');
+                                      MyPostsCubit.get(context).acceptanceRate(
+                                        acceptanceRate: acceptDonationRate(),
+                                        postID: widget.postID,
+                                      );
+                                      Navigator.pop(context);
+                                    },
+                                    child:
+                                        Text('التأكيد و العودة الى الرئيسية'),
+                                  );
+                                },
+                              ),
+                            )
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(double.infinity, 40.0),
+                              ),
+                              onPressed: () {
+                                if (!answerWasSelected) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          'الرجاء الإجابة على هذاا السؤال أولا'),
+                                    ),
+                                  );
+                                  return;
+                                }
+                                _nextQuestion();
+                              },
+                              child: Text(
+                                'السؤال التالي',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                            ),
                     ),
                   ),
                 ],
@@ -263,38 +306,32 @@ class _DonateScreenState extends State<DonateScreen> {
                     ),
                   ),
                 ),
-              if (endOfQuiz)
-                SizedBox(
-                  height: 5.0,
-                ),
-              if (true)
-                BlocProvider(
-                  create: (BuildContext context)=> NotificationCubit()..getTokenPh(7),
-                  child: BlocConsumer<NotificationCubit,NotificationStates>(
-                    listener: (context, state) {},
-                    builder: (context,state){
-                      return OutlinedButton(
-                        onPressed: ()  {
-                           var to=NotificationCubit.get(context).tokenPhone?.tokenPh;
-                           NotificationCubit.get(context).sendNotification(
-                               tokenPh: to.toString(),
-                               title: 'Blood Donation',
-                               body: '${AppSharedPreferences.getName} يريد التبرع لك');
-                          // navigatorToNew(context, HomePage());
-
-                    },
-                        child: Text('التأكيد و العودة الى الرئيسية'),
-                      );
-                    },
-                  )
-                ),
-              SizedBox(
-                height: 30.0,
-              ),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class WaveClip extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = new Path();
+    final lowPoint = size.height - 30;
+    final highPoint = size.height - 60;
+    //
+    path.lineTo(0, size.height);
+    path.quadraticBezierTo(size.width / 4, highPoint, size.width / 2, lowPoint);
+    path.quadraticBezierTo(
+        3 / 4 * size.width, size.height, size.width, lowPoint);
+    path.lineTo(size.width, 0);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

@@ -24,6 +24,7 @@ List<OnBoardingModel> onBoardingObject = [
       details: '350 مل من الدم كافية لإنقاذ حياة 4 أشخاص',
       urlImage: 'assets/images/image_slider3.png'),
 ];
+
 // ignore: constant_identifier_names
 enum ToastState { SUCCESS, ERROR, WARING }
 
@@ -45,7 +46,7 @@ Color toastColor(ToastState state) {
   return color;
 }
 
-String token = CacheHelper.getData(key: 'token');
+// String token = CacheHelper.getData(key: 'token');
 
 // ===*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=====
 
@@ -63,16 +64,31 @@ Future<Uint8List?> getBytesFromAsset(String path, int width) async {
 // ===*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=====
 // Example of backing data
 List<Hospital> hospitals = [
-  Hospital(name: "مشفى المواساةالجامعي", position: LatLng(33.51211724163267, 36.26334772309518)),
-  Hospital(name: "مشفى الأسد الجامعي", position: LatLng(33.505443379745124, 36.26969758336806)),
-  Hospital(name: "مسفى التوليد", position: LatLng(33.510202578482065, 36.289604780468764)),
-  Hospital(name: "مشفى الأطفال", position: LatLng(33.51177742614248, 36.262189082469476)),
-  Hospital(name: "مشفى المجتهد", position: LatLng(33.500082116097694, 36.29539439866929)),
-  Hospital(name: "مشفى الرشيد", position: LatLng(33.499977270058494, 36.302250116594266)),
-  Hospital(name: "مشفى المهايني", position: LatLng(33.48868648145837, 36.29464398684215)),
-  Hospital(name: "مشفى الرازي", position: LatLng(33.50438825172212, 36.261076343142015)),
+  Hospital(
+      name: "مشفى المواساةالجامعي",
+      position: LatLng(33.51211724163267, 36.26334772309518)),
+  Hospital(
+      name: "مشفى الأسد الجامعي",
+      position: LatLng(33.505443379745124, 36.26969758336806)),
+  Hospital(
+      name: "مسفى التوليد",
+      position: LatLng(33.510202578482065, 36.289604780468764)),
+  Hospital(
+      name: "مشفى الأطفال",
+      position: LatLng(33.51177742614248, 36.262189082469476)),
+  Hospital(
+      name: "مشفى المجتهد",
+      position: LatLng(33.500082116097694, 36.29539439866929)),
+  Hospital(
+      name: "مشفى الرشيد",
+      position: LatLng(33.499977270058494, 36.302250116594266)),
+  Hospital(
+      name: "مشفى المهايني",
+      position: LatLng(33.48868648145837, 36.29464398684215)),
+  Hospital(
+      name: "مشفى الرازي",
+      position: LatLng(33.50438825172212, 36.261076343142015)),
 ];
-
 
 // ===*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=====
 // List Of Question to Accept the donation process of 10 elements.
@@ -92,7 +108,8 @@ final questions = const [
     ],
   },
   {
-    'question': 'هل تقوم بتناول المضادات الحيوية, أو أنك مصاب بالحمى أو السعال المصاحب للبلغم؟',
+    'question':
+        'هل تقوم بتناول المضادات الحيوية, أو أنك مصاب بالحمى أو السعال المصاحب للبلغم؟',
     'answers': [
       {'answerText': 'نعم', 'score': false},
       {'answerText': 'لا', 'score': true},
