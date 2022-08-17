@@ -1,9 +1,10 @@
 class Urls {
   // static const String baseUrl = "http://10.0.2.2:3000/api/";
-  static const String baseUrl = "http://192.168.29.232:3000/api/";
+  static const String baseUrl = "http://192.168.34.175:3000/api/";
   static const String singupUrl = baseUrl + "users/signUp";
   static const String genPinUrl = baseUrl + "genPin/";
   static const String deleteUserUrl = baseUrl + "users/deleteUser";
+  static const String logOutUserUrl = baseUrl + "users/logout";
   static const String loginUrl = baseUrl + "users/login";
   static const String changePasswordUrl = baseUrl + "users/chgPassword";
   static const String checkAccountUrl = baseUrl + "users/checkEmail";
@@ -13,6 +14,7 @@ class Urls {
   static const String deleteSinglePOST = baseUrl + "home/deletePost/";
   static const String upDateSinglePOST = baseUrl + "home/updatePost/";
   static const String updateProfile = baseUrl + "users/updateProfile";
+  static const String getProfile = baseUrl + "users/";
 
   // Added by Muhammad Al-Rifai.
   static const String acceptanceRate = baseUrl + "Donation/acceptance_rate";

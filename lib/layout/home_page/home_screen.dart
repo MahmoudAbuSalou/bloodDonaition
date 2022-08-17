@@ -1,5 +1,6 @@
 import 'package:blood_donation_project/Modules/home/add_request_blood/user_info.dart';
 import 'package:blood_donation_project/Modules/my_posts/my_posts_screen.dart';
+import 'package:blood_donation_project/cubit/AppCubit/app_cubit.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/style/icon_broken.dart';
 
@@ -120,7 +121,6 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
                                   IconBroken.Paper_Plus,
                                   size: 45.0,
                                   color: Colors.red,
-
                                 ),
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -148,6 +148,105 @@ class HomeLayout extends StatelessWidget implements PreferredSizeWidget {
                                 ),
                                 onTap: () {
                                   // Update the state of the app.
+                                },
+                              ),
+                            ),
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('تسجيل الخروج',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Document,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  AppCubit.get(context).logOutUser(context);
+                                },
+                              ),
+                            ),
+                            Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: ListTile(
+                                title: Text('حذف الحساب',
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 22,
+                                    )),
+                                trailing: Icon(
+                                  IconBroken.Arrow___Right_2,
+                                  size: 25.0,
+                                ),
+                                leading: Icon(
+                                  IconBroken.Document,
+                                  size: 25.0,
+                                ),
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        new AlertDialog(
+                                      title: Center(
+                                        child: new Text(
+                                          'تأكيد الحذف؟',
+                                          style: GoogleFonts.tajawal(
+                                            fontSize: 80.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.amber,
+                                          ),
+                                        ),
+                                      ),
+                                      content: Text(
+                                        'إذا كنت متأكد من الحذف, قم بالضغط على زر الحذف,وإلا ألغ العمليّة',
+                                        style: GoogleFonts.tajawal(
+                                          fontSize: 40.sp,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.only(
+                                                  bottom: 30.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: new IconButton(
+                                                  icon: new Icon(
+                                                    IconBroken.Close_Square,
+                                                    size: 50.0,
+                                                    color: Colors.blue,
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: new IconButton(
+                                                    icon: new Icon(
+                                                      IconBroken.Delete,
+                                                      size: 50.0,
+                                                      color: Colors.red,
+                                                    ),
+                                                    onPressed: () {
+                                                      AppCubit.get(context)
+                                                          .deleteUser(context);
+                                                    }),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                 },
                               ),
                             ),

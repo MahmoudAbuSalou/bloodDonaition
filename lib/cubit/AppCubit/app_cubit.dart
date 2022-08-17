@@ -1,3 +1,4 @@
+
 import 'dart:io';
 import 'package:blood_donation_project/Models/user/userModel.dart';
 import 'package:blood_donation_project/Modules/forgetPassword/PinEntry.dart';
@@ -5,6 +6,7 @@ import 'package:blood_donation_project/Modules/login/login_screen.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
+import 'package:blood_donation_project/shared/network/local/cachehelper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -180,7 +182,8 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
 
       emit(deleteUserSuccess());
       if (state is deleteUserSuccess) {
-        Navigator.of(context).pop();
+        //Navigator.of(context).pop();
+        navigatorToNew(context, LogInScreen());
       }
     } catch (error) {
       if (error is DioError) {
@@ -189,6 +192,28 @@ https://api.geoapify.com/v1/geocode/reverse?lat=33.4972255&lon=36.3164525&type=p
       emit(deleteUserError(error: error.toString()));
       if (state is deleteUserError) {
         showToast(msg: 'خطأ في حذف المستخدم', state: ToastState.ERROR);
+      }
+    }
+  }
+  logOutUser(context) async {
+    emit(LogOutUserLoading());
+    try {
+      await DioHelper.getData(
+          url: Urls.logOutUserUrl, token: AppSharedPreferences.getToken);
+
+      emit(LogOutUserSuccess());
+      if (state is LogOutUserSuccess) {
+        CacheHelper.removeAllData();
+        //Navigator.of(context).pop();
+        navigatorToNew(context, LogInScreen());
+      }
+    } catch (error) {
+      if (error is DioError) {
+        emit(LogOutUserError(error: 'Error'));
+      }
+      emit(LogOutUserError(error: error.toString()));
+      if (state is LogOutUserError) {
+        showToast(msg: 'خطأ في تسجيل الخروج', state: ToastState.ERROR);
       }
     }
   }
