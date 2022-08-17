@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:typed_data';
 
+import 'package:blood_donation_project/Models/google_map_markers/hospital_marker.dart';
 import 'package:blood_donation_project/cubit/google_map_cubit/google_map_states.dart';
 import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -43,11 +44,13 @@ class GoogleMapCubit extends Cubit<GoogleMapStates> {
       print(error.toString());
     });
   }
+
   void getAllMarker() {
     hospitals.forEach((element) {
       getCustomMarker(name: element.name, position: element.position);
     });
   }
+
   // PolyLines And Polygons
   // final Polyline myPolyLine = Polyline(
   //   polylineId: PolylineId('المواساة-الاسد'),

@@ -1,6 +1,8 @@
+import 'package:blood_donation_project/Models/google_map_markers/hospital_marker.dart';
 import 'package:blood_donation_project/cubit/google_map_cubit/google_map_cubit.dart';
 import 'package:blood_donation_project/cubit/google_map_cubit/google_map_states.dart';
 import 'package:blood_donation_project/shared/components/components.dart';
+import 'package:blood_donation_project/shared/components/constants.dart';
 import 'package:blood_donation_project/shared/style/icon_broken.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +11,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 // ignore: must_be_immutable
-class GoogleMapsScreen extends StatelessWidget {
-  final LatLng initialCameraPosition =
+class GoogleMapsScreen extends StatefulWidget {
+  @override
+  State<GoogleMapsScreen> createState() => _GoogleMapsScreenState();
+}
+
+class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
+  late LatLng initialCameraPosition =
       const LatLng(33.51177742614248, 36.262189082469476);
 
   TextEditingController sourceController = TextEditingController();
+
   TextEditingController destinationController = TextEditingController();
+
   TextEditingController testController = TextEditingController();
 
   @override
@@ -65,6 +74,8 @@ class GoogleMapsScreen extends StatelessWidget {
                           ),
                           onChanged: (String value) {
                             print(value);
+                          },
+                          onFieldSubmitted: (value) {
                           },
                         ),
                       ),

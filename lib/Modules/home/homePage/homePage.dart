@@ -41,97 +41,97 @@ class HomePage extends StatelessWidget implements PreferredSizeWidget {
       },
       builder: (context, state) {
         return Scaffold(
-            backgroundColor: Colors.white,
-            appBar: PreferredSize(
-                child: ClipPath(
-                  clipper: WaveClip(),
-                  child: Container(
-                    color: Colors.redAccent,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.only(start: 20.w),
-                              child: Text(
-                                'قائمة الطلبات',
-                                style: GoogleFonts.tajawal(
-                                  fontSize: 60.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+              child: ClipPath(
+                clipper: WaveClip(),
+                child: Container(
+                  color: Colors.redAccent,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.only(start: 20.w),
+                            child: Text(
+                              'قائمة الطلبات',
+                              style: GoogleFonts.tajawal(
+                                fontSize: 60.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
-                            Spacer(),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(end: 8.0),
-                              child: IconButton(
-                                icon: Icon(
-                                  IconBroken.Location,
-                                  size: 35.0,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  navigatorTo(context, GoogleMapsScreen());
-                                },
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(end: 8.0),
+                            child: IconButton(
+                              icon: Icon(
+                                IconBroken.Location,
+                                size: 35.0,
+                                color: Colors.white,
                               ),
+                              onPressed: () {
+                                navigatorTo(context, GoogleMapsScreen());
+                              },
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(end: 15.0),
-                              child: IconButton(
-                                icon: Icon(
-                                  IconBroken.Search,
-                                  size: 30.0,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  navigatorTo(context, SearchScreen());
-                                },
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsetsDirectional.only(end: 15.0),
+                            child: IconButton(
+                              icon: Icon(
+                                IconBroken.Search,
+                                size: 30.0,
+                                color: Colors.white,
                               ),
+                              onPressed: () {
+                                navigatorTo(context, SearchScreen());
+                              },
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
-            body: state is GetPostSuccessfully
-                ? SmartRefresher(
-                    controller: AllPostCubit.get(context).refreshController1,
-                    enablePullUp: true,
-                    enablePullDown: true,
-                    onRefresh: () async {
-                      AllPostCubit.get(context).getPost();
+              ),
+              preferredSize: Size.fromHeight(kToolbarHeight + 100.h)),
+          body: state is GetPostSuccessfully
+              ? SmartRefresher(
+                  controller: AllPostCubit.get(context).refreshController1,
+                  enablePullUp: true,
+                  enablePullDown: true,
+                  onRefresh: () async {
+                    AllPostCubit.get(context).getPost();
+                  },
+                  onLoading: () async {
+                    AllPostCubit.get(context).getPost();
+                  },
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: type == false
+                        ? state.Emergency.length
+                        : state.normal.length,
+                    itemBuilder: (context, index) {
+                      return listItem(
+                          context,
+                          type == false
+                              ? state.Emergency[index]
+                              : state.normal[index]);
                     },
-                    onLoading: () async {
-                      AllPostCubit.get(context).getPost();
-                    },
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: type == false
-                          ? state.Emergency.length
-                          : state.normal.length,
-                      itemBuilder: (context, index) {
-                        return listItem(
-                            context,
-                            type == false
-                                ? state.Emergency[index]
-                                : state.normal[index]);
-                      },
+                  ),
+                )
+              : state is GetPostLoading
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Center(
+                      child: Text("Empty"),
                     ),
-                  )
-                : state is GetPostLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Center(
-                        child: Text("Empty"),
-                      ));
+        );
       },
     );
   }

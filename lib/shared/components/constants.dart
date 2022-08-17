@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:blood_donation_project/Models/google_map_markers/hospital_marker.dart';
+import 'package:blood_donation_project/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -90,6 +91,19 @@ List<Hospital> hospitals = [
       position: LatLng(33.50438825172212, 36.261076343142015)),
 ];
 
+hospitalSearch(String value) {
+  for (int i = 0; i < hospitals.length; i++) {
+    if (hospitals[i].name.contains(value)) {
+      return hospitals[i];
+    } else {
+      showToast(
+        msg: "عذاً تأكد من كتابة الإسم بالشكل الصحيح!",
+        state: ToastState.WARING,
+      );
+    }
+  }
+}
+
 // ===*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=====
 // List Of Question to Accept the donation process of 10 elements.
 final questions = const [
@@ -154,9 +168,3 @@ final questions = const [
     ],
   },
 ];
-
-
-
-
-
-
