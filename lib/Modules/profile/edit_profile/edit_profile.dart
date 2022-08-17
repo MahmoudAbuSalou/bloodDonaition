@@ -323,6 +323,7 @@ class EditPorfile extends StatelessWidget {
 
 
                                     ProfileCubit.get(context).updateUserData(
+                                      context: context,
                                         name: name.text,
                                         phone: int.parse(phone.text),
                                         email: email.text,

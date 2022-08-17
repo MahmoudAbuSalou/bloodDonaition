@@ -36,6 +36,7 @@ class genPinError extends AppState {
   genPinError({this.error});
 }
 class deleteUserLoading extends AppState {}
+class LogOutUserLoading extends AppState {}
 class ChangePasswordLoading extends AppState {}
 class ChangePasswordSuccess extends AppState {}
 class ChangePasswordError extends AppState {
@@ -45,6 +46,7 @@ class ChangePasswordError extends AppState {
   ChangePasswordError({this.error});
 }
 class deleteUserSuccess extends AppState {}
+class LogOutUserSuccess extends AppState {}
 class CheckEmailErrorState extends AppState {
   final error;
 
@@ -62,6 +64,12 @@ class deleteUserError extends AppState {
   final error;
 
   deleteUserError({this.error});
+}
+
+class LogOutUserError extends AppState {
+  final error;
+
+  LogOutUserError({this.error});
 }
 
 /// Convert Latlong To String

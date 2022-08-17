@@ -1,8 +1,12 @@
+import 'package:blood_donation_project/Models/profile/profile_Model.dart';
 import 'package:blood_donation_project/shared/network/local/appSharedPrefernce.dart';
 import 'package:blood_donation_project/shared/network/local/cachehelper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../cubit/profile_cubit/profile_cubit.dart';
+import '../../cubit/profile_cubit/profile_state.dart';
 import '../../shared/components/components.dart';
 import '../../shared/style/icon_broken.dart';
 import 'edit_profile/edit_profile.dart';
@@ -12,64 +16,74 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context),
-      body: ListView(physics: BouncingScrollPhysics(), children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            buildImage(),
-            Positioned(
-              bottom: 0,
-              right: MediaQuery.of(context).size.width / 3,
-              child: ClipOval(
-                child: Container(
-                  color: Colors.redAccent,
-                  padding: EdgeInsets.all(3.0),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.black54,
-                    //child: Text("AB+"),
-                    child: Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 20.0,
-        ),
-        buildNameEmail(),
-        buildContainer(),
-        Column(
-          children: [
-            buildTextTile(
-                title: 'زمرة الدم',
-                subtitle: '',
-                trailing: '${AppSharedPreferences.getBlood_type}',
-                leading: Icon(Icons.location_on)),
-            buildTextTile(
-                title: 'رقم الهاتف',
-                subtitle: '',
-                trailing: '${AppSharedPreferences.getPhone}',
-                leading: Icon(Icons.phone_enabled)),
-            buildTextTile(
-                title: 'العنوان',
-                subtitle: '',
-                trailing: '${AppSharedPreferences.getAddress}',
-                leading: Icon(Icons.location_on)),
-            buildTextTile(
-                title: 'البريد الإلكتروني',
-                subtitle: '',
-                trailing: '${AppSharedPreferences.getEmail}',
-                leading: Icon(Icons.email_outlined)),
-          ],
-        )
-      ]),
+    return BlocProvider(
+      create: (context) => ProfileCubit()..getUserData(),
+      child: BlocConsumer<ProfileCubit, ProfileState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return Scaffold(
+                appBar: buildAppBar(context),
+                body: state is GetUserProfileSuccessState
+                    ? ListView(physics: BouncingScrollPhysics(), children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            buildImage(),
+                            Positioned(
+                              bottom: 0,
+                              right: MediaQuery.of(context).size.width / 3,
+                              child: ClipOval(
+                                child: Container(
+                                  color: Colors.redAccent,
+                                  padding: EdgeInsets.all(3.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.black54,
+                                    //child: Text("AB+"),
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        buildNameEmail(),
+                        buildContainer(state.profileModel),
+                        Column(
+                          children: [
+                            buildTextTile(
+                                title: 'زمرة الدم',
+                                subtitle: '',
+                                trailing:
+                                    '${state.profileModel.userprofile.bloodType}',
+                                leading: Icon(Icons.location_on)),
+                            buildTextTile(
+                                title: 'رقم الهاتف',
+                                subtitle: '',
+                                // trailing: '${state.profileModel.user.phone}',
+                                trailing: '0${state.profileModel.user.phone}',
+                                leading: Icon(Icons.phone_enabled)),
+                            buildTextTile(
+                                title: 'العنوان',
+                                subtitle: '',
+                                trailing: '${state.profileModel.user.address}',
+                                leading: Icon(Icons.location_on)),
+                            buildTextTile(
+                                title: 'البريد الإلكتروني',
+                                subtitle: '',
+                                 trailing: '${state.profileModel.user.email}',
+                                leading: Icon(Icons.email_outlined)),
+                          ],
+                        )
+                      ])
+                    : Center(child: CircularProgressIndicator()));
+          }),
     );
   }
 }
@@ -176,21 +190,39 @@ Widget buildNameEmail() => Column(
       ],
     );
 
-Widget buildContainer() => Padding(
+Widget buildContainer(ProfileModel profileModel) => Padding(
       padding: const EdgeInsets.all(15.0),
       child: Row(
         children: [
           Container(
-            height: 60,
+            height: 70,
             width: 150,
             child: Center(
               child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "هل تبرعت بالدم من قبل ؟",
-                      style: TextStyle(fontSize: 14, color: Colors.red),
+                    child: Column(
+                      children: [
+                        Text(
+                          " : عدد عمليات التبرع",
+                          style: TextStyle(fontSize: 14, color: Colors.red),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              " عملية ",
+                              style: TextStyle(fontSize: 14, color: Colors.red),
+                            ),
+                            Text(
+                               "  ${profileModel.userprofile.donationCount} ",
+                              style: TextStyle(fontSize: 14, color: Colors.red),
+                            ),
+
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -212,15 +244,34 @@ Widget buildContainer() => Padding(
           ),
           Spacer(),
           Container(
-            height: 60,
+            height: 70,
             width: 150,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "عدد الأيام المتبقة للتبرع",
-                    style: TextStyle(fontSize: 14, color: Colors.red),
+                  child: Column(
+                    children: [
+                      Text(
+                        " : عدد الأيام المتبقة للتبرع",
+                        style: TextStyle(fontSize: 14, color: Colors.red),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            " يوم ",
+                            style: TextStyle(fontSize: 14, color: Colors.red),
+                          ),
+                          Text(
+                            " ${daysBettwenTwoDateProfile(DateRequired: profileModel.userprofile.dateOfLastDonation.toString().substring(0,10))}",
+                            style: TextStyle(fontSize: 14, color: Colors.red),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 // Text("154"),
@@ -290,4 +341,12 @@ Widget buildTextTile(
       ),
     ),
   );
+}
+
+
+String daysBettwenTwoDateProfile({required String DateRequired}){
+  final difference = DateTime.parse(DateRequired.toString()).difference( DateTime.now()).inDays;
+  int day = 60 - difference;
+ return day.toString();
+
 }
