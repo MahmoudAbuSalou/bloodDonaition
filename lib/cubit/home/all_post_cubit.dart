@@ -64,7 +64,6 @@ class AllPostCubit extends Cubit<AllPostState> {
       emit(GetPostError(Error: err.toString()));
     }
   }
-
   int getCount(int size) {
     int count = 1;
     if (size <= 10) {
